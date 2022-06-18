@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
 
 import beans.Status;
 import beans.User;
+import beans.Comment;
 import beans.DateHelper;
 import beans.Location;
 
@@ -26,10 +27,14 @@ public class LocationDAO {
 	}
 	
 	/***
-	 * @param contextPath Putanja do aplikacije u Tomcatu. Može se pristupiti samo iz servleta.
+	 * @param contextPath Putanja do aplikacije u Tomcatu. MoÅ¾e se pristupiti samo iz servleta.
 	 */
 	private LocationDAO(String contextPath) {
-		loadMLocationship(contextPath);
+		loadLocation(contextPath);
+	}
+	
+	public Location find(int id) {
+		return locations.get(id);
 	}
 	
 	public static LocationDAO getInstance() {
@@ -39,7 +44,7 @@ public class LocationDAO {
 		return Instance;
 	}
 	/**
-	 * Vraća korisnika za prosleđeno korisničko ime i šifru. Vraća null ako korisnik ne postoji
+	 * VraÄ‡a korisnika za prosleÄ‘eno korisniÄ�ko ime i Å¡ifru. VraÄ‡a null ako korisnik ne postoji
 	 * @param username
 	 * @param password
 	 * @return
@@ -75,11 +80,11 @@ public class LocationDAO {
 	}
 	
 	/**
-	 * Učitava korisnike iz WebContent/users.txt fajla i dodaje ih u mapu {@link #users}.
-	 * Ključ je korisničko ime korisnika.
+	 * UÄ�itava korisnike iz WebContent/users.txt fajla i dodaje ih u mapu {@link #users}.
+	 * KljuÄ� je korisniÄ�ko ime korisnika.
 	 * @param contextPath Putanja do aplikacije u Tomcatu
 	 */
-	private void loadMLocationship(String contextPath) {
+	public void loadLocation(String contextPath) {
 		BufferedReader in = null;
 		try {
 			File file = new File(contextPath + "/Baza/memberships.txt");

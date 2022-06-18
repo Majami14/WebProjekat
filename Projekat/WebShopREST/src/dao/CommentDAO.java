@@ -14,12 +14,14 @@ package dao;
  */
 
 import beans.Comment;
+import beans.Location;
 import beans.SportsFacility;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +36,7 @@ public class CommentDAO {
 	}
 	
 	private CommentDAO(String contextPath) {
-		loadCommentDAO(contextPath);
+		loadComment(contextPath);
 	}
 	
 	public Collection<Comment> findAll() {
@@ -46,6 +48,11 @@ public class CommentDAO {
 			Instance = new CommentDAO();
 		}
 		return Instance;
+	}
+	
+
+	public Comment find(int id) {
+		return comments.get(id);
 	}
 	
 	public Comment save(Comment comment) {
@@ -62,7 +69,7 @@ public class CommentDAO {
 		return comment;
 	}
 	
-	private void loadCommentDAO(String contextPath) {
+	public void loadComment(String contextPath) {
 		BufferedReader in = null;
 		try {
 			File file = new File(contextPath + "/Baza/comments.txt");
@@ -106,4 +113,30 @@ public class CommentDAO {
 	public Comment delete(int id) {
 		return comments.remove(id);
 	}
+	
+	public void connectCommentFacility() {
+		ArrayList<SportsFacility> facilitys = (ArrayList<SportsFacility>) SportsFacilityDAO.getInstance().findAll();
+		for(Comment comment : comments.values()) {
+			int id = comment.getFacility().getId();
+			
+			for(SportsFacility facility : facilitys) {
+				if(facility.getId()== id) {
+					comment.setFacility(facility);
+				}
+			}
+		}
+	}
+	
+	/*public void connectCommentKorisnik() {
+		ArrayList<Korisnik> facilitys = (ArrayList<Korisnik>) KorisnikDAO.getInstance().findAll();
+		for(Comment comment : comments.values()) {
+			int id = comment.getKorisnik().getId();
+			
+			for(Korisnik korisnik : korisnici) {
+				if(korisnik.getId()== id) {
+					comment.setFacility(korisnik);
+				}
+			}
+		} 
+	} */
 }

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,8 +28,8 @@ public class SportsFacilityDAO {
 		
 	}
 	
-	private SportsFacilityDAO(String contextPath) {
-		loadFacilityship(contextPath);
+	public SportsFacilityDAO(String contextPath) {
+		loadFacility(contextPath);
 	}
 	
 	public static SportsFacilityDAO getInstance() {
@@ -36,6 +37,10 @@ public class SportsFacilityDAO {
 			Instance = new SportsFacilityDAO();
 		}
 		return Instance;
+	}
+	
+	public SportsFacility find(int id) {
+		return facilitys.get(id);
 	}
 	
 	public Collection<SportsFacility> findAll() {
@@ -56,7 +61,7 @@ public class SportsFacilityDAO {
 		return facility;
 	}
 	
-	private void loadFacilityship(String contextPath) {
+	public void loadFacility(String contextPath) {
 		BufferedReader in = null;
 		try {
 			File file = new File(contextPath + "/Baza/facilitys.txt");
@@ -118,4 +123,16 @@ public class SportsFacilityDAO {
 		return facilitys.remove(id);
 	}
 	
+	public void connectFacilityLocation() {
+		ArrayList<Location> locations = (ArrayList<Location>) LocationDAO.getInstance().findAll();
+		for(SportsFacility facility : facilitys.values()) {
+			int id = facility.getLocation().getId();
+			
+			for(Location location : locations) {
+				if(location.getId()== id) {
+					facility.setLocation(location);
+				}
+			}
+		}
+	}
 }

@@ -51,18 +51,24 @@ public class KorisnikDAO {
 	 * @param password
 	 * @return
 	 */
-	/*
-	 * public Membership find(String user_name, String user_password) { if
-	 * (!korisnici.containsKey(user_name)) { return null; } Membership membership =
-	 * korisnici.get(user_name); if
-	 * (!membership.getUser_password().equals(user_password)) { return null; }
-	 * return membership; }
-	 */
+
+	public Korisnik find(String user_name, String user_password) {
+		
+		for(Korisnik korisnik : korisnici.values()) {
+			if(korisnik.getUserName().equals(user_name)) {
+				if(korisnik.getPassword().equals(user_password)) {
+					return korisnik;
+				}
+			}
+		}
+		
+		return null;
+	}
 
 	public Korisnik find(int id) {
 		return korisnici.get(id);
 	}
-	
+
 	public Collection<Korisnik> findAll() {
 		return korisnici.values();
 	}
@@ -122,9 +128,6 @@ public class KorisnikDAO {
 					SportsFacility facility = new SportsFacility(sportFacilityId);
 
 					int points = Integer.parseInt(st.nextToken().trim());
-					
-
-
 
 					int type = Integer.parseInt(st.nextToken().trim());
 					TypeName[] types = TypeName.values();

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import beans.Location;
 import beans.SportsFacility;
 import beans.Status;
 import beans.TypeCustomer;
@@ -27,7 +28,7 @@ public class TypeCustomerDAO {
 	 * @param contextPath Putanja do aplikacije u Tomcatu. Može se pristupiti samo iz servleta.
 	 */
 	private TypeCustomerDAO(String contextPath) {
-		loadCustomership(contextPath);
+		loadCustomer(contextPath);
 	}
 	
 	public static TypeCustomerDAO getInstance() {
@@ -35,6 +36,10 @@ public class TypeCustomerDAO {
 			Instance = new TypeCustomerDAO();
 		}
 		return Instance;
+	}
+	
+	public TypeCustomer find(int id) {
+		return customers.get(id);
 	}
 	
 	public Collection<TypeCustomer> findAll() {
@@ -56,7 +61,7 @@ public class TypeCustomerDAO {
 		return customer;
 	}
 	
-	private void loadCustomership(String contextPath) {
+	public void loadCustomer(String contextPath) {
 		BufferedReader in = null;
 		try {
 			File file = new File(contextPath + "/Baza/memberships.txt");
