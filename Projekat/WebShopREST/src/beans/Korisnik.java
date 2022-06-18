@@ -15,7 +15,7 @@ public class Korisnik {
 	private ArrayList<TrainingHistory> history;
 	private Dues dues;
 	private SportsFacility facility;
-	// private ArrayList<SportsFacility> viewFacility;
+	private ArrayList<SportsFacility> viewFacility;
 	private int points;
 	private TypeName type;
 	private int coachId;
@@ -144,6 +144,14 @@ public class Korisnik {
 
 	public void setType(TypeName type) {
 		this.type = type;
+	}
+
+	public ArrayList<SportsFacility> getViewFacility() {
+		return viewFacility;
+	}
+
+	public void setViewFacility(ArrayList<SportsFacility> viewFacility) {
+		this.viewFacility = viewFacility;
 	}
 
 }

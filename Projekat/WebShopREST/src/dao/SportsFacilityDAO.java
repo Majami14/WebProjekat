@@ -124,7 +124,7 @@ public class SportsFacilityDAO {
 	}
 	
 	public void connectFacilityLocation() {
-		ArrayList<Location> locations = (ArrayList<Location>) LocationDAO.getInstance().findAll();
+		ArrayList<Location> locations = new ArrayList<Location>( LocationDAO.getInstance().findAll());
 		for(SportsFacility facility : facilitys.values()) {
 			int id = facility.getLocation().getId();
 			

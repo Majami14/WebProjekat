@@ -36,7 +36,7 @@ public class KorisnikDAO {
 		loadKorisnik(contextPath);
 	}
 
-	private static KorisnikDAO getInstance() {
+	public static KorisnikDAO getInstance() {
 		if (korisnikInstance == null) {
 			korisnikInstance = new KorisnikDAO();
 		}
@@ -156,6 +156,19 @@ public class KorisnikDAO {
 		}
 	}
 
+	public void connectKorisnikDues() {
+		ArrayList<Dues> duess=(ArrayList<Dues>)DuesDAO.getInstance().findAll();
+		for(Korisnik korisnik : korisnici.values()) {
+			int idWanted = korisnik.getDues().getId();
+			for(Dues dues : duess) {
+				if(dues.getId()==idWanted) {
+					korisnik.setDues(dues);
+					dues.setBuyer(korisnik);
+					break;
+				}
+			}
+		}
+	}
 	public Korisnik change(Korisnik korisnik) {
 		korisnici.put(korisnik.getId(), korisnik);
 		return korisnik;

@@ -1,6 +1,7 @@
 package beans;
 
 import dao.CommentDAO;
+import dao.KorisnikDAO;
 import dao.LocationDAO;
 import dao.SportsFacilityDAO;
 import dao.TypeCustomerDAO;
@@ -19,6 +20,7 @@ public class ProjectStartup {
 		
 		SportsFacilityDAO.getInstance().connectFacilityLocation();
 		
+		KorisnikDAO.getInstance().connectKorisnikDues();
 		
 	}
 	

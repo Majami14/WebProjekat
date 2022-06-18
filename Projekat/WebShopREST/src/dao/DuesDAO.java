@@ -16,8 +16,8 @@ import java.util.StringTokenizer;
 
 public class DuesDAO {
 	private Map<Integer, Dues> dues = new HashMap<>();
-
-	public DuesDAO() {
+	private static DuesDAO duesInstance = null;
+	private DuesDAO() {
 
 	}
 
@@ -25,10 +25,15 @@ public class DuesDAO {
 	 * @param contextPath Putanja do aplikacije u Tomcatu. Može se pristupiti samo
 	 *                    iz servleta.
 	 */
-	public DuesDAO(String contextPath) {
+	private DuesDAO(String contextPath) {
 		loadDues(contextPath);
 	}
-
+	public static DuesDAO getInstance() {
+		if (duesInstance == null) {
+			duesInstance = new DuesDAO();
+		}
+		return duesInstance;
+	}
 	/**
 	 * Vraća korisnika za prosleđeno korisničko ime i šifru. Vraća null ako korisnik
 	 * ne postoji
