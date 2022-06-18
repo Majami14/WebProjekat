@@ -12,7 +12,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import beans.Korisnik;
 import beans.User;
+import dao.KorisnikDAO;
 import dao.UserDAO;
 
 @Path("")
@@ -40,13 +42,13 @@ public class LoginService {
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response login(User user, @Context HttpServletRequest request) {
-		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
-		User loggedUser = userDao.find(user.getUsername(), user.getPassword());
-		if (loggedUser == null) {
+	public Response login(Korisnik korisnik, @Context HttpServletRequest request) {
+		KorisnikDAO korisnikDao = (KorisnikDAO) ctx.getAttribute("korisnikDao");
+		Korisnik loggedKorisnik = korisnikDao.find(korisnik.getUserName(), korisnik.getPassword());
+		if (loggedKorisnik == null) {
 			return Response.status(400).entity("Invalid username and/or password").build();
 		}
-		request.getSession().setAttribute("user", loggedUser);
+		request.getSession().setAttribute("Koeianik", loggedKorisnik);
 		return Response.status(200).build();
 	}
 	
@@ -61,7 +63,7 @@ public class LoginService {
 	@Path("/currentUser")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public User login(@Context HttpServletRequest request) {
-		return (User) request.getSession().getAttribute("user");
+	public Korisnik login(@Context HttpServletRequest request) {
+		return (Korisnik) request.getSession().getAttribute("user");
 	}
 }

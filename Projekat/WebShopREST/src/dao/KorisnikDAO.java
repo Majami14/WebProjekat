@@ -1,0 +1,164 @@
+package dao;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+import beans.Korisnik;
+import beans.Gender;
+import beans.Role;
+import beans.SportsFacility;
+import beans.TrainingHistory;
+import beans.TypeName;
+import beans.DateHelper;
+import beans.Dues;
+
+public class KorisnikDAO {
+	private Map<Integer, Korisnik> korisnici = new HashMap<>();
+
+	private static KorisnikDAO korisnikInstance = null;
+
+	private KorisnikDAO() {
+
+	}
+
+	/***
+	 * @param contextPath Putanja do aplikacije u Tomcatu. Može se pristupiti samo
+	 *                    iz servleta.
+	 */
+	private KorisnikDAO(String contextPath) {
+		loadKorisnik(contextPath);
+	}
+
+	private static KorisnikDAO getInstance() {
+		if (korisnikInstance == null) {
+			korisnikInstance = new KorisnikDAO();
+		}
+		return korisnikInstance;
+	}
+
+	/**
+	 * Vraća korisnika za prosleđeno korisničko ime i šifru. Vraća null ako korisnik
+	 * ne postoji
+	 * 
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	/*
+	 * public Membership find(String user_name, String user_password) { if
+	 * (!korisnici.containsKey(user_name)) { return null; } Membership membership =
+	 * korisnici.get(user_name); if
+	 * (!membership.getUser_password().equals(user_password)) { return null; }
+	 * return membership; }
+	 */
+
+	public Korisnik find(int id) {
+		return korisnici.get(id);
+	}
+	
+	public Collection<Korisnik> findAll() {
+		return korisnici.values();
+	}
+
+	public Korisnik save(Korisnik korisnik) {
+		Integer maxId = -1;
+		for (int id : korisnici.keySet()) { // da li je dobar id ili treba idk?
+			int idNum = id;
+			if (idNum > maxId) {
+				maxId = idNum;
+			}
+		}
+		maxId++;
+		korisnik.setId(maxId);
+		korisnici.put(korisnik.getId(), korisnik);
+		return korisnik;
+	}
+
+	/**
+	 * Učitava korisnike iz WebContent/users.txt fajla i dodaje ih u mapu
+	 * {@link #users}. Ključ je korisničko ime korisnika.
+	 * 
+	 * @param contextPath Putanja do aplikacije u Tomcatu
+	 */
+	private void loadKorisnik(String contextPath) {
+		BufferedReader in = null;
+		try {
+			File file = new File(contextPath + "/Baza/korisnici.txt");
+			in = new BufferedReader(new FileReader(file));
+			String line;
+			StringTokenizer st;
+			while ((line = in.readLine()) != null) {
+				line = line.trim();
+				if (line.equals("") || line.indexOf('#') == 0)
+					continue;
+				st = new StringTokenizer(line, ";");
+				while (st.hasMoreTokens()) {
+
+					int id = Integer.parseInt(st.nextToken().trim());
+					String userName = st.nextToken().trim();
+					String password = st.nextToken().trim();
+					String firstName = st.nextToken().trim();
+					String lastName = st.nextToken().trim();
+
+					int gender = Integer.parseInt(st.nextToken().trim());
+					Gender[] genders = Gender.values();
+					Gender genderFromFile = genders[gender];
+					LocalDate birthDate = DateHelper.stringToDate(st.nextToken().trim());
+
+					int role = Integer.parseInt(st.nextToken().trim());
+					Role[] roles = Role.values();
+					Role roleFromFile = roles[role];
+
+					int duesId = Integer.parseInt(st.nextToken().trim());
+					Dues dues = new Dues(duesId);
+					int sportFacilityId = Integer.parseInt(st.nextToken().trim());
+					SportsFacility facility = new SportsFacility(sportFacilityId);
+
+					int points = Integer.parseInt(st.nextToken().trim());
+					
+
+
+
+					int type = Integer.parseInt(st.nextToken().trim());
+					TypeName[] types = TypeName.values();
+					TypeName typeFromFile = types[type];
+
+					korisnici.put(id,
+							new Korisnik(id, userName, password, firstName, lastName, genderFromFile, birthDate,
+									roleFromFile, new ArrayList<TrainingHistory>(), dues, facility, points,
+									typeFromFile));
+				}
+				// int id, String userName, String password, String firstName, String lastName,
+				// Gender gender,
+				// LocalDate birthDate, Role role, ArrayList<TrainingHistory> history, Dues
+				// dues, SportsFacility facility,
+				// int points, TypeName type
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (Exception e) {
+				}
+			}
+		}
+	}
+
+	public Korisnik change(Korisnik korisnik) {
+		korisnici.put(korisnik.getId(), korisnik);
+		return korisnik;
+	}
+
+	public Korisnik delete(int id) {
+		return korisnici.remove(id);
+	}
+}

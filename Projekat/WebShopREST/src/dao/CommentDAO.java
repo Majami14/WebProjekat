@@ -1,5 +1,18 @@
 package dao;
 
+/*
+ * git add .
+
+ * git status da vidis sta se desilo
+ * git commit -m "promena"
+ * git pull origin main
+ * (ispravis ako bude gresaka ili confikta)
+ * git add .
+ * git status
+ * git commit -m "poruka"
+ * git push origin main
+ */
+
 import beans.Comment;
 import beans.SportsFacility;
 
