@@ -87,7 +87,7 @@ public class LocationDAO {
 	public void loadLocation(String contextPath) {
 		BufferedReader in = null;
 		try {
-			File file = new File(contextPath + "/Baza/memberships.txt");
+			File file = new File(contextPath + "/Baza/location.txt");
 			in = new BufferedReader(new FileReader(file));
 			String line;
 			StringTokenizer st;

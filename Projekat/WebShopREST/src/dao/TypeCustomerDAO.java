@@ -64,7 +64,7 @@ public class TypeCustomerDAO {
 	public void loadCustomer(String contextPath) {
 		BufferedReader in = null;
 		try {
-			File file = new File(contextPath + "/Baza/memberships.txt");
+			File file = new File(contextPath + "/Baza/customer.txt");
 			in = new BufferedReader(new FileReader(file));
 			String line;
 			StringTokenizer st;

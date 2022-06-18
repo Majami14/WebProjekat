@@ -1,12 +1,13 @@
 package beans;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class SportsFacility {
 	private int id;
 	private String name;
 	private TypeFacility type; 
-	//private ArrayList<Training> content;
+	private ArrayList<Training> content;
 	private Status status;
 	private Location location;
 	private String image;
@@ -19,13 +20,14 @@ public class SportsFacility {
 	public SportsFacility(int id) {
 		this.id = id;
 	}
-	public SportsFacility(int id, String name, TypeFacility type, Status status, Location location, String image,
+	public SportsFacility(int id, String name, TypeFacility type,ArrayList<Training> content, Status status, Location location, String image,
 			double average, LocalTime startTime, LocalTime endTime) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.type = type;
 		this.status = status;
+		this.content = content;
 		this.location = location;
 		this.image = image;
 		this.average = average;
@@ -87,5 +89,10 @@ public class SportsFacility {
 		this.endTime = endTime;
 	}
 	
-	
+	public ArrayList<Training> getContent() {
+		return content;
+	}
+	public void setContent(ArrayList<Training> content) {
+		this.content = content;
+	}
 }

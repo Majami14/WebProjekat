@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import beans.Korisnik;
+import beans.ProjectStartup;
 import beans.User;
 import dao.KorisnikDAO;
 import dao.UserDAO;
@@ -34,6 +35,7 @@ public class LoginService {
 		// Inicijalizacija treba da se obavi samo jednom
 		if (ctx.getAttribute("userDAO") == null) {
 	    	String contextPath = ctx.getRealPath("");
+	    	ProjectStartup.getInstance(contextPath);
 			ctx.setAttribute("userDAO", new UserDAO(contextPath));
 		}
 	}

@@ -16,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import beans.Product;
+import beans.ProjectStartup;
 import beans.SportsFacility;
 import dao.ProductDAO;
 import dao.SportsFacilityDAO;
@@ -34,6 +35,7 @@ public class SportsFacilityService {
 		// Inicijalizacija treba da se obavi samo jednom
 		if (ctx.getAttribute("SportsFacilityDAO") == null) {
 	    	String contextPath = ctx.getRealPath("");
+	    	ProjectStartup.getInstance(contextPath);
 			ctx.setAttribute("SportsFacilityDAO", new SportsFacilityDAO(contextPath));
 		}
 	}

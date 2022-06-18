@@ -1,8 +1,10 @@
 package beans;
 
 import dao.CommentDAO;
+import dao.KorisnikDAO;
 import dao.LocationDAO;
 import dao.SportsFacilityDAO;
+import dao.TrainingDAO;
 import dao.TypeCustomerDAO;
 
 public class ProjectStartup {
@@ -18,6 +20,10 @@ public class ProjectStartup {
 		//CommentDAO.getInstance().getconnectCommentKorisnik();
 		
 		SportsFacilityDAO.getInstance().connectFacilityLocation();
+		
+		TrainingDAO.getInstance().connectTrainingSportsFacility();
+		TrainingDAO.getInstance().connectTrainingCoach();
+		
 		
 		
 	}

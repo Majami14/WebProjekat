@@ -2,26 +2,26 @@ package beans;
 
 public class Comment {
 	private int id;
-	//private Korisnik user;
+	private Korisnik user;
 	private SportsFacility facility;
 	private String comment;
 	private int grade;
 	
-	public Comment(/*Korisnik user,*/ SportsFacility facility, String comment, int grade) {
+	public Comment(Korisnik user,SportsFacility facility, String comment, int grade) {
 		super();
-		//this.user = user;
+		this.user = user;
 		this.facility = facility;
 		this.comment = comment;
 		this.grade = grade;
 	}
 	
-	/*public Korisnik getUser() {
+	public Korisnik getUser() {
 		return user;
-	} */
+	} 
 	
-	/*public void setUser(Korisnik user) {
+	public void setUser(Korisnik user) {
 		this.user = user;
-	} */
+	} 
 	
 	
 	public int getId() {

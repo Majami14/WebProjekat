@@ -16,6 +16,8 @@ import beans.Location;
 import beans.SportsFacility;
 import beans.Status;
 import beans.TimeHelper;
+import beans.Training;
+import beans.TrainingHistory;
 import beans.TypeFacility;
 
 public class SportsFacilityDAO {
@@ -97,7 +99,7 @@ public class SportsFacilityDAO {
 					LocalTime endTime = TimeHelper.stringToTime(st.nextToken().trim());
 					
 					//facilitys.put(id,comment,facility_type,statusId,image,average,startTime,endTime);
-					facilitys.put(id, new SportsFacility(id, name, facility_typeFromFile, status_typeFromFile,location, image, average, startTime,endTime));
+					facilitys.put(id, new SportsFacility(id, name, facility_typeFromFile, new ArrayList<Training>() ,status_typeFromFile,location, image, average, startTime,endTime));
 
 				}
 			
@@ -124,13 +126,14 @@ public class SportsFacilityDAO {
 	}
 	
 	public void connectFacilityLocation() {
-		ArrayList<Location> locations = (ArrayList<Location>) LocationDAO.getInstance().findAll();
+		ArrayList<Location> locations = new ArrayList<Location> (LocationDAO.getInstance().findAll());
 		for(SportsFacility facility : facilitys.values()) {
 			int id = facility.getLocation().getId();
 			
 			for(Location location : locations) {
 				if(location.getId()== id) {
 					facility.setLocation(location);
+					break;
 				}
 			}
 		}

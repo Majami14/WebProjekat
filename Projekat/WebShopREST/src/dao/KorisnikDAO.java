@@ -29,14 +29,14 @@ public class KorisnikDAO {
 	}
 
 	/***
-	 * @param contextPath Putanja do aplikacije u Tomcatu. Može se pristupiti samo
+	 * @param contextPath Putanja do aplikacije u Tomcatu. MoÅ¾e se pristupiti samo
 	 *                    iz servleta.
 	 */
 	private KorisnikDAO(String contextPath) {
 		loadKorisnik(contextPath);
 	}
 
-	private static KorisnikDAO getInstance() {
+	public static KorisnikDAO getInstance() {
 		if (korisnikInstance == null) {
 			korisnikInstance = new KorisnikDAO();
 		}
@@ -44,7 +44,7 @@ public class KorisnikDAO {
 	}
 
 	/**
-	 * Vraća korisnika za prosleđeno korisničko ime i šifru. Vraća null ako korisnik
+	 * VraÄ‡a korisnika za prosleÄ‘eno korisniÄ�ko ime i Å¡ifru. VraÄ‡a null ako korisnik
 	 * ne postoji
 	 * 
 	 * @param username
@@ -88,8 +88,8 @@ public class KorisnikDAO {
 	}
 
 	/**
-	 * Učitava korisnike iz WebContent/users.txt fajla i dodaje ih u mapu
-	 * {@link #users}. Ključ je korisničko ime korisnika.
+	 * UÄ�itava korisnike iz WebContent/users.txt fajla i dodaje ih u mapu
+	 * {@link #users}. KljuÄ� je korisniÄ�ko ime korisnika.
 	 * 
 	 * @param contextPath Putanja do aplikacije u Tomcatu
 	 */

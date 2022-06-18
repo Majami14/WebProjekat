@@ -14,6 +14,7 @@ package dao;
  */
 
 import beans.Comment;
+import beans.Korisnik;
 import beans.Location;
 import beans.SportsFacility;
 
@@ -115,28 +116,30 @@ public class CommentDAO {
 	}
 	
 	public void connectCommentFacility() {
-		ArrayList<SportsFacility> facilitys = (ArrayList<SportsFacility>) SportsFacilityDAO.getInstance().findAll();
+		ArrayList<SportsFacility> facilitys = new ArrayList<SportsFacility> (SportsFacilityDAO.getInstance().findAll());
 		for(Comment comment : comments.values()) {
 			int id = comment.getFacility().getId();
 			
 			for(SportsFacility facility : facilitys) {
 				if(facility.getId()== id) {
 					comment.setFacility(facility);
+					break;
 				}
 			}
 		}
 	}
 	
-	/*public void connectCommentKorisnik() {
-		ArrayList<Korisnik> facilitys = (ArrayList<Korisnik>) KorisnikDAO.getInstance().findAll();
+	public void connectCommentKorisnik() {
+		ArrayList<Korisnik> korisnici = new ArrayList<Korisnik> (KorisnikDAO.getInstance().findAll());
 		for(Comment comment : comments.values()) {
-			int id = comment.getKorisnik().getId();
+			int id = comment.getUser().getId();
 			
 			for(Korisnik korisnik : korisnici) {
 				if(korisnik.getId()== id) {
-					comment.setFacility(korisnik);
+					comment.setUser(korisnik);
+					break;
 				}
 			}
 		} 
-	} */
+	} 
 }

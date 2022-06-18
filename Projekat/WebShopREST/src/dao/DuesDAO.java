@@ -22,7 +22,7 @@ public class DuesDAO {
 	}
 
 	/***
-	 * @param contextPath Putanja do aplikacije u Tomcatu. Može se pristupiti samo
+	 * @param contextPath Putanja do aplikacije u Tomcatu. MoÅ¾e se pristupiti samo
 	 *                    iz servleta.
 	 */
 	public DuesDAO(String contextPath) {
@@ -30,7 +30,7 @@ public class DuesDAO {
 	}
 
 	/**
-	 * Vraća korisnika za prosleđeno korisničko ime i šifru. Vraća null ako korisnik
+	 * VraÄ‡a korisnika za prosleÄ‘eno korisniÄ�ko ime i Å¡ifru. VraÄ‡a null ako korisnik
 	 * ne postoji
 	 * 
 	 * @param username
@@ -64,14 +64,14 @@ public class DuesDAO {
 	}
 
 	/**
-	 * Učitava korisnike iz WebContent/users.txt fajla i dodaje ih u mapu {@link #users}.
-	 * Ključ je korisničko ime korisnika.
+	 * UÄ�itava korisnike iz WebContent/users.txt fajla i dodaje ih u mapu {@link #users}.
+	 * KljuÄ� je korisniÄ�ko ime korisnika.
 	 * @param contextPath Putanja do aplikacije u Tomcatu
 	 */
 	private void loadDues(String contextPath) {
 		BufferedReader in = null;
 		try {
-			File file = new File(contextPath + "/Baza/memberships.txt");
+			File file = new File(contextPath + "/Baza/dues.txt");
 			in = new BufferedReader(new FileReader(file));
 			String line;
 			StringTokenizer st;
