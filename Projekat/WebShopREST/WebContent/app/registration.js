@@ -10,12 +10,12 @@ var app = new Vue({
 	methods: {
 		createUser: function (event) {
 			this.error = ""
-			if (!this.newUser.name || !this.newUser.surname) {
+			if (!this.newUser.firstName || !this.newUser.lastName) {
 				this.error = "Unesite ime i prezime";
 				event.preventDefault();
 				return;
 			}
-			axios.post('rest/users', this.newUser)
+			axios.post('rest/korisnik', this.newUser)
 				.then((response) => {
 					alert('Novi proizvod uspešno kreiran')
                 })

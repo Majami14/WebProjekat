@@ -29,15 +29,13 @@ public class KorisnikService {
 	}
 
 	@PostConstruct
-	// ctx polje je null u konstruktoru, mora se pozvati nakon konstruktora
-	// (@PostConstruct anotacija)
 	public void init() {
 		// Ovaj objekat se instancira više puta u toku rada aplikacije
 		// Inicijalizacija treba da se obavi samo jednom
 		if (ctx.getAttribute("korisnikDAO") == null) {
 			String contextPath = ctx.getRealPath("");
 			ProjectStartup.getInstance(contextPath);
-			ctx.setAttribute("korisnikDAO", new KorisnikDAO(contextPath));
+			ctx.setAttribute("korisnikDAO", KorisnikDAO.getInstance());
 		}
 	}
 
@@ -54,7 +52,7 @@ public class KorisnikService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Korisnik newKorisnik(Korisnik korisnik) {
-		KorisnikDAO dao = (KorisnikDAO) ctx.getAttribute("korinsikyDAO");
+		KorisnikDAO dao = (KorisnikDAO) ctx.getAttribute("korisnikDAO");
 		return dao.save(korisnik);
 	}
 
