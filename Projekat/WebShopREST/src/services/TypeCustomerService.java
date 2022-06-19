@@ -13,6 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import beans.Location;
@@ -22,7 +23,7 @@ import dao.LocationDAO;
 import dao.TypeCustomerDAO;
 @Path("/customer")
 public class TypeCustomerService {
-	
+	@Context
 	ServletContext ctx;
 	
 	public TypeCustomerService() {

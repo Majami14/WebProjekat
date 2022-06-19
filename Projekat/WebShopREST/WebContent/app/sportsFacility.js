@@ -5,7 +5,7 @@ var app = new Vue({
 	},
 	mounted() {
 		axios.get('rest/facility')
-			.then(response => (this.sportFacility = response.data))
+			.then(response => (this.sportObjects = response.data))
 	},
 	methods: {
 		
