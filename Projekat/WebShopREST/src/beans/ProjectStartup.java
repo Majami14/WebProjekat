@@ -1,10 +1,12 @@
 package beans;
 
 import dao.CommentDAO;
+import dao.DuesDAO;
 import dao.KorisnikDAO;
 import dao.LocationDAO;
 import dao.SportsFacilityDAO;
 import dao.TrainingDAO;
+import dao.TrainingHistoryDAO;
 import dao.TypeCustomerDAO;
 
 public class ProjectStartup {
@@ -12,8 +14,12 @@ public class ProjectStartup {
 	
 	private ProjectStartup(String contextPath) {
 		CommentDAO.getInstance().loadComment(contextPath);
+		DuesDAO.getInstance().loadDues(contextPath);
+		KorisnikDAO.getInstance().loadKorisnik(contextPath);
 		LocationDAO.getInstance().loadLocation(contextPath);
 		SportsFacilityDAO.getInstance().loadFacility(contextPath);
+		TrainingDAO.getInstance().loadTraining(contextPath);
+		TrainingHistoryDAO.getInstance().loadTraining(contextPath);
 		TypeCustomerDAO.getInstance().loadCustomer(contextPath);
 		
 		CommentDAO.getInstance().connectCommentFacility();
@@ -21,15 +27,20 @@ public class ProjectStartup {
 		
 		SportsFacilityDAO.getInstance().connectFacilityLocation();
 		
-<<<<<<< HEAD
+
 		TrainingDAO.getInstance().connectTrainingSportsFacility();
 		TrainingDAO.getInstance().connectTrainingCoach();
 		
 		
-=======
+
 		KorisnikDAO.getInstance().connectKorisnikDues();
->>>>>>> 953e8ad2fa96eb00935ab1211c5fa833ffc66b2c
+		KorisnikDAO.getInstance().linkUserAndVisitedObject(contextPath);
+		KorisnikDAO.getInstance().connectKorisnikSportsFacility();
+		KorisnikDAO.getInstance().connectKorisnikTypeCustomer();
 		
+		TrainingHistoryDAO.getInstance().connectTrainingHistoryTraining();
+		TrainingHistoryDAO.getInstance().connectBuyerKorisnik();
+		TrainingHistoryDAO.getInstance().connectCoachKorisnik();
 	}
 	
 	

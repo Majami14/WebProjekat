@@ -26,7 +26,6 @@ public class TrainingDAO {
 
 	}
 
-
 	private TrainingDAO(String contextPath) {
 		loadTraining(contextPath);
 	}
@@ -37,7 +36,6 @@ public class TrainingDAO {
 		}
 		return trainingInstance;
 	}
-
 
 	/*
 	 * public Membership find(String user_name, String user_password) { if
@@ -65,18 +63,21 @@ public class TrainingDAO {
 		return trainings;
 	}
 
+	public Training find(int id) {
+		return training.get(id);
+	}
+
 	/**
-<<<<<<< HEAD
-	 * UÄ�itava korisnike iz WebContent/users.txt fajla i dodaje ih u mapu {@link #users}.
-	 * KljuÄ� je korisniÄ�ko ime korisnika.
-=======
-	 * Učitava korisnike iz WebContent/users.txt fajla i dodaje ih u mapu
-	 * {@link #users}. Ključ je korisničko ime korisnika.
+	 * <<<<<<< HEAD UÄ�itava korisnike iz WebContent/users.txt fajla i dodaje ih u
+	 * mapu {@link #users}. KljuÄ� je korisniÄ�ko ime korisnika. ======= Učitava
+	 * korisnike iz WebContent/users.txt fajla i dodaje ih u mapu {@link #users}.
+	 * Ključ je korisničko ime korisnika.
 	 * 
->>>>>>> 953e8ad2fa96eb00935ab1211c5fa833ffc66b2c
+	 * >>>>>>> 953e8ad2fa96eb00935ab1211c5fa833ffc66b2c
+	 * 
 	 * @param contextPath Putanja do aplikacije u Tomcatu
 	 */
-	private void loadTraining(String contextPath) {
+	public void loadTraining(String contextPath) {
 		BufferedReader in = null;
 		try {
 			File file = new File(contextPath + "/Baza/training.txt");
@@ -134,30 +135,29 @@ public class TrainingDAO {
 	public Training delete(int id) {
 		return training.remove(id);
 	}
-	
+
 	public void connectTrainingSportsFacility() {
-		ArrayList<SportsFacility> facility = new ArrayList<SportsFacility> (SportsFacilityDAO.getInstance().findAll());
-		for(Training tr : training.values()) {
+		ArrayList<SportsFacility> facility = new ArrayList<SportsFacility>(SportsFacilityDAO.getInstance().findAll());
+		for (Training tr : training.values()) {
 			int id = tr.getSportFacility().getId();
-			
-			for(SportsFacility facilitys : facility) {
-				if(facilitys.getId()== id) {
+
+			for (SportsFacility facilitys : facility) {
+				if (facilitys.getId() == id) {
 					tr.setSportFacility(facilitys);
 					break;
 				}
 			}
 		}
 	}
-	
 
 	public void connectTrainingCoach() {
-		ArrayList<Korisnik> coachs = new ArrayList<Korisnik> (KorisnikDAO.getInstance().findAll());
-		for(Training tr : training.values()) {
-			int id = tr.getCoach().getId();
-			
-			for(Korisnik coach : coachs) {
-				if(coach.getId()== id) {
-					tr.setCoach(coach);
+		ArrayList<Korisnik> korisnici = new ArrayList<Korisnik>(KorisnikDAO.getInstance().findAll());
+		for (Training trening : training.values()) {
+			int idRequired = trening.getCoach().getId();
+
+			for (Korisnik korisnik : korisnici) {
+				if (korisnik.getId() == idRequired) {
+					trening.setCoach(korisnik);
 					break;
 				}
 			}

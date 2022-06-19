@@ -17,6 +17,7 @@ import java.util.StringTokenizer;
 public class DuesDAO {
 	private Map<Integer, Dues> dues = new HashMap<>();
 	private static DuesDAO duesInstance = null;
+
 	private DuesDAO() {
 
 	}
@@ -28,15 +29,17 @@ public class DuesDAO {
 	private DuesDAO(String contextPath) {
 		loadDues(contextPath);
 	}
+
 	public static DuesDAO getInstance() {
 		if (duesInstance == null) {
 			duesInstance = new DuesDAO();
 		}
 		return duesInstance;
 	}
+
 	/**
-	 * VraÄ‡a korisnika za prosleÄ‘eno korisniÄ�ko ime i Å¡ifru. VraÄ‡a null ako korisnik
-	 * ne postoji
+	 * VraÄ‡a korisnika za prosleÄ‘eno korisniÄ�ko ime i Å¡ifru. VraÄ‡a null ako
+	 * korisnik ne postoji
 	 * 
 	 * @param username
 	 * @param password
@@ -69,11 +72,16 @@ public class DuesDAO {
 	}
 
 	/**
-	 * UÄ�itava korisnike iz WebContent/users.txt fajla i dodaje ih u mapu {@link #users}.
-	 * KljuÄ� je korisniÄ�ko ime korisnika.
+	 * UÄ�itava korisnike iz WebContent/users.txt fajla i dodaje ih u mapu
+	 * {@link #users}. KljuÄ� je korisniÄ�ko ime korisnika.
+	 * 
 	 * @param contextPath Putanja do aplikacije u Tomcatu
 	 */
-	private void loadDues(String contextPath) {
+	public Dues find(int id) {
+		return dues.get(id);
+	}
+
+	public void loadDues(String contextPath) {
 		BufferedReader in = null;
 		try {
 			File file = new File(contextPath + "/Baza/dues.txt");
@@ -86,33 +94,30 @@ public class DuesDAO {
 					continue;
 				st = new StringTokenizer(line, ";");
 				while (st.hasMoreTokens()) {
-					
+
 //String idDues, int id, DuesType type, LocalDate paymentDate, LocalDate validationDateTime,
-		//Double price,Korisnik buyer, int trainingNumbers	
+					// Double price,Korisnik buyer, int trainingNumbers
 					String duesId = st.nextToken().trim();
-				
-					int id  =Integer.parseInt(st.nextToken().trim());
-					
+
+					int id = Integer.parseInt(st.nextToken().trim());
+
 					int status_type = Integer.parseInt(st.nextToken().trim()); // Za enum jel dobro?
 					DuesType[] status_types = DuesType.values();
 					DuesType status_typeFromFile = status_types[status_type];
-					
-					
+
 					LocalDate paymentday = DateHelper.stringToDate(st.nextToken().trim());
 					LocalDate validationDateTime = DateHelper.stringToDate(st.nextToken().trim());
-					double price  =Double.parseDouble(st.nextToken().trim());
-					
+					double price = Double.parseDouble(st.nextToken().trim());
+
 					int buyerId = Integer.parseInt(st.nextToken().trim());
 					Korisnik kor = new Korisnik(buyerId);
-					
-					int trainingNumbers = Integer.parseInt(st.nextToken().trim());
-					
-					
-				
 
-					dues.put(id,new Dues(duesId, id, status_typeFromFile, paymentday,validationDateTime, price,kor,trainingNumbers));
+					int trainingNumbers = Integer.parseInt(st.nextToken().trim());
+
+					dues.put(id, new Dues(duesId, id, status_typeFromFile, paymentday, validationDateTime, price, kor,
+							trainingNumbers));
 				}
-			
+
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -120,8 +125,8 @@ public class DuesDAO {
 			if (in != null) {
 				try {
 					in.close();
+				} catch (Exception e) {
 				}
-				catch (Exception e) { }
 			}
 		}
 	}

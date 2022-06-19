@@ -1,6 +1,7 @@
 package dao;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileReader;
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import beans.Gender;
 import beans.Role;
 import beans.SportsFacility;
 import beans.TrainingHistory;
+import beans.TypeCustomer;
 import beans.TypeName;
 import beans.DateHelper;
 import beans.Dues;
@@ -32,7 +34,7 @@ public class KorisnikDAO {
 	 * @param contextPath Putanja do aplikacije u Tomcatu. MoÅ¾e se pristupiti samo
 	 *                    iz servleta.
 	 */
-	private KorisnikDAO(String contextPath) {
+	public KorisnikDAO(String contextPath) {
 		loadKorisnik(contextPath);
 	}
 
@@ -93,7 +95,7 @@ public class KorisnikDAO {
 	 * 
 	 * @param contextPath Putanja do aplikacije u Tomcatu
 	 */
-	private void loadKorisnik(String contextPath) {
+	public void loadKorisnik(String contextPath) {
 		BufferedReader in = null;
 		try {
 			File file = new File(contextPath + "/Baza/korisnici.txt");
@@ -129,14 +131,14 @@ public class KorisnikDAO {
 
 					int points = Integer.parseInt(st.nextToken().trim());
 
-					int type = Integer.parseInt(st.nextToken().trim());
-					TypeName[] types = TypeName.values();
-					TypeName typeFromFile = types[type];
+					int idType = Integer.parseInt(st.nextToken().trim());
+					TypeCustomer customer = new TypeCustomer(idType);
+
 
 					korisnici.put(id,
 							new Korisnik(id, userName, password, firstName, lastName, genderFromFile, birthDate,
 									roleFromFile, new ArrayList<TrainingHistory>(), dues, facility, points,
-									typeFromFile));
+									customer));
 				}
 				// int id, String userName, String password, String firstName, String lastName,
 				// Gender gender,
@@ -157,7 +159,7 @@ public class KorisnikDAO {
 	}
 
 	public void connectKorisnikDues() {
-		ArrayList<Dues> duess=(ArrayList<Dues>)DuesDAO.getInstance().findAll();
+		ArrayList<Dues> duess=new ArrayList<Dues>(DuesDAO.getInstance().findAll());
 		for(Korisnik korisnik : korisnici.values()) {
 			int idWanted = korisnik.getDues().getId();
 			for(Dues dues : duess) {
@@ -169,11 +171,74 @@ public class KorisnikDAO {
 			}
 		}
 	}
+	
+
+	
 	public Korisnik change(Korisnik korisnik) {
 		korisnici.put(korisnik.getId(), korisnik);
 		return korisnik;
 	}
+	
+	public void linkUserAndVisitedObject(String contextPath) {
+		BufferedReader in = null;
+		try {
+			File file = new File(contextPath + "/Baza/UserVisitedObjectBound.txt");
+			in = new BufferedReader(new FileReader(file));
+			String line;
+			StringTokenizer st;
+			while ((line = in.readLine()) != null) {
+				line = line.trim();
+				if (line.equals("") || line.indexOf('#') == 0)
+					continue;
+				st = new StringTokenizer(line, ";");
+				while (st.hasMoreTokens()) {
+					int userId = Integer.parseInt(st.nextToken().trim());
+					int objectId = Integer.parseInt(st.nextToken().trim());
+					Korisnik user = find(userId);
+					SportsFacility sObject= SportsFacilityDAO.getInstance().find(objectId);
+					
+					user.getViewFacility().add(sObject);
+				}
+			
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();             
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				}
+				catch (Exception e) { }
+			}
+		}
+	}
 
+	public void connectKorisnikSportsFacility() {
+		ArrayList<SportsFacility> sport=new ArrayList<SportsFacility>(SportsFacilityDAO.getInstance().findAll());
+		for(Korisnik korisnik : korisnici.values()) {
+			int idWanted = korisnik.getFacility().getId();
+			for(SportsFacility sport1 : sport ){
+				if(sport1.getId()==idWanted) {
+					korisnik.setFacility(sport1);
+					
+					break;
+				}
+			}
+		}
+	}
+	public void connectKorisnikTypeCustomer() {
+		ArrayList<TypeCustomer> custom=new ArrayList<TypeCustomer>(TypeCustomerDAO.getInstance().findAll());
+		for(Korisnik korisnik : korisnici.values()) {
+			int idWanted = korisnik.getType().getId();
+			for(TypeCustomer person : custom ){
+				if(person.getId()==idWanted) {
+					korisnik.setType(person);
+					
+					break;
+				}
+			}
+		}
+	}
 	public Korisnik delete(int id) {
 		return korisnici.remove(id);
 	}

@@ -17,12 +17,12 @@ public class Korisnik {
 	private SportsFacility facility;
 	private ArrayList<SportsFacility> viewFacility;
 	private int points;
-	private TypeName type;
+	private TypeCustomer type;
 	private int coachId;
 
 	public Korisnik(int id, String userName, String password, String firstName, String lastName, Gender gender,
 			LocalDate birthDate, Role role, ArrayList<TrainingHistory> history, Dues dues, SportsFacility facility,
-			int points, TypeName type) {
+			int points, TypeCustomer type) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -40,7 +40,8 @@ public class Korisnik {
 	}
 
 	public Korisnik(int coachId) {
-		this.coachId = coachId;}
+		this.coachId = coachId;
+	}
 
 	public int getId() {
 		return id;
@@ -138,11 +139,11 @@ public class Korisnik {
 		this.points = points;
 	}
 
-	public TypeName getType() {
+	public TypeCustomer getType() {
 		return type;
 	}
 
-	public void setType(TypeName type) {
+	public void setType(TypeCustomer type) {
 		this.type = type;
 	}
 
