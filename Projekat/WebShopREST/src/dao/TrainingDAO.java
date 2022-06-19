@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import beans.Comment;
 import beans.Dues;
 import beans.Korisnik;
 import beans.Location;
@@ -27,7 +28,7 @@ public class TrainingDAO {
 	}
 
 
-	private TrainingDAO(String contextPath) {
+	public TrainingDAO(String contextPath) {
 		loadTraining(contextPath);
 	}
 
@@ -47,6 +48,10 @@ public class TrainingDAO {
 	 * return membership; }
 	 */
 
+	public Training find(int id) {
+		return training.get(id);
+	}
+	
 	public Collection<Training> findAll() {
 		return training.values();
 	}
@@ -149,7 +154,6 @@ public class TrainingDAO {
 		}
 	}
 	
-
 	public void connectTrainingCoach() {
 		ArrayList<Korisnik> coachs = new ArrayList<Korisnik> (KorisnikDAO.getInstance().findAll());
 		for(Training tr : training.values()) {

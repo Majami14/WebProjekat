@@ -21,15 +21,14 @@ public class ProjectStartup {
 		
 		SportsFacilityDAO.getInstance().connectFacilityLocation();
 		
-<<<<<<< HEAD
+
 		TrainingDAO.getInstance().connectTrainingSportsFacility();
 		TrainingDAO.getInstance().connectTrainingCoach();
 		
 		
-=======
+
 		KorisnikDAO.getInstance().connectKorisnikDues();
->>>>>>> 953e8ad2fa96eb00935ab1211c5fa833ffc66b2c
-		
+
 	}
 	
 	

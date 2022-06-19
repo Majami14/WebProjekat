@@ -15,17 +15,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import beans.Product;
+import beans.Comment;
 import beans.ProjectStartup;
 import beans.SportsFacility;
-import dao.ProductDAO;
-import dao.SportsFacilityDAO;
-@Path("/facility")
-public class SportsFacilityService {
+import dao.CommentDAO;
+@Path("/comments")
 
-	ServletContext ctx;
+public class CommentService {
+ServletContext ctx;
 	
-	public SportsFacilityService() {
+	public CommentService() {
 	}
 	
 	@PostConstruct
@@ -33,18 +32,18 @@ public class SportsFacilityService {
 	public void init() {
 		// Ovaj objekat se instancira više puta u toku rada aplikacije
 		// Inicijalizacija treba da se obavi samo jednom
-		if (ctx.getAttribute("sportsFacilityDAO") == null) {
+		if (ctx.getAttribute("commentDAO") == null) {
 	    	String contextPath = ctx.getRealPath("");
 	    	ProjectStartup.getInstance(contextPath);
-			ctx.setAttribute("sportsFacilityDAO", new SportsFacilityDAO(contextPath));
+			ctx.setAttribute("commentDAO", new CommentDAO(contextPath));
 		}
 	}
 	
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<SportsFacility> getFacility() {
-		SportsFacilityDAO dao = (SportsFacilityDAO) ctx.getAttribute("sportsFacilityDAO");
+	public Collection<Comment> getComments() {
+		CommentDAO dao = (CommentDAO) ctx.getAttribute("commentDAO");
 		return dao.findAll();
 	}
 	
@@ -52,47 +51,46 @@ public class SportsFacilityService {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SportsFacility newFacility(SportsFacility facility) {
-		SportsFacilityDAO dao = (SportsFacilityDAO) ctx.getAttribute("sportsFacilityDAO");
-		return dao.save(facility);
+	public Comment newComment(Comment comment) {
+		CommentDAO dao = (CommentDAO) ctx.getAttribute("commentDAO");
+		return dao.save(comment);
 	}
 	
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public SportsFacility findOne(@PathParam("id") int id) {
-		SportsFacilityDAO dao = (SportsFacilityDAO) ctx.getAttribute("sportsFacilityDAO");
+	public Comment findOne(@PathParam("id") int id) {
+		CommentDAO dao = (CommentDAO) ctx.getAttribute("commentDAO");
 		return dao.find(id);     
 	} 
 	
-	@GET
+	/*@GET
 	@Path("/search")
 	@Produces(MediaType.APPLICATION_JSON)
-	public SportsFacility searchFacility(@QueryParam("name") String name) {
-		SportsFacilityDAO dao = (SportsFacilityDAO) ctx.getAttribute("sportsFacilityDAO");
+	public Comment searchC(@QueryParam("name") String grade) {
+		CommentDAO dao = (CommentDAO) ctx.getAttribute("ommentDAO");
 		return dao.findAll().stream()
-				.filter(facility -> facility.getName().equals(name))
+				.filter(comment -> comment.getGrade().equals(grade))
 				.findFirst()
 				.orElse(null);
-	}
+	} */ 
 	
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public SportsFacility changeFacility(SportsFacility facility, @PathParam("id") String id) {
-		SportsFacilityDAO dao = (SportsFacilityDAO) ctx.getAttribute("sportsFacilityDAO");
-		return dao.change(facility);
+	public Comment changeComment(Comment comment, @PathParam("id") int id) {
+		CommentDAO dao = (CommentDAO) ctx.getAttribute("commentDAO");
+		return dao.change(comment);
 	}
 	
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public SportsFacility deleteFacility(@PathParam("id") int id) {
-		SportsFacilityDAO dao = (SportsFacilityDAO) ctx.getAttribute("sportsFacilityDAO");
+	public Comment deleteComment(@PathParam("id") int id) {
+		CommentDAO dao = (CommentDAO) ctx.getAttribute("commentDAO");
 		return dao.delete(id);
 	}
-	
 	
 	
 }
