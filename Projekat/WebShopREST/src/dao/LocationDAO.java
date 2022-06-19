@@ -29,7 +29,7 @@ public class LocationDAO {
 	/***
 	 * @param contextPath Putanja do aplikacije u Tomcatu. MoÅ¾e se pristupiti samo iz servleta.
 	 */
-	public LocationDAO(String contextPath) {
+	private LocationDAO(String contextPath) {
 		loadLocation(contextPath);
 	}
 	

@@ -28,7 +28,10 @@
 				</tr>
 				<tr>
 					<td>Gender</td>
-					<td><input type="text" name="gender" v-model="newUser.gender"></td>
+					<td><input type="radio" id="male" value= "MALE" name="gender" v-model="newUser.gender">
+					<Label for="male">Male</Label>
+					<input type="radio" name="gender" v-model="newUser.gender">
+					<Label for="female">Female</Label></td>
 				</tr>
 				<tr>
 					<td>Birth date</td>

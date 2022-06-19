@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<div id ="sportsFacility">
+	<div id ="sportFacility">
 
 		<table border="1" id="tabela">
 			<thead>
@@ -25,15 +25,15 @@
 				</tr>
 			</thead>
 
-			<tr v-for="sp in sportsFacility">
+			<tr v-for="sp in sportObjects">
 				<td>{{sp.id }}</td>
                 <td>{{sp.name }}</td>
                 <td>{{sp.type }}</td>
                 <td>{{sp.status }}</td>
                 <td>{{sp.location.street}}  {{sp.location.number}}  {{sp.location.city}}</td>
                 <td>{{sp.average }}</td>
-                <td>{{sp.startTime }}</td>
-                <td>{{sp.endTime }}</td>
+                <td>{{sp.startTime.hour}}:{{sp.startTime.minute}}</td>
+                <td>{{sp.endTime.hour }}:{{sp.startTime.minute}}</td>
 			</tr>
 		</table>
 
