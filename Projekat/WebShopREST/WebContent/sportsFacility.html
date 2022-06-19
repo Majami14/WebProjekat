@@ -18,7 +18,7 @@
 					<th>Name</th>
 					<th>Type</th>
 					<th>Status</th>
-                    <th>Loaction</th>
+                    <th>Location</th>
                     <th>Average</th>
                     <th>Start</th>
                     <th>End</th>
@@ -36,7 +36,16 @@
                 <td>{{sp.endTime.hour }}:{{sp.startTime.minute}}</td>
 			</tr>
 		</table>
-
+		
+		Pretraga : <input type="text" name="searchValue" v-model="searchValue"> 
+		<select name="searchTypes" v-model="searchType">
+			<option value="name"> Name </option>
+			
+			<option value="type"> Type </option>
+			<option value="location"> Location </option>
+			<option value="average"> Average </option>
+		</select>
+		<p><button  v-on:click="searchFacilitys()"> Search </button></p>
 		
 	</div>
 	<script src="js/vue.js"></script>

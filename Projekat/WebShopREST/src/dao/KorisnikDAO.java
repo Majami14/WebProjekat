@@ -36,7 +36,7 @@ public class KorisnikDAO {
 	 * @param contextPath Putanja do aplikacije u Tomcatu. MoÅ¾e se pristupiti samo
 	 *                    iz servleta.
 	 */
-	private KorisnikDAO(String contextPath) {
+	public KorisnikDAO(String contextPath) {
 		loadKorisnik(contextPath);
 	}
 
@@ -162,6 +162,17 @@ public class KorisnikDAO {
 		}
 	}
 
+	public Korisnik check(String username, String password) {
+		for(Korisnik korisnik : korisnici.values()) {
+			if(korisnik.getUserName().equals(username)) {
+				if(korisnik.getPassword().equals(password)) {
+					return korisnik;
+				}
+			}
+		}
+		return null;
+	}
+	
 	public void connectKorisnikDues() {
 		ArrayList<Dues> duess=new ArrayList<Dues>(DuesDAO.getInstance().findAll());
 		for(Korisnik korisnik : korisnici.values()) {

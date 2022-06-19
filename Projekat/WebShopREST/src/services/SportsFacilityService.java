@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
@@ -37,7 +38,7 @@ public class SportsFacilityService {
 		if (ctx.getAttribute("sportsFacilityDAO") == null) {
 	    	String contextPath = ctx.getRealPath("");
 	    	ProjectStartup.getInstance(contextPath);
-			ctx.setAttribute("sportsFacilityDAO", new SportsFacilityDAO(contextPath));
+			ctx.setAttribute("sportsFacilityDAO", SportsFacilityDAO.getInstance());
 		}
 	}
 	
@@ -92,6 +93,14 @@ public class SportsFacilityService {
 	public SportsFacility deleteFacility(@PathParam("id") int id) {
 		SportsFacilityDAO dao = (SportsFacilityDAO) ctx.getAttribute("sportsFacilityDAO");
 		return dao.delete(id);
+	}
+	
+	@GET
+	@Path("/searchFacility")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<SportsFacility> searchFacilityWith(@QueryParam("searchValue") String searchValue, @QueryParam("criterion") String criterion) {
+		SportsFacilityDAO dao = (SportsFacilityDAO) ctx.getAttribute("sportsFacilityDAO");
+		return dao.search(searchValue, criterion);
 	}
 	
 	

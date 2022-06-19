@@ -29,7 +29,7 @@ public class SportsFacilityDAO {
 
 	}
 
-	public SportsFacilityDAO(String contextPath) {
+	private SportsFacilityDAO(String contextPath) {
 		loadFacility(contextPath);
 	}
 
@@ -48,6 +48,36 @@ public class SportsFacilityDAO {
 		return facilitys.values();
 	}
 
+	public ArrayList<SportsFacility> search(String searchValue, String criterion){
+		ArrayList<SportsFacility> find = new ArrayList<SportsFacility>();
+		if(criterion.equals("name")) {
+			for(SportsFacility sp : facilitys.values()) {
+				if(sp.getName().contains(searchValue)) {
+					find.add(sp);
+				}
+			}
+		} else if(criterion.equals("type")) {
+			for(SportsFacility sp : facilitys.values()) {
+				if(sp.getType().toString().contains(searchValue)) {
+					find.add(sp);
+				}
+			}
+		} else if(criterion.equals("location")){
+			for(SportsFacility sp : facilitys.values()) {
+				if(sp.getLocation().getCity().contains(searchValue) || sp.getLocation().getStreet().contains(searchValue)) {
+					find.add(sp);
+				}
+			}
+		} else {
+			for(SportsFacility sp : facilitys.values()) {
+				if(sp.getAverage() == Double.parseDouble(searchValue)) {		//crazy opasno
+					find.add(sp);
+				}
+			}
+		}
+		return find;
+	}
+	
 	public SportsFacility save(SportsFacility facility) {
 		Integer maxId = -1;
 		for (int id : facilitys.keySet()) {

@@ -33,10 +33,10 @@ public class LoginService {
 	public void init() {
 		// Ovaj objekat se instancira vi�e puta u toku rada aplikacije
 		// Inicijalizacija treba da se obavi samo jednom
-		if (ctx.getAttribute("userDAO") == null) {
+		if (ctx.getAttribute("korisnikDao") == null) {
 	    	String contextPath = ctx.getRealPath("");
 	    	ProjectStartup.getInstance(contextPath);
-			ctx.setAttribute("userDAO", new UserDAO(contextPath));
+			ctx.setAttribute("korisnikDao", new KorisnikDAO(contextPath));
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class LoginService {
 		if (loggedKorisnik == null) {
 			return Response.status(400).entity("Invalid username and/or password").build();
 		}
-		request.getSession().setAttribute("Koeianik", loggedKorisnik);
+		request.getSession().setAttribute("Korisnik", loggedKorisnik);
 		return Response.status(200).build();
 	}
 	
@@ -66,6 +66,6 @@ public class LoginService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Korisnik login(@Context HttpServletRequest request) {
-		return (Korisnik) request.getSession().getAttribute("user");
+		return (Korisnik) request.getSession().getAttribute("korisnik");
 	}
 }

@@ -1,14 +1,20 @@
 var app = new Vue({
 	el: '#sportFacility',
 	data: {
-		sportObjects: null
+		sportObjects: null,
+		searchValue: "",
+		searchType: "",
+		nesto: ""
 	},
 	mounted() {
 		axios.get('rest/facility')
 			.then(response => (this.sportObjects = response.data))
 	},
 	methods: {
-		
+		searchFacilitys: function () {
+			axios.get('rest/facility/searchFacility',{ params: { searchValue: this.searchValue, criterion: this.searchType}} )
+			.then(response => (this.sportObjects = response.data))
+		}
 		
 		
 	}
