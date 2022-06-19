@@ -173,7 +173,6 @@ public class KorisnikDAO {
 	}
 	
 
-	
 	public Korisnik change(Korisnik korisnik) {
 		korisnici.put(korisnik.getId(), korisnik);
 		return korisnik;

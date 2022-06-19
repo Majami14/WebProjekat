@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Sports facility</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script src="jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+	<div id ="sportsFacility">
+
+		<table border="1" id="tabela">
+			<thead>
+				<tr bgcolor="lightgrey">
+					<th>ID</th>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Status</th>
+                    <th>Loaction</th>
+                    <th>Average</th>
+                    <th>Start</th>
+                    <th>End</th>
+				</tr>
+			</thead>
+
+			<tr v-for="sp in sportsFacility">
+				<td>{{sp.id }}</td>
+                <td>{{sp.name }}</td>
+                <td>{{sp.type }}</td>
+                <td>{{sp.status }}</td>
+                <td>{{sp.location.street}}  {{sp.location.number}}  {{sp.location.city}}</td>
+                <td>{{sp.average }}</td>
+                <td>{{sp.startTime }}</td>
+                <td>{{sp.endTime }}</td>
+			</tr>
+		</table>
+
+		
+	</div>
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="app/sportsFacility.js"></script>
+</body>
+
+</html>
+

@@ -17,6 +17,7 @@ import beans.Comment;
 import beans.Korisnik;
 import beans.Location;
 import beans.SportsFacility;
+import beans.Training;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,7 +37,7 @@ public class CommentDAO {
 		
 	}
 	
-	private CommentDAO(String contextPath) {
+	public CommentDAO(String contextPath) {
 		loadComment(contextPath);
 	}
 	
@@ -83,14 +84,20 @@ public class CommentDAO {
 					continue;
 				st = new StringTokenizer(line, ";");
 				while (st.hasMoreTokens()) {
-					String comment = st.nextToken().trim();
+					
 					int id  =Integer.parseInt(st.nextToken().trim());
+					
+					int korisnikID = Integer.parseInt(st.nextToken().trim());
+					Korisnik kor = new Korisnik(korisnikID);
+					
 					int sportFacilityId = Integer.parseInt(st.nextToken().trim());
 					SportsFacility facility = new SportsFacility(sportFacilityId);
+					
+					String comment = st.nextToken().trim();
 					int grade  =Integer.parseInt(st.nextToken().trim());
 					
-					//comments.put(id,sportFacilityId,facility,grade);
-	
+					comments.put(id, new Comment(id,kor,facility,comment,grade));
+
 				}
 			
 			}

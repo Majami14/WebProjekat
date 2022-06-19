@@ -27,7 +27,7 @@ public class TypeCustomerDAO {
 	/***
 	 * @param contextPath Putanja do aplikacije u Tomcatu. Može se pristupiti samo iz servleta.
 	 */
-	private TypeCustomerDAO(String contextPath) {
+	public TypeCustomerDAO(String contextPath) {
 		loadCustomer(contextPath);
 	}
 	

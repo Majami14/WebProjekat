@@ -1,5 +1,6 @@
 package dao;
 
+import beans.Comment;
 import beans.DateHelper;
 import beans.Dues;
 import beans.DuesType;
@@ -26,7 +27,7 @@ public class DuesDAO {
 	 * @param contextPath Putanja do aplikacije u Tomcatu. MoÅ¾e se pristupiti samo
 	 *                    iz servleta.
 	 */
-	private DuesDAO(String contextPath) {
+	public DuesDAO(String contextPath) {
 		loadDues(contextPath);
 	}
 
@@ -53,6 +54,10 @@ public class DuesDAO {
 	 * return membership; }
 	 */
 
+	public Dues find(int id) {
+		return dues.get(id);
+	}
+	
 	public Collection<Dues> findAll() {
 		return dues.values();
 	}
@@ -77,9 +82,7 @@ public class DuesDAO {
 	 * 
 	 * @param contextPath Putanja do aplikacije u Tomcatu
 	 */
-	public Dues find(int id) {
-		return dues.get(id);
-	}
+	
 
 	public void loadDues(String contextPath) {
 		BufferedReader in = null;

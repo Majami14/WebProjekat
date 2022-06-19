@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import beans.Comment;
 import beans.Dues;
 import beans.Korisnik;
 import beans.Location;
@@ -27,6 +28,7 @@ public class TrainingDAO {
 	}
 
 	private TrainingDAO(String contextPath) {
+
 		loadTraining(contextPath);
 	}
 
@@ -45,6 +47,10 @@ public class TrainingDAO {
 	 * return membership; }
 	 */
 
+	public Training find(int id) {
+		return training.get(id);
+	}
+	
 	public Collection<Training> findAll() {
 		return training.values();
 	}
@@ -63,9 +69,7 @@ public class TrainingDAO {
 		return trainings;
 	}
 
-	public Training find(int id) {
-		return training.get(id);
-	}
+	
 
 	/**
 	 * <<<<<<< HEAD UÄ�itava korisnike iz WebContent/users.txt fajla i dodaje ih u

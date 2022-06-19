@@ -7,8 +7,9 @@ public class Comment {
 	private String comment;
 	private int grade;
 	
-	public Comment(Korisnik user,SportsFacility facility, String comment, int grade) {
+	public Comment(int id,Korisnik user,SportsFacility facility, String comment, int grade) {
 		super();
+		this.id = id;
 		this.user = user;
 		this.facility = facility;
 		this.comment = comment;

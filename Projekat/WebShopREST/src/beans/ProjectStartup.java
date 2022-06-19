@@ -34,6 +34,7 @@ public class ProjectStartup {
 		
 
 		KorisnikDAO.getInstance().connectKorisnikDues();
+
 		KorisnikDAO.getInstance().linkUserAndVisitedObject(contextPath);
 		KorisnikDAO.getInstance().connectKorisnikSportsFacility();
 		KorisnikDAO.getInstance().connectKorisnikTypeCustomer();
@@ -41,6 +42,7 @@ public class ProjectStartup {
 		TrainingHistoryDAO.getInstance().connectTrainingHistoryTraining();
 		TrainingHistoryDAO.getInstance().connectBuyerKorisnik();
 		TrainingHistoryDAO.getInstance().connectCoachKorisnik();
+
 	}
 	
 	
