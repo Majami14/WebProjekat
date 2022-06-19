@@ -4,11 +4,15 @@ var app = new Vue({
 		sportObjects: null,
 		searchValue: "",
 		searchType: "",
-		nesto: ""
+		nesto: "",
+		loggedKorisnik: {}
+		
 	},
 	mounted() {
 		axios.get('rest/facility')
 			.then(response => (this.sportObjects = response.data))
+		axios.get('rest/currentUser').then(response=>(this.loggedKorisnik = response.data))
+
 	},
 	methods: {
 		searchFacilitys: function () {

@@ -47,6 +47,8 @@
 		</select>
 		<p><button  v-on:click="searchFacilitys()"> Search </button></p>
 		
+		<label v-bind:hidden="loggedKorisnik=='{}'">{{loggedKorisnik.userName}}</label>
+		
 	</div>
 	<script src="js/vue.js"></script>
 	<script src="js/axios.js"></script>

@@ -1,13 +1,13 @@
 $(document).ready(function() {
 	$('#forma').submit(function(event) {
 		event.preventDefault();
-		let username = $('input[name="username"]').val();
+		let username = $('input[name="userName"]').val();
 		let password = $('input[name="password"]').val();
 		$('#error').hide();
 		// url: bazna putanja do rest servisa / putanja do servisa / putanja do metode u tom servisu 
 		$.post({
 			url: 'rest/login',
-			data: JSON.stringify({username: username, password: password}),
+			data: JSON.stringify({username: userName, password: password}),
 			contentType: 'application/json',
 			success: function(product) {
 				$('#success').text('Korisnik je uspesno prijavljen.');
