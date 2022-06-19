@@ -111,7 +111,7 @@ public class User implements Serializable {
 		} else if (!username.equals(other.username))
 			return false;
 		return true;
-	}
+		}
 
 	@Override
 	public String toString() {
@@ -119,6 +119,8 @@ public class User implements Serializable {
 				+ ", password=" + password + "]";
 	}
 
+	
+	
 	private static final long serialVersionUID = 6640936480584723344L;
 
 }

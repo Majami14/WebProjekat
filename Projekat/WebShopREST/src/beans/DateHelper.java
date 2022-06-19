@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 public class DateHelper {
 
-	public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
-
+	public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	
 	public static String dateToString(LocalDate date) {
 		return date.format(dateFormat);
 	}

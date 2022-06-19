@@ -1,9 +1,10 @@
 package dao;
 
 import java.io.BufferedReader;
-
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,6 +26,7 @@ public class KorisnikDAO {
 	private Map<Integer, Korisnik> korisnici = new HashMap<>();
 
 	private static KorisnikDAO korisnikInstance = null;
+	private static String contextPath = "";
 
 	private KorisnikDAO() {
 
@@ -96,6 +98,7 @@ public class KorisnikDAO {
 	 * @param contextPath Putanja do aplikacije u Tomcatu
 	 */
 	public void loadKorisnik(String contextPath) {
+		this.contextPath = contextPath;
 		BufferedReader in = null;
 		try {
 			File file = new File(contextPath + "/Baza/korisnici.txt");
@@ -172,6 +175,29 @@ public class KorisnikDAO {
 		}
 	}
 	
+	public void saveToFile() {
+		BufferedWriter out = null;
+		try {
+			File file = new File(contextPath + "/Baza/users.txt");
+			out = new BufferedWriter(new FileWriter(file));
+			String line;
+			StringTokenizer st;
+			for(Korisnik user : korisnici.values()) {
+				out.write(user.fileLine() + '\n');
+			}
+			
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();             
+		} finally {
+			if (out != null) {
+				try {
+					out.close();
+				}
+				catch (Exception e) { }
+			}
+		}
+	}
 
 	public Korisnik change(Korisnik korisnik) {
 		korisnici.put(korisnik.getId(), korisnik);

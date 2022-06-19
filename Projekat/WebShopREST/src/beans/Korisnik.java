@@ -20,6 +20,10 @@ public class Korisnik {
 	private TypeCustomer type;
 	private int coachId;
 
+	public Korisnik() {
+		this.history = new ArrayList<TrainingHistory>();
+	}
+	
 	public Korisnik(int id, String userName, String password, String firstName, String lastName, Gender gender,
 			LocalDate birthDate, Role role, ArrayList<TrainingHistory> history, Dues dues, SportsFacility facility,
 			int points, TypeCustomer type) {
@@ -91,12 +95,16 @@ public class Korisnik {
 		this.gender = gender;
 	}
 
-	public LocalDate getBirthDate() {
-		return birthDate;
+	public String getBirthDate() {
+		return DateHelper.dateToString(birthDate);
 	}
 
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthDate1(LocalDate dateOfBirth) {
+		this.birthDate = dateOfBirth;
+	}
+
+	public void setBirthDate(String dateOfBirth) {
+		this.birthDate = DateHelper.stringToDate(dateOfBirth);
 	}
 
 	public Role getRole() {
@@ -154,5 +162,10 @@ public class Korisnik {
 	public void setViewFacility(ArrayList<SportsFacility> viewFacility) {
 		this.viewFacility = viewFacility;
 	}
-
+	public String fileLine() {
+		return id + ";" + userName + ";" + password + ";" + firstName + ";" + lastName + ";" + ((gender == null)?-1:gender.ordinal()) + ";"
+				+ DateHelper.dateToString(birthDate) + ";" + ((role == null)?-1:role.ordinal()) + ";" + ((dues == null)?-1:dues.getId()) + ";"
+				+ ((facility == null)?-1:facility.getId()) + ";" + points + ";" + ((type == null)?-1:type.getId());
+	}
+	
 }
