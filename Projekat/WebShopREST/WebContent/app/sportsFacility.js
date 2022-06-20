@@ -5,12 +5,12 @@ var app = new Vue({
 		searchValue: "",
 		searchType: "",
 		nesto: "",
-		loggedUser: {}
+		loggedKorisnik: {}
 	},
 	mounted() {
 		axios.get('rest/facility')
 			.then(response => (this.sportObjects = response.data))
-		axios.get('rest/currentUser').then(response=>(this.loggedUser = response.data))
+		axios.get('rest/currentUser').then(response=>(this.loggedKorisnik = response.data))
 
 	},
 	
