@@ -13,6 +13,14 @@ public class Training {
 	public Training(int id) {
 		this.id = id;
 	}
+	
+	
+
+	public Training() {
+
+	}
+
+
 
 	public Training(String name, TrainingType type, SportsFacility sportFacility, int duration, Korisnik coach,
 			String description, String image, int id) {
@@ -91,4 +99,10 @@ public class Training {
 		this.id = id;
 	}
 
+	public String fileLine() {
+		return  id + ";" + Name + ";" + type
+				+ ";" + sportFacility + ";" + duration + ";" + ((coach == null) ? -1 : coach.getId()) + ";"
+				+ description + ";" + image;
+	}
+	
 }

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+	<div class="container" id="myProfileID">
+		<div class="title">My Profile</div>
+		<form @submit='createUser'>
+			<div class="user-details">
+
+
+				<div class="input-box">
+					<span class="details"></span>
+
+				</div>
+
+				<div class="input-box">
+					<span class="details">Name</span> <input type="text" name="name"
+						placeholder="Enter your name" required v-model="newUser1.name"
+						pattern="[A-Za-z]{1,32}">
+				</div>
+
+				<div class="input-box">
+					<span class="details">Surname</span> <input type="text"
+						name="surname" placeholder="Enter your surname" required
+						v-model="newUser1.surname" pattern="[A-Za-z]{1,32}">
+				</div>
+
+				<div class="input-box">
+					<span class="details">Birthday</span> <input type="date"
+						name="birthday" placeholder="Enter your birthday" required
+						v-model="newUser1.birthday">
+				</div>
+
+
+				<div class="input-box">
+					<span class="details">Gender</span> <select type="combobox"
+						class="combobox" v-model="newUser.gender" width="15" required
+						v-model="newUser.gender" size=1
+						style="width: 300px; height: 40px; border-radius: 5px; font-size: 16px">
+						<option value="Female">Female</option>
+						<option value="Male">Male</option>
+					</select>
+				</div>
+
+				<div class="input-box">
+					<span class="details">Username</span> <input type="text"
+						name="username" placeholder="Enter your username" required
+						v-model="newUser.user_name">
+				</div>
+
+				<div class="input-box">
+					<span class="details">Password</span> <input type="password"
+						name="password" placeholder="Enter your password" required
+						v-model="newUser.user_password">
+				</div>
+			
+
+				<div class="button">
+					<input type="submit" value="Update">
+
+				</div>
+
+			</div>
+		</form>
+		<p>{{error }}</p>
+	</div>
+
+
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="app/profile.js"></script>
+
+</body>
+</html>

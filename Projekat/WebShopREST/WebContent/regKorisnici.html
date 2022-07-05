@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Sports facility</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+
+</head>
+
+<body>
+	<div id ="regKorisnici">
+
+		<table border="1" id="tabela">
+			<thead>
+				<tr bgcolor="lightgrey">
+					<th>ID</th>
+					<th>Username</th>
+					<th>Password</th>
+					<th>First name</th>
+                    <th>Last name</th>
+                    <th>Gender</th>
+                    <th>Birth date</th>
+                    <th>Role</th>
+                    <th>Dues</th>
+                    <th>Sports facility</th>
+                    <th>Points</th>
+                    <th>Type of customer</th>
+                    <th>Coach</th>
+				</tr>
+			</thead>
+
+			<tr v-for="k in korisnici">
+				<td>{{k.id }}</td>
+                <td>{{k.userName }}</td>
+                <td>{{k.password }}</td>
+                <td>{{k.firstName }}</td>
+                <td>{{k.lastName}}</td>
+                <td>{{k.gender }}</td>
+                <td>{{k.birthDate}}</td>
+                <td>{{k.role}}</td>
+                <td>{{k.dues}}</td>
+                <td>{{k.facility }}</td>
+                <td>{{k.points }}</td>
+                <td>{{k.type}}</td>
+                <td>{{k.coachId}}</td>
+			</tr>
+		</table>
+		
+		Pretraga : <input type="text" name="searchValue" v-model="searchValue"> 
+		<select name="searchTypes" v-model="searchType">
+			<option value="name"> Name </option>
+			
+			<option value="type"> Type </option>
+			<option value="location"> Location </option>
+			<option value="average"> Average </option>
+		</select>
+		<p><button  v-on:click="searchFacilitys()"> Search </button></p>
+		
+
+		
+	</div>
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="app/regKorisnici.js"></script>
+</body>
+
+</html>
+

@@ -14,9 +14,7 @@ import javax.ws.rs.core.Response;
 
 import beans.Korisnik;
 import beans.ProjectStartup;
-import beans.User;
 import dao.KorisnikDAO;
-import dao.UserDAO;
 
 @Path("")
 public class LoginService {
@@ -65,7 +63,8 @@ public class LoginService {
 	@Path("/currentUser")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Korisnik login(@Context HttpServletRequest request) {
-		return (Korisnik) request.getSession().getAttribute("korisnik");
+	public Korisnik curent(@Context HttpServletRequest request) {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("Korisnik");
+		return korisnik;
 	}
 }

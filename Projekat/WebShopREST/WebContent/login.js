@@ -8,13 +8,18 @@ var app = new Vue({
 	},
 	mounted() {},
 	methods:{
-		loginUser: function () {
-			alert("Nesto");
-			console.log("Nesto2");
-			axios.post('rest/login', this.userName, this.password)
+		loginUser: function (event) {
+			axios.post('rest/login', {userName: this.userName, password: this.password})
 				.then((response) => {
-					alert('User created successfully')
-                })
+					alert('User logged in successfully.')
+			   }).catch(() =>{
+					alert('not valid username od password')
+					event.preventDefault();
+					return;
+				})
+				event.preventDefault();
+				return;
 		}
 	}
 });
+

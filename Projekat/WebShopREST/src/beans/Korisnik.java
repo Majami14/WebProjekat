@@ -24,6 +24,7 @@ public class Korisnik {
 		this.history = new ArrayList<TrainingHistory>();
 	}
 	
+	
 	public Korisnik(int id, String userName, String password, String firstName, String lastName, Gender gender,
 			LocalDate birthDate, Role role, ArrayList<TrainingHistory> history, Dues dues, SportsFacility facility,
 			int points, TypeCustomer type) {
@@ -43,6 +44,8 @@ public class Korisnik {
 		this.type = type;
 	}
 
+	
+	
 	public Korisnik(int coachId) {
 		this.coachId = coachId;
 	}
@@ -162,6 +165,7 @@ public class Korisnik {
 	public void setViewFacility(ArrayList<SportsFacility> viewFacility) {
 		this.viewFacility = viewFacility;
 	}
+	
 	public String fileLine() {
 		return id + ";" + userName + ";" + password + ";" + firstName + ";" + lastName + ";" + ((gender == null)?-1:gender.ordinal()) + ";"
 				+ DateHelper.dateToString(birthDate) + ";" + ((role == null)?-1:role.ordinal()) + ";" + ((dues == null)?-1:dues.getId()) + ";"

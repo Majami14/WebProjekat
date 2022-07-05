@@ -1,8 +1,10 @@
 package dao;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,11 +14,14 @@ import java.util.StringTokenizer;
 import beans.Location;
 import beans.SportsFacility;
 import beans.Status;
+import beans.TrainingHistory;
 import beans.TypeCustomer;
 import beans.TypeName;
 
 public class TypeCustomerDAO {
 	private static TypeCustomerDAO Instance = null;
+	private static String contextPath = "";
+
 	private Map<Integer, TypeCustomer> customers = new HashMap<>();
 	
 	
@@ -63,6 +68,7 @@ public class TypeCustomerDAO {
 	
 	public void loadCustomer(String contextPath) {
 		BufferedReader in = null;
+		this.contextPath = contextPath;
 		try {
 			File file = new File(contextPath + "/Baza/customer.txt");
 			in = new BufferedReader(new FileReader(file));
@@ -107,5 +113,30 @@ public class TypeCustomerDAO {
 	
 	public TypeCustomer delete(int id) {
 		return customers.remove(id);
+	}
+	
+	public void saveToFile() {
+		BufferedWriter out = null;
+		try {
+
+			File file = new File(contextPath + "/Baza/customer.txt");
+			out = new BufferedWriter(new FileWriter(file));
+			String line;
+			StringTokenizer st;
+			for(TypeCustomer customer : customers.values()) {
+				out.write(customer.fileLine() + '\n');
+			}
+			
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();             
+		} finally {
+			if (out != null) {
+				try {
+					out.close();
+				}
+				catch (Exception e) { }
+			}
+		}
 	}
 }

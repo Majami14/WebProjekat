@@ -1,8 +1,10 @@
 package dao;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import beans.TypeFacility;
 
 public class SportsFacilityDAO {
 	private static SportsFacilityDAO Instance = null;
+	private static String contextPath = "";
 
 	private Map<Integer, SportsFacility> facilitys = new HashMap<>();
 
@@ -94,6 +97,7 @@ public class SportsFacilityDAO {
 
 	public void loadFacility(String contextPath) {
 		BufferedReader in = null;
+		this.contextPath = contextPath;
 		try {
 			File file = new File(contextPath + "/Baza/facilitys.txt");
 			in = new BufferedReader(new FileReader(file));
@@ -166,6 +170,31 @@ public class SportsFacilityDAO {
 					facility.setLocation(location);
 					break;
 				}
+			}
+		}
+	}
+	
+	public void saveToFile() {
+		BufferedWriter out = null;
+		try {
+
+			File file = new File(contextPath + "/Baza/facilitys.txt");
+			out = new BufferedWriter(new FileWriter(file));
+			String line;
+			StringTokenizer st;
+			for(SportsFacility sport : facilitys.values()) {
+				out.write(sport.fileLine() + '\n');
+			}
+			
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();             
+		} finally {
+			if (out != null) {
+				try {
+					out.close();
+				}
+				catch (Exception e) { }
 			}
 		}
 	}

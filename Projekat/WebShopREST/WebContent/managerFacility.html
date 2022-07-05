@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Manager</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+
+</head>
+
+<body>
+	<div id ="managerFacility">
+
+		<table border="1" id="tabela">
+			<thead>
+				<tr bgcolor="lightgrey">
+					<th>ID</th>
+					<th>Sports facility</th>
+					<th>Trainer</th>
+					<th>User</th>
+				</tr>
+			</thead>
+
+			<tr v-for="k in managerFacility">
+				<td>{{k.id }}</td>
+                <td>{{k.facility }}</td>
+                <td>{{k.coachId }}</td>
+                <td>{{k.firstName}}  {{k.lastName}}  {{k.userName}}</td>
+			</tr>
+		</table>
+		
+		Pretraga : <input type="text" name="searchValue" v-model="searchValue"> 
+		<select name="searchTypes" v-model="searchType">
+			<option value="name"> Name </option>
+			
+			<option value="type"> Type </option>
+			<option value="location"> Location </option>
+			<option value="average"> Average </option>
+		</select>
+		<p><button  v-on:click="searchFacilitys()"> Search </button></p>
+		
+
+		
+	</div>
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="app/managerFacility.js"></script>
+</body>
+
+</html>
+

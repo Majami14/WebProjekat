@@ -1,11 +1,11 @@
 var app = new Vue({
-	el: '#registrationFrom',
+	el: '#managerRegistrationFrom',
 	data: {
 		newUser: {},
 		error: ''
 	},
 	mounted() {
-		this.newUser = { id: '', userName: null, password: null, firstName : null, lastName : null, gender : null, birthDate : null, role : 'CUSTOMER' }
+		this.newUser = { id: '', userName: null, password: null, firstName : null, lastName : null, gender : null, birthDate : null, role : 'MANAGER' }
 	},
 	methods: {
 		createUser: function (event) {
@@ -27,5 +27,3 @@ var app = new Vue({
 		}
 	}
 });
-
-

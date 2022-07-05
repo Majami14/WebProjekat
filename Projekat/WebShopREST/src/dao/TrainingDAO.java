@@ -1,8 +1,10 @@
 package dao;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,6 +24,8 @@ public class TrainingDAO {
 
 	private static TrainingDAO trainingInstance = null;
 	private Map<Integer, Training> training = new HashMap<>();
+	private static String contextPath = "";
+
 
 	private TrainingDAO() {
 
@@ -83,6 +87,7 @@ public class TrainingDAO {
 	 */
 	public void loadTraining(String contextPath) {
 		BufferedReader in = null;
+		this.contextPath = contextPath;
 		try {
 			File file = new File(contextPath + "/Baza/training.txt");
 			in = new BufferedReader(new FileReader(file));
@@ -104,8 +109,13 @@ public class TrainingDAO {
 					int sportFacilityId = Integer.parseInt(st.nextToken().trim());
 					SportsFacility facility = new SportsFacility(sportFacilityId);
 					int duration = Integer.parseInt(st.nextToken().trim());
+					
 					int coachId = Integer.parseInt(st.nextToken().trim());
-					Korisnik coach = new Korisnik(coachId);
+					Korisnik coach = null;
+					if (coachId != -1) {
+						coach = new Korisnik(coachId);
+					}
+					
 					String description = st.nextToken().trim();
 					String image = st.nextToken().trim();
 					int id = Integer.parseInt(st.nextToken().trim());
@@ -156,7 +166,11 @@ public class TrainingDAO {
 
 	public void connectTrainingCoach() {
 		ArrayList<Korisnik> korisnici = new ArrayList<Korisnik>(KorisnikDAO.getInstance().findAll());
+		
 		for (Training trening : training.values()) {
+			if (trening.getCoach() == null) {
+				continue;
+			}
 			int idRequired = trening.getCoach().getId();
 
 			for (Korisnik korisnik : korisnici) {
@@ -167,4 +181,28 @@ public class TrainingDAO {
 			}
 		}
 	}
+	public void saveToFile() {
+		BufferedWriter out = null;
+		try {
+			File file = new File(contextPath + "/Baza/training.txt");
+			out = new BufferedWriter(new FileWriter(file));
+			String line;
+			StringTokenizer st;
+			for(Training tr : training.values()) {
+				out.write(tr.fileLine() + '\n');
+			}
+			
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();             
+		} finally {
+			if (out != null) {
+				try {
+					out.close();
+				}
+				catch (Exception e) { }
+			}
+		}
+	}
+	
 }

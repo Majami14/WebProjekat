@@ -21,8 +21,11 @@ public class Location {
 		this.number = number;
 		this.city = city;
 		this.post = post;
-	}
+	}	
 	
+	public Location() {
+
+	}
 	public int getId() {
 		return id;
 	}
@@ -64,6 +67,12 @@ public class Location {
 	}
 	public void setPost(String post) {
 		this.post = post;
+	}
+
+	public String fileLine() {
+		return id + ";" + length + ";" + width
+				+ ";" + street + ";" + number + ";" + city + ";"
+				+ post;
 	}
 	
 	

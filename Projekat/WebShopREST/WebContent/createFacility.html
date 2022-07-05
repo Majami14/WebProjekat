@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Registration form</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="styles.css">
+<script src="jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+	<form id="createFacilityForm" @submit='createFacility'>
+		<table>
+			<tr>
+				<td>Name</td>
+				<td><input type="text" name="name" v-model="newFacility.name"></td>
+			</tr>
+			<tr>
+				<td>Type</td>
+				<td><input type="radio" id="gym" name="type"
+					v-model="newFacility.type"> <Label for="gym">Gym</Label> <input
+					type="radio" name="type" v-model="newFacility.type"> <Label
+					for="swimmingpool">Swimming pool</Label> <input type="radio"
+					name="type" v-model="newFacility.type"> <Label
+					for="sportscenter">Sports center</Label> <input type="radio"
+					name="type" v-model="newFacility.type"> <Label
+					for="dancestudio">Dance studio</Label></td>
+			</tr>
+			<tr>
+				<td>Geo Length</td>
+				<td><input type="text" name="image"
+					v-model="newLocation.length"></td>
+			</tr>
+
+			<tr>
+				<td>Geo Width</td>
+				<td><input type="text" name="image"
+					v-model="newLocation.width"></td>
+			</tr>
+
+			<tr>
+				<td>City</td>
+				<td><input type="text" name="image"
+					v-model="newLocation.city"></td>
+			</tr>
+
+			<tr>
+				<td>Street</td>
+				<td><input type="text" name="image"
+					v-model="newLocation.street"></td>
+			</tr>
+
+			<tr>
+				<td>Number of place</td>
+				<td><input type="text" name="image"
+					v-model="newLocation.number"></td>
+			</tr>
+
+
+			<tr>
+				<td>Post number</td>
+				<td><input type="text" name="image"
+					v-model="newLocation.post"></td>
+			</tr>
+
+			
+		</table>
+
+
+
+		<select
+			v-bind:hidden="freeManagers === null || freeManagers.length == 0"
+			v-on:click="selectManager($event.target.value)">
+			<option v-for="fm in freeManagers">{{fm.firstName}}
+				{{fm.lastName}} {{fm.userName}}</option>
+		</select>
+
+		<button
+			v-bind:hidden="freeManagers !== null && freeManagers.length != 0"
+			v-on:click="showForm()">Register manager</button>
+
+
+
+		</div>
+		</div>
+
+		<div class="button">
+			<input type="submit" value="Confirm">
+
+		</div>
+
+
+	</form>
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="app/createFacility.js"></script>
+
+</body>
+</html>
+

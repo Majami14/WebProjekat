@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -16,11 +17,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import beans.Product;
 import beans.ProjectStartup;
 import beans.SportsFacility;
-import dao.ProductDAO;
 import dao.SportsFacilityDAO;
 @Path("/facility")
 public class SportsFacilityService {
@@ -103,6 +103,24 @@ public class SportsFacilityService {
 		return dao.search(searchValue, criterion);
 	}
 	
+	@POST
+	@Path("/setSelected")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response setSelected(SportsFacility object, @Context HttpServletRequest request) {
+		object = SportsFacilityDAO.getInstance().find(object.getId());
+		request.getSession().setAttribute("selected", object);
+		return Response.status(200).build();
+	}
+	
+	@GET
+	@Path("/getSelected")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public SportsFacility getSelected( @Context HttpServletRequest request) {
+		SportsFacility object = (SportsFacility)request.getSession().getAttribute("selected");
+		return object;
+	}
 	
 	
 }

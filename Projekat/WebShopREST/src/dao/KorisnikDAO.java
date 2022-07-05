@@ -48,8 +48,8 @@ public class KorisnikDAO {
 	}
 
 	/**
-	 * VraÄ‡a korisnika za prosleÄ‘eno korisniÄ�ko ime i Å¡ifru. VraÄ‡a null ako korisnik
-	 * ne postoji
+	 * VraÄ‡a korisnika za prosleÄ‘eno korisniÄ�ko ime i Å¡ifru. VraÄ‡a null ako
+	 * korisnik ne postoji
 	 * 
 	 * @param username
 	 * @param password
@@ -57,15 +57,15 @@ public class KorisnikDAO {
 	 */
 
 	public Korisnik find(String user_name, String user_password) {
-		
-		for(Korisnik korisnik : korisnici.values()) {
-			if(korisnik.getUserName().equals(user_name)) {
-				if(korisnik.getPassword().equals(user_password)) {
+
+		for (Korisnik korisnik : korisnici.values()) {
+			if (korisnik.getUserName().equals(user_name)) {
+				if (korisnik.getPassword().equals(user_password)) {
 					return korisnik;
 				}
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -77,7 +77,48 @@ public class KorisnikDAO {
 		return korisnici.values();
 	}
 
+	/*
+	 * public ArrayList<Korisnik> search(String searchValue, String criterion){
+	 * ArrayList<Korisnik> find = new ArrayList<Korisnik>();
+	 * if(criterion.equals("name")) { for(SportsFacility sp : facilitys.values()) {
+	 * if(sp.getName().contains(searchValue)) { find.add(sp); } } } else
+	 * if(criterion.equals("type")) { for(SportsFacility sp : facilitys.values()) {
+	 * if(sp.getType().toString().contains(searchValue)) { find.add(sp); } } } else
+	 * if(criterion.equals("location")){ for(SportsFacility sp : facilitys.values())
+	 * { if(sp.getLocation().getCity().contains(searchValue) ||
+	 * sp.getLocation().getStreet().contains(searchValue)) { find.add(sp); } } }
+	 * else { for(SportsFacility sp : facilitys.values()) { if(sp.getAverage() ==
+	 * Double.parseDouble(searchValue)) { //crazy opasno find.add(sp); } } } return
+	 * find; }
+	 */
+
+	
+	public Korisnik change(Korisnik korisnik) {
+		korisnici.put(korisnik.getId(), korisnik);
+		if(korisnik.getFacility() != null) {
+			int id = korisnik.getFacility().getId();
+			SportsFacility object = SportsFacilityDAO.getInstance().find(id);
+			korisnik.setFacility(object);
+		}
+		if(korisnik.getDues() != null) {
+			int id = korisnik.getDues().getId();
+			Dues mem = DuesDAO.getInstance().find(id);
+			korisnik.setDues(mem);
+		}
+		saveToFile();
+		return korisnik;
+	}
+	
+	
 	public Korisnik save(Korisnik korisnik) {
+		if (korisnik.getRole() == Role.CUSTOMER) {
+			TypeCustomer type = new TypeCustomer(0);
+			type.setType(TypeName.BRONZE);
+			type.setDiscount(0);
+			type.setPoints(0);
+			type = TypeCustomerDAO.getInstance().save(type);
+			korisnik.setType(type); // ?
+		}
 		Integer maxId = -1;
 		for (int id : korisnici.keySet()) { // da li je dobar id ili treba idk?
 			int idNum = id;
@@ -99,8 +140,8 @@ public class KorisnikDAO {
 	 * @param contextPath Putanja do aplikacije u Tomcatu
 	 */
 	public void loadKorisnik(String contextPath) {
-		this.contextPath = contextPath;
 		BufferedReader in = null;
+		this.contextPath = contextPath;
 		try {
 			File file = new File(contextPath + "/Baza/korisnici.txt");
 			in = new BufferedReader(new FileReader(file));
@@ -129,20 +170,25 @@ public class KorisnikDAO {
 					Role roleFromFile = roles[role];
 
 					int duesId = Integer.parseInt(st.nextToken().trim());
-					Dues dues = new Dues(duesId);
+					Dues dues = null;
+					if (duesId != -1) {
+						dues = new Dues(duesId);
+					}
+
 					int sportFacilityId = Integer.parseInt(st.nextToken().trim());
-					SportsFacility facility = new SportsFacility(sportFacilityId);
+					SportsFacility facility = null;
+					if (sportFacilityId != -1) {
+						facility = new SportsFacility(sportFacilityId);
+					}
 
 					int points = Integer.parseInt(st.nextToken().trim());
 
 					int idType = Integer.parseInt(st.nextToken().trim());
 					TypeCustomer customer = new TypeCustomer(idType);
 
-
 					korisnici.put(id,
 							new Korisnik(id, userName, password, firstName, lastName, genderFromFile, birthDate,
-									roleFromFile, new ArrayList<TrainingHistory>(), dues, facility, points,
-									customer));
+									roleFromFile, new ArrayList<TrainingHistory>(), dues, facility, points, customer));
 				}
 				// int id, String userName, String password, String firstName, String lastName,
 				// Gender gender,
@@ -163,59 +209,46 @@ public class KorisnikDAO {
 	}
 
 	public Korisnik check(String username, String password) {
-		for(Korisnik korisnik : korisnici.values()) {
-			if(korisnik.getUserName().equals(username)) {
-				if(korisnik.getPassword().equals(password)) {
+		for (Korisnik korisnik : korisnici.values()) {
+			if (korisnik.getUserName().equals(username)) {
+				if (korisnik.getPassword().equals(password)) {
 					return korisnik;
 				}
 			}
 		}
 		return null;
 	}
+
 	
-	public void connectKorisnikDues() {
-		ArrayList<Dues> duess=new ArrayList<Dues>(DuesDAO.getInstance().findAll());
-		for(Korisnik korisnik : korisnici.values()) {
-			int idWanted = korisnik.getDues().getId();
-			for(Dues dues : duess) {
-				if(dues.getId()==idWanted) {
-					korisnik.setDues(dues);
-					dues.setBuyer(korisnik);
-					break;
-				}
-			}
-		}
-	}
-	
+
 	public void saveToFile() {
 		BufferedWriter out = null;
 		try {
-			File file = new File(contextPath + "/Baza/users.txt");
+			File file = new File(contextPath + "/Baza/korisnici.txt");
 			out = new BufferedWriter(new FileWriter(file));
 			String line;
 			StringTokenizer st;
-			for(Korisnik user : korisnici.values()) {
+			for (Korisnik user : korisnici.values()) {
 				out.write(user.fileLine() + '\n');
 			}
-			
-			
+
 		} catch (Exception ex) {
-			ex.printStackTrace();             
+			ex.printStackTrace();
 		} finally {
 			if (out != null) {
 				try {
 					out.close();
+				} catch (Exception e) {
 				}
-				catch (Exception e) { }
 			}
 		}
 	}
 
-	public Korisnik change(Korisnik korisnik) {
-		korisnici.put(korisnik.getId(), korisnik);
-		return korisnik;
-	}
-	
+//public Korisnik change(Korisnik korisnik) {
+		//korisnici.put(korisnik.getId(), korisnik);
+		//return korisnik;
+	//}
+
 	public void linkUserAndVisitedObject(String contextPath) {
 		BufferedReader in = null;
 		try {
@@ -232,51 +265,99 @@ public class KorisnikDAO {
 					int userId = Integer.parseInt(st.nextToken().trim());
 					int objectId = Integer.parseInt(st.nextToken().trim());
 					Korisnik user = find(userId);
-					SportsFacility sObject= SportsFacilityDAO.getInstance().find(objectId);
-					
+					SportsFacility sObject = SportsFacilityDAO.getInstance().find(objectId);
+
 					user.getViewFacility().add(sObject);
 				}
-			
+
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();             
+			ex.printStackTrace();
 		} finally {
 			if (in != null) {
 				try {
 					in.close();
+				} catch (Exception e) {
 				}
-				catch (Exception e) { }
+			}
+		}
+	}
+	
+	public ArrayList<Korisnik> getAllFreeManagers(){
+		ArrayList<Korisnik> freeManagers = new ArrayList<Korisnik>();
+		
+		for(Korisnik user : korisnici.values()) {
+			if(user.getRole() == Role.MANAGER) {
+				if(user.getFacility() == null) {
+					freeManagers.add(user);
+				}
+			}
+		}
+		return freeManagers;
+		
+	}
+
+	public void connectKorisnikDues() {
+		ArrayList<Dues> duess = new ArrayList<Dues>(DuesDAO.getInstance().findAll());
+		for (Korisnik korisnik : korisnici.values()) {
+			if (korisnik.getDues() == null) {
+				continue;
+			}
+			int idWanted = korisnik.getDues().getId();
+			for (Dues dues : duess) {
+				if (dues.getId() == idWanted) {
+					korisnik.setDues(dues);
+					dues.setBuyer(korisnik);
+					break;
+				}
+			}
+		}
+	}
+	
+	public void connectKorisnikSportsFacility() {
+		ArrayList<SportsFacility> sport = new ArrayList<SportsFacility>(SportsFacilityDAO.getInstance().findAll());
+		for (Korisnik korisnik : korisnici.values()) {
+			if (korisnik.getFacility() == null) {
+				continue;
+			}
+			int idWanted = korisnik.getFacility().getId();
+			for (SportsFacility sport1 : sport) {
+				if (sport1.getId() == idWanted) {
+					korisnik.setFacility(sport1);
+
+					break;
+				}
 			}
 		}
 	}
 
-	public void connectKorisnikSportsFacility() {
-		ArrayList<SportsFacility> sport=new ArrayList<SportsFacility>(SportsFacilityDAO.getInstance().findAll());
-		for(Korisnik korisnik : korisnici.values()) {
-			int idWanted = korisnik.getFacility().getId();
-			for(SportsFacility sport1 : sport ){
-				if(sport1.getId()==idWanted) {
-					korisnik.setFacility(sport1);
-					
-					break;
-				}
-			}
-		}
-	}
 	public void connectKorisnikTypeCustomer() {
-		ArrayList<TypeCustomer> custom=new ArrayList<TypeCustomer>(TypeCustomerDAO.getInstance().findAll());
-		for(Korisnik korisnik : korisnici.values()) {
+		ArrayList<TypeCustomer> custom = new ArrayList<TypeCustomer>(TypeCustomerDAO.getInstance().findAll());
+		for (Korisnik korisnik : korisnici.values()) {
+			if (korisnik.getType() == null) {
+				continue;
+			}
 			int idWanted = korisnik.getType().getId();
-			for(TypeCustomer person : custom ){
-				if(person.getId()==idWanted) {
+			for (TypeCustomer person : custom) {
+				if (person.getId() == idWanted) {
 					korisnik.setType(person);
-					
+
 					break;
 				}
 			}
 		}
 	}
+
 	public Korisnik delete(int id) {
 		return korisnici.remove(id);
+	}
+
+	public boolean existsUsername(String username) {
+		for (Korisnik korisnik : korisnici.values()) {
+			if (korisnik.getUserName().equals(username)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

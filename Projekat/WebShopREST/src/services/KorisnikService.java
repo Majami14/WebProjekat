@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
@@ -15,10 +16,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import beans.Korisnik;
 import beans.ProjectStartup;
+import beans.SportsFacility;
 import dao.KorisnikDAO;
+import dao.SportsFacilityDAO;
 
 @Path("/korisnik")
 public class KorisnikService {
@@ -51,9 +55,15 @@ public class KorisnikService {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Korisnik newKorisnik(Korisnik korisnik) {
+	public Response newObject(Korisnik korisnik) {
 		KorisnikDAO dao = (KorisnikDAO) ctx.getAttribute("korisnikDAO");
-		return dao.save(korisnik);
+		boolean retVal = dao.existsUsername(korisnik.getUserName());
+		if(retVal) {
+			return Response.status(400).entity("Invalid username and/or password").build();			
+		}
+		dao.save(korisnik);
+		return Response.status(200).build();
+		
 	}
 
 	@GET
@@ -75,11 +85,13 @@ public class KorisnikService {
 	 * .filter(korisnik -> korisnik.getUserName().equals(name)) .findFirst()
 	 * .orElse(null); }
 	 */
+	
+	
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Korisnik changeFacility(Korisnik korisnik, @PathParam("id") String id) {
+	public Korisnik changeFacility(Korisnik korisnik, @PathParam("id") int id) {
 		KorisnikDAO dao = (KorisnikDAO) ctx.getAttribute("korisnikDAO");
 		return dao.change(korisnik);
 	}
@@ -92,4 +104,13 @@ public class KorisnikService {
 		return dao.delete(id);
 	}
 
+	@GET
+	@Path("/freeManagers")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Korisnik> getFreeManagers() {
+		KorisnikDAO dao = (KorisnikDAO) ctx.getAttribute("korisnikDAO");
+		return dao.getAllFreeManagers();
+	}
+	
 }

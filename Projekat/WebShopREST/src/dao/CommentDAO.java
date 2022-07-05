@@ -20,8 +20,10 @@ import beans.SportsFacility;
 import beans.Training;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,6 +33,7 @@ import java.util.StringTokenizer;
 
 public class CommentDAO {
 	private static CommentDAO Instance = null;
+	private static String contextPath = "";
 	private Map<Integer, Comment> comments = new HashMap<>();
 	
 	private CommentDAO() {
@@ -73,6 +76,7 @@ public class CommentDAO {
 	
 	public void loadComment(String contextPath) {
 		BufferedReader in = null;
+		this.contextPath = contextPath;
 		try {
 			File file = new File(contextPath + "/Baza/comments.txt");
 			in = new BufferedReader(new FileReader(file));
@@ -149,4 +153,29 @@ public class CommentDAO {
 			}
 		} 
 	} 
+	
+	public void saveToFile() {
+		BufferedWriter out = null;
+		try {
+
+			File file = new File(contextPath + "/Baza/comments.txt");
+			out = new BufferedWriter(new FileWriter(file));
+			String line;
+			StringTokenizer st;
+			for(Comment comment : comments.values()) {
+				out.write(comment.fileLine() + '\n');
+			}
+			
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();             
+		} finally {
+			if (out != null) {
+				try {
+					out.close();
+				}
+				catch (Exception e) { }
+			}
+		}
+	}
 }

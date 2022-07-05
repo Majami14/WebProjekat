@@ -16,6 +16,14 @@ public class Comment {
 		this.grade = grade;
 	}
 	
+	
+	
+	public Comment() {
+		
+	}
+
+
+
 	public Korisnik getUser() {
 		return user;
 	} 
@@ -56,6 +64,12 @@ public class Comment {
 	public void setGrade(int grade) {
 		this.grade = grade;
 	}
+
+	public String fileLine() {
+		return  id + ";" + user + ";" + facility
+				+ ";" + comment + ";" + grade;
+	}
+	
 	
 	
 }

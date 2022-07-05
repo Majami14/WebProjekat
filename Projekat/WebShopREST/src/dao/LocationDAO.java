@@ -1,8 +1,10 @@
 package dao;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,14 +13,13 @@ import java.util.StringTokenizer;
 
 
 import beans.Status;
-import beans.User;
 import beans.Comment;
 import beans.DateHelper;
 import beans.Location;
 
 public class LocationDAO {
 	private static LocationDAO Instance = null;
-
+	private static String contextPath = "";
 	private Map<Integer, Location> locations = new HashMap<>();
 	
 	
@@ -86,6 +87,7 @@ public class LocationDAO {
 	 */
 	public void loadLocation(String contextPath) {
 		BufferedReader in = null;
+		this.contextPath = contextPath;
 		try {
 			File file = new File(contextPath + "/Baza/location.txt");
 			in = new BufferedReader(new FileReader(file));
@@ -131,4 +133,28 @@ public class LocationDAO {
 		return locations.remove(id);
 	}
 	
+	public void saveToFile() {
+		BufferedWriter out = null;
+		try {
+
+			File file = new File(contextPath + "/Baza/location.txt");
+			out = new BufferedWriter(new FileWriter(file));
+			String line;
+			StringTokenizer st;
+			for(Location location : locations.values()) {
+				out.write(location.fileLine() + '\n');
+			}
+			
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();             
+		} finally {
+			if (out != null) {
+				try {
+					out.close();
+				}
+				catch (Exception e) { }
+			}
+		}
+	}
 }

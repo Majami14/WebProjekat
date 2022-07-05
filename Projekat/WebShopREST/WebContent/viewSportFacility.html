@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sport Facility</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+<div class="container" id="viewSF">
+		<div class="title">Sport Facility</div>
+		<form>
+			<div class="user-details">
+
+
+				<div class="input-box">
+					<span class="details"></span>
+
+				</div>
+
+				<div class="input-box">
+
+					<span class="details">Name</span> <input type="text" name="name"
+						v-model="sf.name"
+						pattern="[A-Za-z]{1,32}" disabled>
+				</div>
+
+				<div class="input-box">
+					<span class="details">Type</span> <input type="text"
+						name="surname" 
+						v-model="sf.type" pattern="[A-Za-z]{1,32}" disabled>
+				</div>
+
+				<div class="input-box">
+					<span class="details">Working status</span> <input type="text"
+						name="birthday"
+						v-model="sf.status" disabled>
+				</div>
+
+
+				<div class="input-box">
+					<span class="details">Street</span> <input type="text"
+						v-model="sf.location.street" width="15" disabled>
+
+				</div>
+				<div class="input-box">
+					<span class="details">Number</span> <input type="text"
+						v-model="sf.location.number" width="15" disabled>
+
+				</div>
+				<div class="input-box">
+					<span class="details">City</span> <input type="text"
+						v-model="sf.location.city" width="15" disabled>
+
+				</div>
+
+				<div class="input-box">
+					<span class="details">Average grade</span> <input type="text"
+						name="grade" 
+						v-model="sf.average" disabled>
+				</div>
+
+				
+			</div>
+		</form>
+
+	</div>
+
+
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="app/viewSportFacility.js"></script>
+</body>
+</html>

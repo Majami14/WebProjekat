@@ -17,6 +17,12 @@ public class TypeCustomer {
 		this.discount = discount;
 		this.points = points;
 	}
+	
+	
+
+	public TypeCustomer() {
+	
+	}
 
 	public int getId() {
 		return id;
@@ -50,4 +56,8 @@ public class TypeCustomer {
 		this.points = points;
 	}
 
+	public String fileLine() {
+		return  id + ";" + type + ";" + discount
+				+ ";" + points;
+	}
 }

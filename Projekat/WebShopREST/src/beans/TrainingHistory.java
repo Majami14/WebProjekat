@@ -6,7 +6,7 @@ public class TrainingHistory {
 	private LocalDateTime dateTimeCheck;
 	private Training training;
 	private Korisnik buyer;
-	private Korisnik coach;
+	private Korisnik coach; //Moze biti prazno
 	private int id;
 	
 	
@@ -18,6 +18,14 @@ public class TrainingHistory {
 		this.coach = coach;
 		this.id = id;
 	}
+
+	
+	
+	public TrainingHistory() {
+
+	}
+
+
 
 	public Training getTraining() {
 		return training;
@@ -57,5 +65,10 @@ public class TrainingHistory {
 
 	public void setDateTimeCheck(LocalDateTime dateTimeCheck) {
 		this.dateTimeCheck = dateTimeCheck;
+	}
+	
+	public String fileLine() {
+		return  id + ";" + dateTimeCheck + ";" + training
+				+ ";" + buyer + ";" + ((coach == null) ? -1 : coach.getId());
 	}
 }

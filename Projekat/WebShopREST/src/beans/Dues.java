@@ -25,6 +25,12 @@ public class Dues {
 		TrainingNumbers = trainingNumbers;
 	}
 
+	
+	
+	public Dues() {
+	
+	}
+
 	public Dues(int duesId) {
 		this.id = duesId;
 	}
@@ -93,4 +99,10 @@ public class Dues {
 		TrainingNumbers = trainingNumbers;
 	}
 
+	public String fileLine() {
+		return id + ";" + idDues + ";" + type
+				+ ";" + type + ";" + paymentDate + ";" + validationDateTime + ";"
+				+ price + ";" + buyer + ";" + TrainingNumbers;
+	}
+	
 }
