@@ -5,10 +5,198 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="styles.css">
 <script src="jquery-3.3.1.min.js"></script>
+
+
+<style>
+.container {
+	max-width: 700px;
+	width: 100%;
+	background-color: #fff;
+	padding: 25px 30px;
+	border-radius: 5px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+	margin-left: 350px;
+}
+</style>
+
+<style>
+.container .title {
+	font-size: 25px;
+	font-weight: 500;
+	margin-left: 240px;
+	position: relative;
+	margin-bottom: 30px;
+}
+</style>
+
+<style>
+.container .title::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 3px;
+	width: 30px;
+	border-radius: 5px;
+	background: grey;
+}
+</style>
+
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+</style>
+
+<style>
+body {
+	height: 100vh;
+	display: inherit;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+
+}
+</style>
+
+<style>
+.content form .user-details {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 20px 0 12px 0;
+}
+</style>
+
+<style>
+form .button {
+	height: 45px;
+	margin: 35px 0
+}
+</style>
+
+<style>
+form .button1 {
+	height: 45px;
+	margin: 35px 0
+}
+</style>
+
+<style>
+form .button input {
+	height: 100%;
+	width: 40%;
+	border-radius: 5px;
+	border: none;
+	color: #fff;
+	font-size: 18px;
+	font-weight: 500;
+	letter-spacing: 1px;
+	margin-left: 195px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	background: gray;
+}
+</style>
+
+<style>
+form .button1 input {
+	height: 100%;
+	width: 80%;
+	border-radius: 5px;
+	border: none;
+	color: #fff;
+	font-size: 18px;
+	font-weight: 500;
+	letter-spacing: 1px;
+	margin-left: 50px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	background: gray;
+}
+</style>
+
+<style>
+form .user-details .input-box {
+	margin-bottom: 15px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 15px;
+	width: 170px;
+}
+</style>
+
+<style>
+form .input-box span.details {
+	display: block;
+	font-weight: 500;
+	margin-bottom: 5px;
+}
+</style>
+
+
+<style>
+.user-details .input-box input {
+	height: 45px;
+	width: 100%;
+	outline: none;
+	font-size: 16px;
+	border-radius: 5px;
+	padding-left: 15px;
+	border: 1px solid #ccc;
+	border-bottom-width: 2px;
+	transition: all 0.3s ease;
+}
+</style>
+
+
+<style>
+.user-details .input-box input:focus, .user-details .input-box input:valid
+	{
+	border-color: gray;
+}
+</style>
+
+
+<style>
+.column1 {
+	float: left;
+	width: 50%;
+}
+</style>
+
+<style>
+.column2 {
+	float: left;
+	width: 50%;
+	margin-top: 15px;
+}
+</style>
+
+<style>
+/* Clear floats after the columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+</style>
+
+
 </head>
 
-<body>
-	<form id="createFacilityForm" @submit='createFacility'>
+<body bgcolor=”#b7e1cb">
+
+	
+		<div class="container" id="createFacilityForm">
+		<div class="title">Create new sport facility</div>
+		<form @submit='createFacilityForm'>
+			<div class="user-details">
+	
+		
+
 		<table>
 			<tr>
 				<td>Name</td>
@@ -81,39 +269,7 @@
 		
 		<div class="input-box" v-bind:hidden="showRegisterForm == false">
 		
-		<table>
-			<tr>
-					<td>Name</td>
-					<td><input type="text" name="firstName" v-model="selectedManager.firstName"></td>
-				</tr>
-				<tr>
-					<td>Surname</td>
-					<td><input type="text" name="lastName" v-model="selectedManager.lastName"></td>
-				</tr>
-				<tr>
-					<td>User name</td>
-					<td><input type="text" name="userName" v-model="selectedManager.userName"></td>
-				</tr>
-				<tr>
-					<td>Password</td>
-					<td><input type="password" name="password" v-model="selectedManager.password"></td>
-				</tr>
-				<tr>
-					<td>Gender</td>
-					<td><input type="radio" id="male" value= "MALE" name="gender" v-model="selectedManager.gender">
-					<Label for="male">Male</Label>
-					<input type="radio" name="gender" value= "FEMALE" v-model="selectedManager.gender">
-					<Label for="female">Female</Label></td>
-				</tr>
-				<tr>
-					<td>Birth date</td>
-					<td><input type="date" name="birthDate" v-model="selectedManager.birthDate"></td>
-				</tr>
-				<tr>
-					<td><input type="submit" value="Pošalji"></td>
-				</tr>
-			</table>
-	
+		
 		
 	</form>
 	<script src="js/vue.js"></script>
