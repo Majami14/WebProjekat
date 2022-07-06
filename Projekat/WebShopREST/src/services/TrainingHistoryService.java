@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
@@ -19,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import beans.ProjectStartup;
 import beans.TrainingHistory;
 import dao.TrainingHistoryDAO;
+import dto.TrainingHistoryDTO;
 
 @Path("/history")
 public class TrainingHistoryService {
@@ -37,7 +39,7 @@ public class TrainingHistoryService {
 		if (ctx.getAttribute("trainingHistoryDAO") == null) {
 			String contextPath = ctx.getRealPath("");
 			ProjectStartup.getInstance(contextPath);
-			ctx.setAttribute("trainingHistoryDAO", new TrainingHistoryDAO(contextPath));
+			ctx.setAttribute("trainingHistoryDAO", TrainingHistoryDAO.getInstance());
 		}
 	}
 
@@ -93,5 +95,16 @@ public class TrainingHistoryService {
 		TrainingHistoryDAO dao = (TrainingHistoryDAO) ctx.getAttribute("TrainingHistoryDAO");
 		return dao.delete(id);
 	}
-
+	@GET
+	@Path("/getITforUser")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<TrainingHistoryDTO> getIstorijaTreningaZaKorisnika(@QueryParam("idKorisnika") int idKorisnika) {
+		TrainingHistoryDAO dao = (TrainingHistoryDAO) ctx.getAttribute("trainingHistoryDAO");
+		ArrayList<TrainingHistory> treninzi = (ArrayList<TrainingHistory>) dao.getIstorijaTreningaZaKorisnika(idKorisnika);
+		ArrayList<TrainingHistoryDTO> treninziDTO = new ArrayList<TrainingHistoryDTO>();
+		for(TrainingHistory istorija : treninzi) {
+			treninziDTO.add(new TrainingHistoryDTO(istorija));
+		}
+		return treninziDTO;
+	}
 }

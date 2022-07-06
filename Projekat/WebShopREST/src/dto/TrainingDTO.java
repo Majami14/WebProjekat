@@ -1,38 +1,27 @@
-package beans;
+package dto;
 
-public class Training {
+import beans.Korisnik;
+import beans.SportsFacility;
+import beans.Training;
+import beans.TrainingType;
+
+public class TrainingDTO {
 	private String name;
 	private TrainingType type;
 	private SportsFacility sportFacility;
 	private int duration;
-	private Korisnik coach;
 	private String description;
 	private String image;
 	private int id;
 
-	public Training(int id) {
-		this.id = id;
-	}
-	
-	
-
-	public Training() {
-
-	}
-
-
-
-	public Training(String name, TrainingType type, SportsFacility sportFacility, int duration, Korisnik coach,
-			String description, String image, int id) {
-		super();
-		this.name = name;
-		this.type = type;
-		this.sportFacility = sportFacility;
-		this.duration = duration;
-		this.coach = coach;
-		this.description = description;
-		this.image = image;
-		this.id = id;
+	public TrainingDTO(Training training) {
+		this.id = training.getId();
+		this.name = training.getName();
+		this.type = training.getType();
+		this.sportFacility = training.getSportFacility();
+		this.duration = training.getDuration();
+		this.description = training.getDescription();
+		this.image = training.getImage();
 	}
 
 	public String getName() {
@@ -67,14 +56,6 @@ public class Training {
 		this.duration = duration;
 	}
 
-	public Korisnik getCoach() {
-		return coach;
-	}
-
-	public void setCoach(Korisnik coach) {
-		this.coach = coach;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -99,10 +80,5 @@ public class Training {
 		this.id = id;
 	}
 
-	public String fileLine() {
-		return   name + ";" + type.ordinal()
-				+ ";" + sportFacility.getId() + ";" + duration + ";" + ((coach == null) ? -1 : coach.getId()) + ";"
-				+ description + ";" + image + ";" + id;
-	}
-	
+
 }

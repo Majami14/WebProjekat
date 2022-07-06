@@ -36,7 +36,7 @@ public class DuesService {
 		if (ctx.getAttribute("duesDAO") == null) {
 	    	String contextPath = ctx.getRealPath("");
 	    	ProjectStartup.getInstance(contextPath);
-			ctx.setAttribute("duesDAO", new DuesDAO(contextPath));
+			ctx.setAttribute("duesDAO", DuesDAO.getInstance());
 		}
 	}
 	

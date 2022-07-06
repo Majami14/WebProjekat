@@ -3,15 +3,24 @@ var app = new Vue({
 	data: {
 		newUser1: {},
 		error: '',
-		newUser: {}
+		newUser: {},
+		historyTraining: null
 	},
 	mounted() {
-		a = { asd: "asd", b: "asd" };
-		axios.get('rest/currentUser').then((response) => { this.newUser1 = response.data })
+		axios.get('rest/currentUser')
+			.then((response) => {
+				this.newUser1 = response.data;
+				axios.get('rest/history/getITforUser', { params: { idKorisnika: this.newUser1.id } }).
+					then((response) => {
+						this.historyTraining = response.data;
+					})
+			})
+
+
 	},
 	methods: {
 		createUser: function(event) {
-			axios.put('rest/korisnik/' + this.newUser.id, this.newUser)
+			axios.put('rest/korisnik/', this.newUser1)
 				.then((response) => {
 					alert('Podaci su uspesno promenjeni ')
 				})
@@ -19,4 +28,6 @@ var app = new Vue({
 		}
 	}
 });
+
+
 

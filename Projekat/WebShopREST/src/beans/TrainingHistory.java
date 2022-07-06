@@ -59,16 +59,16 @@ public class TrainingHistory {
 		this.id = id;
 	}
 
-	public LocalDateTime getDateTimeCheck() {
-		return dateTimeCheck;
+	public String getDateTimeCheck() {
+		return LocalDateTimeHelper.dateToString(dateTimeCheck);
 	}
 
-	public void setDateTimeCheck(LocalDateTime dateTimeCheck) {
-		this.dateTimeCheck = dateTimeCheck;
+	public void setDateTimeCheck(String dateTimeCheck) {
+		this.dateTimeCheck = LocalDateTimeHelper.stringToDate(dateTimeCheck);
 	}
 	
 	public String fileLine() {
-		return  id + ";" + dateTimeCheck + ";" + training
-				+ ";" + buyer + ";" + ((coach == null) ? -1 : coach.getId());
+		return  id + ";" + LocalDateTimeHelper.dateToString(dateTimeCheck) + ";" + training.getId()
+				+ ";" + buyer.getId() + ";" + ((coach == null) ? -1 : coach.getId());
 	}
 }

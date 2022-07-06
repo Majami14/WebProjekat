@@ -1,5 +1,5 @@
 var app = new Vue({
-	el: '#managerRegistrationFrom',
+	el: '#managerRegistrationForm',
 	data: {
 		newUser: {},
 		error: ''

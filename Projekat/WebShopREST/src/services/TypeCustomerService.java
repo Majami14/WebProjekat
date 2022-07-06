@@ -37,7 +37,7 @@ public class TypeCustomerService {
 		if (ctx.getAttribute("typeCustomerDAO") == null) {
 	    	String contextPath = ctx.getRealPath("");
 	    	ProjectStartup.getInstance(contextPath);
-			ctx.setAttribute("typeCustomerDAO", new TypeCustomerDAO(contextPath));
+			ctx.setAttribute("typeCustomerDAO", TypeCustomerDAO.getInstance());
 		}
 	}
 	

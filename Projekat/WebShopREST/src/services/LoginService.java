@@ -34,7 +34,7 @@ public class LoginService {
 		if (ctx.getAttribute("korisnikDao") == null) {
 	    	String contextPath = ctx.getRealPath("");
 	    	ProjectStartup.getInstance(contextPath);
-			ctx.setAttribute("korisnikDao", new KorisnikDAO(contextPath));
+			ctx.setAttribute("korisnikDao", KorisnikDAO.getInstance());
 		}
 	}
 	

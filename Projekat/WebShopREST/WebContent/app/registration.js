@@ -17,12 +17,12 @@ var app = new Vue({
 			}
 			axios.post('rest/korisnik/', this.newUser)
 				.then((response) => {
-					alert('New user registered.')
-                }).catch(() =>{
-					alert('username already exists.')
-					event.preventDefault();
-					return;
-				})
+					if(responde.data ===""){
+						alert('User name already exist.')
+					}else{
+						alert('Succesfuly registration')
+					}
+                })
 			event.preventDefault();
 		}
 	}

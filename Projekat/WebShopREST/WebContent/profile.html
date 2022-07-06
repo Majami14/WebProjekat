@@ -19,45 +19,59 @@
 
 				<div class="input-box">
 					<span class="details">Name</span> <input type="text" name="name"
-						placeholder="Enter your name" required v-model="newUser1.name"
-						pattern="[A-Za-z]{1,32}">
+						placeholder="Enter your name" required
+						v-model="newUser1.firstName" pattern="[A-Za-z]{1,32}">
 				</div>
 
 				<div class="input-box">
 					<span class="details">Surname</span> <input type="text"
 						name="surname" placeholder="Enter your surname" required
-						v-model="newUser1.surname" pattern="[A-Za-z]{1,32}">
+						v-model="newUser1.lastName" pattern="[A-Za-z]{1,32}">
 				</div>
 
 				<div class="input-box">
 					<span class="details">Birthday</span> <input type="date"
 						name="birthday" placeholder="Enter your birthday" required
-						v-model="newUser1.birthday">
+						v-model="newUser1.birthDate">
 				</div>
 
 
 				<div class="input-box">
 					<span class="details">Gender</span> <select type="combobox"
-						class="combobox" v-model="newUser.gender" width="15" required
-						v-model="newUser.gender" size=1
+						class="combobox" v-model="newUser1.gender" width="15" required
+						v-model="newUser1.gender" size=1
 						style="width: 300px; height: 40px; border-radius: 5px; font-size: 16px">
-						<option value="Female">Female</option>
-						<option value="Male">Male</option>
+						<option value="FEMALE">Female</option>
+						<option value="MALE">Male</option>
 					</select>
 				</div>
 
 				<div class="input-box">
 					<span class="details">Username</span> <input type="text"
 						name="username" placeholder="Enter your username" required
-						v-model="newUser.user_name">
+						v-model="newUser1.userName">
 				</div>
 
 				<div class="input-box">
 					<span class="details">Password</span> <input type="password"
 						name="password" placeholder="Enter your password" required
-						v-model="newUser.user_password">
+						v-model="newUser1.password">
 				</div>
-			
+				<table border="1" id="tabela">
+					<thead>
+						<tr bgcolor="lightgrey">
+							<th>Naziv</th>
+							<th>Sportski objekat</th>
+							<th>Datum i vreme</th>
+						</tr>
+					</thead>
+
+					<tr v-for="it in historyTraining">
+						<td>{{it.training.name }}</td>
+						<td>{{it.training.sportFacility.name }}</td>
+						<td>{{it.dateTimeCheck }}</td>
+					</tr>
+				</table>
 
 				<div class="button">
 					<input type="submit" value="Update">

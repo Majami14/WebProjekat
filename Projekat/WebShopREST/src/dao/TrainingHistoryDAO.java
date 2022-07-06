@@ -88,6 +88,7 @@ public class TrainingHistoryDAO {
 				st = new StringTokenizer(line, ";");
 				while (st.hasMoreTokens()) {
 
+					int id = Integer.parseInt(st.nextToken().trim());
 					LocalDateTime dateTimeCheck = LocalDateTimeHelper.stringToDate(st.nextToken().trim());
 
 					int trainingId = Integer.parseInt(st.nextToken().trim());
@@ -102,7 +103,6 @@ public class TrainingHistoryDAO {
 						coach = new Korisnik(cID);
 					}
 
-					int id = Integer.parseInt(st.nextToken().trim());
 
 					training.put(id, new TrainingHistory(dateTimeCheck, tr, buy, coach, id));
 				}
@@ -160,10 +160,14 @@ public class TrainingHistoryDAO {
 	public void connectCoachKorisnik() {
 		ArrayList<Korisnik> korisnici = new ArrayList<Korisnik>(KorisnikDAO.getInstance().findAll());
 		for (TrainingHistory coach : training.values()) {
+			if(coach.getCoach() == null) {
+				continue;
+			}
 			int id = coach.getCoach().getId();
 			for (Korisnik user : korisnici) {
 				if (user.getId() == id) {
 					coach.setCoach(user);
+					user.getHistory().add(coach);
 					break;
 				}
 			}
@@ -193,5 +197,15 @@ public class TrainingHistoryDAO {
 				catch (Exception e) { }
 			}
 		}
+	}//vidi da li je collection dobar
+	
+	public Collection<TrainingHistory> getIstorijaTreningaZaKorisnika(int idKorisnika){
+		ArrayList<TrainingHistory> pronadjene = new ArrayList<TrainingHistory>();
+		for(TrainingHistory  istorijaTreninga: training.values()) {
+			if(istorijaTreninga.getBuyer().getId() == idKorisnika) {
+				pronadjene.add(istorijaTreninga);
+			}
+		}
+		return pronadjene;
 	}
 }

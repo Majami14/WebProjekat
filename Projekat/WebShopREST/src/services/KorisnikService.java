@@ -55,14 +55,14 @@ public class KorisnikService {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response newObject(Korisnik korisnik) {
+	public Korisnik newObject(Korisnik korisnik) {
 		KorisnikDAO dao = (KorisnikDAO) ctx.getAttribute("korisnikDAO");
 		boolean retVal = dao.existsUsername(korisnik.getUserName());
 		if(retVal) {
-			return Response.status(400).entity("Invalid username and/or password").build();			
+			return null;		
 		}
-		dao.save(korisnik);
-		return Response.status(200).build();
+		Korisnik korisnik1=dao.save(korisnik);
+		return korisnik1;
 		
 	}
 
@@ -88,10 +88,10 @@ public class KorisnikService {
 	
 	
 	@PUT
-	@Path("/{id}")
+	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Korisnik changeFacility(Korisnik korisnik, @PathParam("id") int id) {
+	public Korisnik changeFacility(Korisnik korisnik) {
 		KorisnikDAO dao = (KorisnikDAO) ctx.getAttribute("korisnikDAO");
 		return dao.change(korisnik);
 	}

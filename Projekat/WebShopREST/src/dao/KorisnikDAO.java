@@ -36,7 +36,7 @@ public class KorisnikDAO {
 	 * @param contextPath Putanja do aplikacije u Tomcatu. MoÅ¾e se pristupiti samo
 	 *                    iz servleta.
 	 */
-	public KorisnikDAO(String contextPath) {
+	private KorisnikDAO(String contextPath) {
 		loadKorisnik(contextPath);
 	}
 

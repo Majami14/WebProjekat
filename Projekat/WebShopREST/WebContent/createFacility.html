@@ -33,14 +33,12 @@
 
 			<tr>
 				<td>Geo Width</td>
-				<td><input type="text" name="image"
-					v-model="newLocation.width"></td>
+				<td><input type="text" name="image" v-model="newLocation.width"></td>
 			</tr>
 
 			<tr>
 				<td>City</td>
-				<td><input type="text" name="image"
-					v-model="newLocation.city"></td>
+				<td><input type="text" name="image" v-model="newLocation.city"></td>
 			</tr>
 
 			<tr>
@@ -58,37 +56,65 @@
 
 			<tr>
 				<td>Post number</td>
-				<td><input type="text" name="image"
-					v-model="newLocation.post"></td>
+				<td><input type="text" name="image" v-model="newLocation.post"></td>
 			</tr>
 
-			
+
 		</table>
 
 
 
-		<select
+		<select v-model="selectedManager"
 			v-bind:hidden="freeManagers === null || freeManagers.length == 0"
 			v-on:click="selectManager($event.target.value)">
 			<option v-for="fm in freeManagers">{{fm.firstName}}
 				{{fm.lastName}} {{fm.userName}}</option>
-		</select>
+		</select> 
 
 		<button
 			v-bind:hidden="freeManagers !== null && freeManagers.length != 0"
 			v-on:click="showForm()">Register manager</button>
-
-
-
-		</div>
-		</div>
-
-		<div class="button">
+	
+		
 			<input type="submit" value="Confirm">
-
-		</div>
-
-
+		
+		
+		<div class="input-box" v-bind:hidden="showRegisterForm == false">
+		
+		<table>
+			<tr>
+					<td>Name</td>
+					<td><input type="text" name="firstName" v-model="selectedManager.firstName"></td>
+				</tr>
+				<tr>
+					<td>Surname</td>
+					<td><input type="text" name="lastName" v-model="selectedManager.lastName"></td>
+				</tr>
+				<tr>
+					<td>User name</td>
+					<td><input type="text" name="userName" v-model="selectedManager.userName"></td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td><input type="password" name="password" v-model="selectedManager.password"></td>
+				</tr>
+				<tr>
+					<td>Gender</td>
+					<td><input type="radio" id="male" value= "MALE" name="gender" v-model="selectedManager.gender">
+					<Label for="male">Male</Label>
+					<input type="radio" name="gender" value= "FEMALE" v-model="selectedManager.gender">
+					<Label for="female">Female</Label></td>
+				</tr>
+				<tr>
+					<td>Birth date</td>
+					<td><input type="date" name="birthDate" v-model="selectedManager.birthDate"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Pošalji"></td>
+				</tr>
+			</table>
+	
+		
 	</form>
 	<script src="js/vue.js"></script>
 	<script src="js/axios.js"></script>

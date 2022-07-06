@@ -18,10 +18,13 @@ public class Korisnik {
 	private ArrayList<SportsFacility> viewFacility;
 	private int points;
 	private TypeCustomer type;
-	private int coachId;
 
 	public Korisnik() {
 		this.history = new ArrayList<TrainingHistory>();
+	}
+	
+	public Korisnik(int id) {
+		this.id = id;
 	}
 	
 	
@@ -46,9 +49,6 @@ public class Korisnik {
 
 	
 	
-	public Korisnik(int coachId) {
-		this.coachId = coachId;
-	}
 
 	public int getId() {
 		return id;
