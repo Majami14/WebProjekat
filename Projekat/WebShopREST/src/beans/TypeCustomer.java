@@ -57,7 +57,7 @@ public class TypeCustomer {
 	}
 
 	public String fileLine() {
-		return  id + ";" + type + ";" + discount
+		return  id + ";" + type.ordinal() + ";" + discount
 				+ ";" + points;
 	}
 }

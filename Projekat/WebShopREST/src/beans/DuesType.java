@@ -1,5 +1,5 @@
 package beans;
 
 public enum DuesType {
-	YEAR, MONTH
+	DAY,MONTH, YEAR
 }

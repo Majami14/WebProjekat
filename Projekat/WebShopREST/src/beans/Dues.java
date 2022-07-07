@@ -100,8 +100,8 @@ public class Dues {
 	}
 
 	public String fileLine() {
-		return id + ";" + idDues + ";" + type
-				+ ";" + type + ";" + paymentDate + ";" + validationDateTime + ";"
+		return id + ";" + idDues + ";" + type.ordinal()
+				+ ";" + paymentDate + ";" + validationDateTime + ";"
 				+ price + ";" + buyer + ";" + TrainingNumbers;
 	}
 	
