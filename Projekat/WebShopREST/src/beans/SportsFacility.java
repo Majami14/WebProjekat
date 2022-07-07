@@ -120,6 +120,6 @@ public class SportsFacility {
 
 	public String fileLine() {
 		return id + ";" + name + ";" + type.ordinal() + ";" + status.ordinal() + ";" + location.getId() + ";" + image + ";" + average + ";"
-				+ startTime + ";" + endTime;
+				+ TimeHelper.timeToString(startTime) + ";" + TimeHelper.timeToString(endTime);
 	}
 }

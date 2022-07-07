@@ -13,7 +13,9 @@ public class TrainingDTO {
 	private String description;
 	private String image;
 	private int id;
-
+	private String trainerName;
+	
+	
 	public TrainingDTO(Training training) {
 		this.id = training.getId();
 		this.name = training.getName();
@@ -22,6 +24,15 @@ public class TrainingDTO {
 		this.duration = training.getDuration();
 		this.description = training.getDescription();
 		this.image = training.getImage();
+		this.trainerName = (training.getCoach()==null)?null:(training.getCoach().getFirstName() + " " + training.getCoach().getLastName());
+	}
+
+	public String getTrainerName() {
+		return trainerName;
+	}
+
+	public void setTrainerName(String trainerName) {
+		this.trainerName = trainerName;
 	}
 
 	public String getName() {

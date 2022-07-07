@@ -62,6 +62,26 @@
 				
 			</div>
 		</form>
+		
+		<table  id="tabela">
+				<thead>
+					<tr bgcolor="lightgrey">
+						<th>Slika</th>
+						<th>Opis</th>
+						<th>Naziv trenera</th>
+						<th>Doplata</th>
+						<th>Prijava</th>
+					</tr>
+				</thead>
+
+				<tr v-for="t in trainings">
+					<td>{{t.image }}</td>
+					<td>{{t.description }}</td>
+					<td>{{t.trainerName}}</td>
+					<td>0</td>
+					<td><button type="button" v-on:click="prijavaNaTrening(t)">Prijava</button></td>
+				</tr>
+			</table>
 
 	</div>
 

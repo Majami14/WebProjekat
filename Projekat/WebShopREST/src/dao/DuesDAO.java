@@ -32,7 +32,7 @@ public class DuesDAO {
 	 * @param contextPath Putanja do aplikacije u Tomcatu. MoÅ¾e se pristupiti samo
 	 *                    iz servleta.
 	 */
-	public DuesDAO(String contextPath) {
+	private DuesDAO(String contextPath) {
 		loadDues(contextPath);
 	}
 
