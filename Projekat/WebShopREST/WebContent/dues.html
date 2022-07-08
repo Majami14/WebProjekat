@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dues</title>
+</head>
+<body>
+<div id="DuesForm" class="container">
+		<div class="title">Choose your membership</div>
+		<div></div>
+		
+		
+
+		<div  style="margin-top: 10px">
+
+			<table class="tb" border="1" id="tabela" style="border-radius: 10px;">
+				<thead>
+					<tr>
+						<th>Membership type</th>
+						<th>Price(euro)</th>
+						<th>Number of trainings</th>
+
+					</tr>
+				</thead>
+				<tbody>
+				<tr v-for="m in memberships" v-on:click="Selected(m)">
+					<td>{{m.type }}</td>
+					<td>{{m.price }}</td>
+					<td>{{m.trainingNumbers}}</td>
+				</tr>
+				
+				 </tbody>
+				
+			</table>
+
+		</div>
+	</div>
+
+
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="app/dues.js"></script>
+</body>
+</html>

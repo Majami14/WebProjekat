@@ -1,9 +1,11 @@
 package services;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,12 +16,17 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import beans.DateHelper;
 import beans.Dues;
+import beans.Korisnik;
 import beans.ProjectStartup;
 import beans.TypeCustomer;
 import dao.DuesDAO;
+import dao.KorisnikDAO;
 import dao.TypeCustomerDAO;
+import dto.DuesDTO;
 @Path("/dues")
 public class DuesService {
 	@Context
@@ -52,9 +59,17 @@ public class DuesService {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Dues newCustomer(Dues dues) {
+	public DuesDTO newDues(Dues dues,@Context HttpServletRequest request) {
 		DuesDAO dao = (DuesDAO) ctx.getAttribute("duesDAO");
-		return dao.save(dues);
+		Korisnik logged = (Korisnik) request.getSession().getAttribute("korisnik");
+		if(logged == null) {
+			return null;
+		}
+		logged.setDues(dues);
+		dues.setBuyer(logged);
+		dues = dao.newDuesAdded(dues);
+		KorisnikDAO.getInstance().change(logged);
+		return new DuesDTO(dues);
 	}
 
 	@GET
@@ -93,4 +108,27 @@ public class DuesService {
 		DuesDAO dao = (DuesDAO) ctx.getAttribute("duesDAO");
 		return dao.delete(id);
 	}
+	@POST
+	@Path("/setSelected")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response setSelected(Dues dues, @Context HttpServletRequest request) {
+		request.getSession().setAttribute("selectedMembership", dues);
+		return Response.status(200).build();
+	}
+	
+	@GET
+	@Path("/getSelected")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public DuesDTO getSelected( @Context HttpServletRequest request) {
+		Dues object = (Dues)request.getSession().getAttribute("selectedMembership");
+		if(object == null) {
+			return null;
+		}
+		object.setPaymentDate(DateHelper.dateToString( LocalDate.now()));
+		return new DuesDTO(object);
+	}
+
+	
 }

@@ -7,22 +7,26 @@ public class Dues {
 	private int id;
 	private DuesType type;
 	private LocalDate paymentDate;
-	private LocalDate validationDateTime;
+	private LocalDate firstDay;
+	private LocalDate lastDay;
 	private Double price;
 	private Korisnik buyer;
-	private int TrainingNumbers;
+	private DuesStatus duesStatus;
+	private int trainingNumbers;
 
-	public Dues(String idDues, int id, DuesType type, LocalDate paymentDate, LocalDate validationDateTime, Double price,
-			Korisnik buyer, int trainingNumbers) {
+	public Dues(String idDues, int id, DuesType type, LocalDate paymentDate, LocalDate firstDay, LocalDate lastDay, Double price,
+			Korisnik buyer, DuesStatus duesStatus,int trainingNumbers) {
 		super();
 		this.idDues = idDues;
 		this.id = id;
 		this.type = type;
 		this.paymentDate = paymentDate;
-		this.validationDateTime = validationDateTime;
+		this.firstDay = firstDay;
+		this.lastDay = lastDay;
 		this.price = price;
 		this.buyer = buyer;
-		TrainingNumbers = trainingNumbers;
+		this.duesStatus = duesStatus;
+		this.trainingNumbers = trainingNumbers;
 	}
 
 	
@@ -63,17 +67,36 @@ public class Dues {
 		return paymentDate;
 	}
 
-	public void setPaymentDate(LocalDate paymentDate) {
-		this.paymentDate = paymentDate;
+	public void setPaymentDate(String paymentDate) {
+		if(paymentDate == null || paymentDate.equals("")) {
+			return;
+		}
+		this.paymentDate = DateHelper.stringToDate(paymentDate);
+	}
+	
+
+	public LocalDate getFirstDay() {
+		return firstDay;
 	}
 
-	public LocalDate getValidationDateTime() {
-		return validationDateTime;
+	public void setFirstDay(String firstDay) {
+		if(firstDay== null   || firstDay.equals("")) {
+			return;
+		}
+		this.firstDay = DateHelper.stringToDate(firstDay);
+	}
+	public LocalDate getLastDay() {
+		return lastDay;
 	}
 
-	public void setValidationDateTime(LocalDate validationDateTime) {
-		this.validationDateTime = validationDateTime;
+	
+	public void setLastDay(String lastDay) {
+		if(lastDay == null || lastDay.equals("")) {
+			return;
+		}
+		this.lastDay = DateHelper.stringToDate(lastDay);
 	}
+
 
 	public Double getPrice() {
 		return price;
@@ -91,18 +114,30 @@ public class Dues {
 		this.buyer = buyer;
 	}
 
+	public DuesStatus getDuesStatus() {
+		return duesStatus;
+	}
+
+
+
+	public void setDuesStatus(DuesStatus duesStatus) {
+		this.duesStatus = duesStatus;
+	}
+
+
+
 	public int getTrainingNumbers() {
-		return TrainingNumbers;
+		return trainingNumbers;
 	}
 
 	public void setTrainingNumbers(int trainingNumbers) {
-		TrainingNumbers = trainingNumbers;
+		trainingNumbers = trainingNumbers;
 	}
 
 	public String fileLine() {
 		return id + ";" + idDues + ";" + type.ordinal()
-				+ ";" + paymentDate + ";" + validationDateTime + ";"
-				+ price + ";" + buyer + ";" + TrainingNumbers;
+				+ ";" + DateHelper.dateToString(paymentDate) + ";" +DateHelper.dateToString(firstDay) + ";"+ DateHelper.dateToString(lastDay) + ";"
+				+ price + ";" + buyer + ";" + duesStatus.ordinal() + ";" + trainingNumbers;
 	}
 	
 }

@@ -3,6 +3,7 @@ package dao;
 import beans.Comment;
 import beans.DateHelper;
 import beans.Dues;
+import beans.DuesStatus;
 import beans.DuesType;
 import beans.Korisnik;
 import beans.SportsFacility;
@@ -67,6 +68,23 @@ public class DuesDAO {
 		return dues.values();
 	}
 
+	public Dues newDuesAdded(Dues dues) {
+		if(dues.getType() == DuesType.DAY) {
+			dues.setLastDay(DateHelper.dateToString( dues.getFirstDay().plusDays(1)));
+		}else if(dues.getType() == DuesType.MONTH) {
+			dues.setLastDay(DateHelper.dateToString( dues.getFirstDay().plusMonths(1)));
+		}else {
+			dues.setLastDay(DateHelper.dateToString( dues.getFirstDay().plusYears(1)));
+		}
+		
+		dues = save(dues);
+		saveToFile();
+		
+		return dues;
+		
+	}
+	
+	
 	public Dues save(Dues duess) {
 		Integer maxId = -1;
 		for (int id : dues.keySet()) {
@@ -104,27 +122,44 @@ public class DuesDAO {
 				st = new StringTokenizer(line, ";");
 				while (st.hasMoreTokens()) {
 
-//String idDues, int id, DuesType type, LocalDate paymentDate, LocalDate validationDateTime,
-					// Double price,Korisnik buyer, int trainingNumbers
-					String duesId = st.nextToken().trim();
+//	private String idDues;
+			//		private int id;
+				//	private DuesType type;
+				//	private LocalDate paymentDate;
+					//private LocalDate firstDay;
+				//	private LocalDate lastDay;
+					//private Double price;
+					//private Korisnik buyer;
+					//private DuesStatus duesStatus;
+					//private int trainingNumbers;
+					
+					
+					
+					String idDues = st.nextToken().trim();
 
 					int id = Integer.parseInt(st.nextToken().trim());
 
-					int status_type = Integer.parseInt(st.nextToken().trim()); // Za enum jel dobro?
-					DuesType[] status_types = DuesType.values();
-					DuesType status_typeFromFile = status_types[status_type];
+					int type = Integer.parseInt(st.nextToken().trim()); 
+					DuesType[] tip = DuesType.values();
+					DuesType status_typeFromFile = tip[type];
 
 					LocalDate paymentday = DateHelper.stringToDate(st.nextToken().trim());
-					LocalDate validationDateTime = DateHelper.stringToDate(st.nextToken().trim());
+					LocalDate firstDay = DateHelper.stringToDate(st.nextToken().trim());
+					LocalDate lastDay = DateHelper.stringToDate(st.nextToken().trim());
 					double price = Double.parseDouble(st.nextToken().trim());
 
 					int buyerId = Integer.parseInt(st.nextToken().trim());
 					Korisnik kor = new Korisnik(buyerId);
+					
+					
+					int duesStatus = Integer.parseInt(st.nextToken().trim()); 
+					DuesStatus[] type1 = DuesStatus.values();
+					DuesStatus dSstatus_typeFromFile = type1[duesStatus];
 
 					int trainingNumbers = Integer.parseInt(st.nextToken().trim());
 
-					dues.put(id, new Dues(duesId, id, status_typeFromFile, paymentday, validationDateTime, price, kor,
-							trainingNumbers));
+					dues.put(id, new Dues(idDues, id, status_typeFromFile, paymentday, firstDay, lastDay,price, kor,
+							dSstatus_typeFromFile,trainingNumbers));
 				}
 
 			}
