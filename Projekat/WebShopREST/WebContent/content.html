@@ -28,15 +28,15 @@
 
 				<div class="input-box">
 					<span class="details">Object name</span> <input type="text"
-						name="surname" placeholder="Enter your surname" disabled
-						v-model="newContent.object.name" pattern="[A-Za-z]{1,32}">
+						name="surname" placeholder="Enter object name" disabled
+						v-model="newContent.sportFacility.name" pattern="[A-Za-z]{1,32}">
 				</div>
 
 
 
 				<div class="input-box">
 					<span class="details">Training type</span> <select type="combobox"
-						class="combobox" v-model="newContent.training_type" width="15"
+						class="combobox" v-model="newContent.type" width="15"
 						required v-model="newUser.gender" size=1
 						style="width: 300px; height: 40px; border-radius: 5px; font-size: 16px">
 						<option value="GROUP">Group</option>
@@ -61,14 +61,14 @@
 				<div class="input-box">
 					<span class="details">Picture</span> <input name="password"
 						placeholder="Enter your password" required
-						v-model="newContent.picture">
+						v-model="newContent.image">
 				</div>
 				
 
 				<select v-model="selectedTrainer"
 					v-bind:hidden="trainers === null || trainers.length == 0">
 					<option v-for="fm in trainers" :value="fm">
-						{{fm.name}} {{fm.surname}} {{fm.id}}</option>
+						{{fm.firstName}} {{fm.lastName}} {{fm.id}}</option>
 				</select>
 
 
@@ -85,6 +85,6 @@
 
 	<script src="js/vue.js"></script>
 	<script src="js/axios.js"></script>
-	<script src="app/creatingContent.js"></script>
+	<script src="app/content.js"></script>
 </body>
 </html>

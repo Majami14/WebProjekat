@@ -5,7 +5,7 @@ var app = new Vue({
 		 loggedKorisnik: {}
 	 },
 	 mounted() {	//sta ciljam?
-		 axios.get('rest/korisnik/currentUser')
+		 axios.get('rest/currentUser')
 			 .then((response) => {
 				 this.loggedKorisnik = response.data;
 
