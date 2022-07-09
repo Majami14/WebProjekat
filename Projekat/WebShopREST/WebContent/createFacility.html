@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Registration form</title>
+<title>CreateSportFacilityForm</title>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="styles.css">
 <script src="jquery-3.3.1.min.js"></script>
@@ -192,83 +192,175 @@ form .input-box span.details {
 	
 		<div class="container" id="createFacilityForm">
 		<div class="title">Create new sport facility</div>
-		<form @submit='createFacilityForm'>
+		<form @submit='createFacility'>
 			<div class="user-details">
 	
+
+				<div class="row">
+					<div class="column1">
+						<div class="input-box">
+							<span class="details"></span>
+						</div>
+
+						<div class="input-box">
+							<span class="details">Name</span> <input type="text" name="name"
+								placeholder="Enter object name" required v-model="newFacility.name">
+						</div>
+
+
+						<div class="input-box">
+							<span class="details">Object type</span> <select type="combobox"
+								class="combobox" width="15" required v-model="newFacility.type"
+								size=1
+								style="width: 170px; height: 40px; border-radius: 5px; font-size: 16px">
+								<option value="Gym">Gym</option>
+								<option value="SwimmingPool">SwimmingPool</option>
+								<option value="SportsCenter">SportsCenter</option>
+								<option value="DanceStudio">DanceStudio</option>
+							</select>
+						</div>
+
+
+						
+
+						<div class="input-box">
+							<span class="details">Begin work</span> <input type="time"
+								name="begin" placeholder="Insert work hours" required
+								v-model="newFacility.startTime">
+						</div>
+
+						<div class="input-box">
+							<span class="details">End work</span> <input type="time"
+								name="end" placeholder="Insert work hours" required
+								v-model="newFacility.endTime">
+						</div>
+
+
+
+					</div>
+
+					<div class="column2">
+						<div class="input-box">
+							<span class="details">Geo Length</span> <input type="text"
+								name="geol" placeholder="Enter geo length" required
+								v-model="newLocation.length">
+						</div>
+
+						<div class="input-box">
+							<span class="details">Geo Width</span> <input type="text"
+								name="geow" placeholder="Enter geo width" required
+								v-model="newLocation.width">
+						</div>
+
+						<div class="input-box">
+							<span class="details">Street</span> <input type="text"
+								name="street" placeholder="Enter street" required
+								v-model="newLocation.street">
+						</div>
+
+						<div class="input-box">
+							<span class="details">No</span> <input type="text"
+								name="streetno" placeholder="Enter street number" required
+								v-model="newLocation.number">
+						</div>
+
+						<div class="input-box">
+							<span class="details">City</span> <input type="text" name="city"
+								placeholder="Enter city" required v-model="newLocation.city">
+						</div>
+
+						<div class="input-box">
+							<span class="details">City Number</span> <input type="text"
+								name="cityno" placeholder="Enter city  number" required
+								v-model="newLocation.post">
+						</div>
 		
-
-		<table>
-			<tr>
-				<td>Name</td>
-				<td><input type="text" name="name" v-model="newFacility.name"></td>
-			</tr>
-			<tr>
-				<td>Type</td>
-				<td><input type="radio" id="gym" name="type"
-					v-model="newFacility.type"> <Label for="gym">Gym</Label> <input
-					type="radio" name="type" v-model="newFacility.type"> <Label
-					for="swimmingpool">Swimming pool</Label> <input type="radio"
-					name="type" v-model="newFacility.type"> <Label
-					for="sportscenter">Sports center</Label> <input type="radio"
-					name="type" v-model="newFacility.type"> <Label
-					for="dancestudio">Dance studio</Label></td>
-			</tr>
-			<tr>
-				<td>Geo Length</td>
-				<td><input type="text" name="image"
-					v-model="newLocation.length"></td>
-			</tr>
-
-			<tr>
-				<td>Geo Width</td>
-				<td><input type="text" name="image" v-model="newLocation.width"></td>
-			</tr>
-
-			<tr>
-				<td>City</td>
-				<td><input type="text" name="image" v-model="newLocation.city"></td>
-			</tr>
-
-			<tr>
-				<td>Street</td>
-				<td><input type="text" name="image"
-					v-model="newLocation.street"></td>
-			</tr>
-
-			<tr>
-				<td>Number of place</td>
-				<td><input type="text" name="image"
-					v-model="newLocation.number"></td>
-			</tr>
-
-
-			<tr>
-				<td>Post number</td>
-				<td><input type="text" name="image" v-model="newLocation.post"></td>
-			</tr>
-
-
-		</table>
 
 
 
 		<select v-model="selectedManager"
-			v-bind:hidden="freeManagers === null || freeManagers.length == 0"
-			v-on:click="selectManager($event.target.value)">
+			v-bind:hidden="freeManagers === null || freeManagers.length == 0">
 			<option v-for="fm in freeManagers">{{fm.firstName}}
 				{{fm.lastName}} {{fm.userName}}</option>
 		</select> 
 
-		<button
+		<div class="button1"
 			v-bind:hidden="freeManagers !== null && freeManagers.length != 0"
-			v-on:click="showForm()">Register manager</button>
+			v-on:click="showForm()">
+
+			<button type="button">Register manager</button>
+						</div>
+
+
+					</div>
+
+
+
+					<div class="button1">
+						<input type="submit" value="Confirm">
+					</div>
 	
-		
-			<input type="submit" value="Confirm">
 		
 		
 		<div class="input-box" v-bind:hidden="showRegisterForm == false">
 		
+		
+		
+		
+		
+		<div class="input-box">
+							<span class="details">Name</span> <input v-model="selectedManager.firstName" type="text" name="name"
+								placeholder="Enter your name" pattern="[A-Za-z]{1,32}">
+						</div>
+
+						<div class="input-box">
+							<span class="details">Surname</span> <input v-model="selectedManager.lastName" type="text"
+								name="surname" placeholder="Enter your surname"
+								pattern="[A-Za-z]{1,32}">
+						</div>
+
+						<div class="input-box">
+							<span class="details">Birthday</span> <input v-model="selectedManager.birthDate" type="date"
+								name="birthday" placeholder="Enter your birthday">
+						</div>
+
+
+						<div class="input-box">
+							<span class="details">Gender</span> <select v-model="selectedManager.gender" type="combobox"
+								class="combobox" width="15" required size=1
+								style="width: 300px; height: 40px; border-radius: 5px; font-size: 16px">
+								<option value="Female">Female</option>
+								<option value="Male">Male</option>
+							</select>
+						</div>
+
+						<div class="input-box">
+							<span class="details">Username</span> <input v-model="selectedManager.userName" type="text"
+								name="username" placeholder="Enter your username">
+						</div>
+
+						<div class="input-box">
+							<span class="details">Password</span> <input v-model="selectedManager.password" type="password"
+								name="password" placeholder="Enter your password">
+						</div>
+
+						<div class="button">
+							<button type="button" v-on:click="createUser">Register new Menager</button>
+						</div>
+
+
+					</div>
+
+
+
+				</div>
+
+
+
+			</div>
+		</form>
+
+	</div>
 		
 		
 	</form>

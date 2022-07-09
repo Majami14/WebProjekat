@@ -23,6 +23,7 @@ import beans.ProjectStartup;
 import beans.SportsFacility;
 import dao.KorisnikDAO;
 import dao.SportsFacilityDAO;
+import dto.KorisnikDTO;
 
 @Path("/korisnik")
 public class KorisnikService {
@@ -112,5 +113,19 @@ public class KorisnikService {
 		KorisnikDAO dao = (KorisnikDAO) ctx.getAttribute("korisnikDAO");
 		return dao.getAllFreeManagers();
 	}
-	
+	@GET
+	@Path("/trainers")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<KorisnikDTO> getTrainers() {
+		KorisnikDAO dao = (KorisnikDAO) ctx.getAttribute("userDAO");
+		ArrayList<Korisnik> coach = dao.getCoach();
+		ArrayList<KorisnikDTO> coachDTOs = new ArrayList<KorisnikDTO>();
+		
+		for(Korisnik korisnik : coach) {
+			coachDTOs.add(new KorisnikDTO(korisnik));
+		}
+		
+		return coachDTOs;
+	}
 }

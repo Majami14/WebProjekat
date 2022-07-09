@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Manager content</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="styles.css">
+<script src="jquery-3.3.1.min.js"></script>
+
+</head>
+<body>
+<div class="container" id="creatingContent">
+		<div class="title">Registration</div>
+		<form @submit='createUser'>
+			<div class="user-details">
+
+
+				<div class="input-box">
+					<span class="details"></span>
+
+				</div>
+
+				<div class="input-box">
+					<span class="details">Content Name</span> <input type="text"
+						name="name" placeholder="Enter your name" required
+						v-model="newContent.name" pattern="[A-Za-z]{1,32}">
+				</div>
+
+				<div class="input-box">
+					<span class="details">Object name</span> <input type="text"
+						name="surname" placeholder="Enter your surname" disabled
+						v-model="newContent.object.name" pattern="[A-Za-z]{1,32}">
+				</div>
+
+
+
+				<div class="input-box">
+					<span class="details">Training type</span> <select type="combobox"
+						class="combobox" v-model="newContent.training_type" width="15"
+						required v-model="newUser.gender" size=1
+						style="width: 300px; height: 40px; border-radius: 5px; font-size: 16px">
+						<option value="GROUP">Group</option>
+						<option value="PERSONAL">Personal</option>
+						<option value="GYM">Gym</option>
+						<option value="SAUNA">Sauna</option>
+					</select>
+				</div>
+
+				<div class="input-box">
+					<span class="details">Duration</span> <input type="text"
+						name="username" placeholder="Enter your username" required
+						v-model="newContent.duration">
+				</div>
+
+				<div class="input-box">
+					<span class="details">Description</span> <input type="password"
+						name="password" placeholder="Enter your password" required
+						v-model="newContent.description">
+				</div>
+
+				<div class="input-box">
+					<span class="details">Picture</span> <input name="password"
+						placeholder="Enter your password" required
+						v-model="newContent.picture">
+				</div>
+				
+
+				<select v-model="selectedTrainer"
+					v-bind:hidden="trainers === null || trainers.length == 0">
+					<option v-for="fm in trainers" :value="fm">
+						{{fm.name}} {{fm.surname}} {{fm.id}}</option>
+				</select>
+
+
+
+				<div class="button">
+					<input type="submit" value="Register">
+
+				</div>
+			</div>
+		</form>
+		<p>{{error }}</p>
+	</div>
+
+
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="app/creatingContent.js"></script>
+</body>
+</html>

@@ -2,12 +2,12 @@ var app = new Vue({
 	 el: '#DuesForm',
 	 data: {
 		 memberships: [],
-		 loggedUser: {}
+		 loggedKorisnik: {}
 	 },
 	 mounted() {	//sta ciljam?
 		 axios.get('rest/korisnik/currentUser')
 			 .then((response) => {
-				 this.loggedUser = response.data;
+				 this.loggedKorisnik = response.data;
 
 				 membership1 = { idDues: "0123456789",id: 1 , type: 'DAY', paymentDate: null, firstDay: null, lastDay: null, price: 10, buyer: null, duesStatus: 'INACTIVE', trainingNumbers: 1 };
 				 membership2 = { idDues: "hjo2893bd9", id: 2 , type: 'MONTH', paymentDate: null, firstDay: null, lastDay: null, price: 60, buyer: null, duesStatus: 'INACTIVE', trainingNumbers: 30 };

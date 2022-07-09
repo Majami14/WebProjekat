@@ -18,19 +18,19 @@
 				 this.freeManagers = response.data
 			 })
 		 this.newFacility = { id: '', name: null, type: null, content: null, status: 'CLOSE', location: null, image: null, average: null, startTime: null, endTime: null };
-		 this.newLocation = { id: '', length: '', width: '', street: null, city: null, number: '', post: null };
+		 this.newLocation = { id: '', length: '', width: '', street: null,number: '', city: null,  post: null };
 
 
 	 },
 	 methods: {
 		 createFacility: function(event) {
 			 this.error = ""
-			 if (!this.newFacility.name || !this.newFacility.object_type || !this.newFacility.logo_picture) {
+			 if (!this.newFacility.name || !this.newFacility.type  || !this.newFacility.startTime || !this.newFacility.endTime) {
 				 this.error = "Fill all input fields.";
 				 event.preventDefault();
 				 return;
 			 }
-			 if (!this.newLocation.geo_lenght || !this.newLocation.geo_width || !this.newLocation.street_name || !this.newLocation.street_number || !this.newLocation.city || !this.newLocation.city_number) {
+			 if (!this.newLocation.lenght || !this.newLocation.width || !this.newLocation.street || !this.newLocation.number || !this.newLocation.city || !this.newLocation.post) {
 				 this.error = "Fill all input fields.";
 				 event.preventDefault();
 				 return;
@@ -43,9 +43,9 @@
 			 axios.post('rest/facility/', this.newFacility)
 				 .then((response) => {
 					 alert('New sport object created.')
-					  this.newSO = response.data;
-					 this.selectedManager.object = this.newSO;
-					 axios.put('rest/users/', this.selectedManager)
+					  this.newFacility = response.data;
+					 this.selectedManager.object = this.newFacility;
+					 axios.put('rest/korisnik/', this.selectedManager)
 						 .then((response) => {
 							 alert('Sport object added to manager')
 						 }).catch(() => {
@@ -70,13 +70,13 @@
 		 showForm: function() {
 			 this.showRegisterForm = true;
 		 }, createUser: function(event) {
-			 if (!this.selectedManager.name || !this.selectedManager.surname || !this.selectedManager.birthday || !this.selectedManager.gender || !this.selectedManager.user_name || !this.selectedManager.user_password) {
+			 if (!this.selectedManager.userName || !this.selectedManager.password || !this.selectedManager.firstName || !this.selectedManager.lastName || !this.selectedManager.gender || !this.selectedManager.birthDate   ) {
 				 this.error = "Fill all input fields.";
 				 event.preventDefault();
 				 return;
 			 }
 			 this.selectedManager.role = 'MANAGER';
-			 axios.post('rest/users/', this.selectedManager)
+			 axios.post('rest/korisnik/', this.selectedManager)
 				 .then((response) => {
 					 alert('New user registered.')
 					 this.selectedManager = response.data

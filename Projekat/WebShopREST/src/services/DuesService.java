@@ -113,7 +113,7 @@ public class DuesService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response setSelected(Dues dues, @Context HttpServletRequest request) {
-		request.getSession().setAttribute("selectedMembership", dues);
+		request.getSession().setAttribute("selectedDues", dues);
 		return Response.status(200).build();
 	}
 	
@@ -122,7 +122,7 @@ public class DuesService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public DuesDTO getSelected( @Context HttpServletRequest request) {
-		Dues object = (Dues)request.getSession().getAttribute("selectedMembership");
+		Dues object = (Dues)request.getSession().getAttribute("selectedDues");
 		if(object == null) {
 			return null;
 		}

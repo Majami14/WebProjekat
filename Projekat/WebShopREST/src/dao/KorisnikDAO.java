@@ -92,15 +92,14 @@ public class KorisnikDAO {
 	 * find; }
 	 */
 
-	
 	public Korisnik change(Korisnik korisnik) {
 		korisnici.put(korisnik.getId(), korisnik);
-		if(korisnik.getFacility() != null) {
+		if (korisnik.getFacility() != null) {
 			int id = korisnik.getFacility().getId();
 			SportsFacility object = SportsFacilityDAO.getInstance().find(id);
 			korisnik.setFacility(object);
 		}
-		if(korisnik.getDues() != null) {
+		if (korisnik.getDues() != null) {
 			int id = korisnik.getDues().getId();
 			Dues mem = DuesDAO.getInstance().find(id);
 			korisnik.setDues(mem);
@@ -108,8 +107,7 @@ public class KorisnikDAO {
 		saveToFile();
 		return korisnik;
 	}
-	
-	
+
 	public Korisnik save(Korisnik korisnik) {
 		if (korisnik.getRole() == Role.CUSTOMER) {
 			TypeCustomer type = new TypeCustomer(0);
@@ -219,8 +217,6 @@ public class KorisnikDAO {
 		return null;
 	}
 
-	
-
 	public void saveToFile() {
 		BufferedWriter out = null;
 		try {
@@ -245,9 +241,9 @@ public class KorisnikDAO {
 	}
 
 //public Korisnik change(Korisnik korisnik) {
-		//korisnici.put(korisnik.getId(), korisnik);
-		//return korisnik;
-	//}
+	// korisnici.put(korisnik.getId(), korisnik);
+	// return korisnik;
+	// }
 
 	public void linkUserAndVisitedObject(String contextPath) {
 		BufferedReader in = null;
@@ -282,19 +278,19 @@ public class KorisnikDAO {
 			}
 		}
 	}
-	
-	public ArrayList<Korisnik> getAllFreeManagers(){
+
+	public ArrayList<Korisnik> getAllFreeManagers() {
 		ArrayList<Korisnik> freeManagers = new ArrayList<Korisnik>();
-		
-		for(Korisnik user : korisnici.values()) {
-			if(user.getRole() == Role.MANAGER) {
-				if(user.getFacility() == null) {
+
+		for (Korisnik user : korisnici.values()) {
+			if (user.getRole() == Role.MANAGER) {
+				if (user.getFacility() == null) {
 					freeManagers.add(user);
 				}
 			}
 		}
 		return freeManagers;
-		
+
 	}
 
 	public void connectKorisnikDues() {
@@ -313,7 +309,7 @@ public class KorisnikDAO {
 			}
 		}
 	}
-	
+
 	public void connectKorisnikSportsFacility() {
 		ArrayList<SportsFacility> sport = new ArrayList<SportsFacility>(SportsFacilityDAO.getInstance().findAll());
 		for (Korisnik korisnik : korisnici.values()) {
@@ -359,5 +355,17 @@ public class KorisnikDAO {
 			}
 		}
 		return false;
+	}
+
+	public ArrayList<Korisnik> getCoach() {
+		ArrayList<Korisnik> trainers = new ArrayList<Korisnik>();
+
+		for (Korisnik user : korisnici.values()) {
+			if (user.getRole() == Role.COACH) {
+				trainers.add(user);
+			}
+		}
+		return trainers;
+
 	}
 }
