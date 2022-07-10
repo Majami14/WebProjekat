@@ -6,6 +6,102 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="styles.css">
 
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+tr:hover {background-color: coral;}
+
+th {
+  background-color: #04AA6D;
+  color: white;
+}
+
+button {
+	background-color: #04AA6D;
+	color: white;
+	padding: 14px 20px;
+    margin: 4px 2px;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+}
+
+button:hover {
+	opacity: 0.8;
+}
+
+/*the container must be positioned relative:*/
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+  background-color: DodgerBlue;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  background-color: DodgerBlue;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+</style>
+
 </head>
 
 <body>
@@ -22,11 +118,8 @@
                     <th>Gender</th>
                     <th>Birth date</th>
                     <th>Role</th>
-                    <th>Dues</th>
-                    <th>Sports facility</th>
                     <th>Points</th>
                     <th>Type of customer</th>
-                    <th>Coach</th>
 				</tr>
 			</thead>
 
@@ -39,15 +132,13 @@
                 <td>{{k.gender }}</td>
                 <td>{{k.birthDate}}</td>
                 <td>{{k.role}}</td>
-                <td>{{k.dues}}</td>
-                <td>{{k.facility }}</td>
                 <td>{{k.points }}</td>
                 <td>{{k.type.type}}</td>
-                <td>{{k.coachId}}</td>
 			</tr>
 		</table>
 		
 		Pretraga : <input type="text" name="searchValue" v-model="searchValue"> 
+		<div class="custom-select"  style="width:200px;">
 		<select name="searchTypes" v-model="searchType">
 			<option value="name"> Name </option>
 			
@@ -55,6 +146,7 @@
 			<option value="location"> Location </option>
 			<option value="average"> Average </option>
 		</select>
+		</div>
 		<p><button  v-on:click="searchFacilitys()"> Search </button></p>
 		
 

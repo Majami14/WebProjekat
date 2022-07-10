@@ -11,8 +11,8 @@
 .container {
 	max-width: 700px;
 	width: 100%;
-	background-color: #fff;
 	padding: 25px 30px;
+	background-color: #fff;
 	border-radius: 5px;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 	margin-left: 350px;
@@ -203,13 +203,13 @@ form .input-box span.details {
 						</div>
 
 						<div class="input-box">
-							<span class="details">Name</span> <input type="text" name="name"
+							<span class="details"><b>Name</b></span> <input type="text" name="name"
 								placeholder="Enter object name" required v-model="newFacility.name">
 						</div>
 
 
 						<div class="input-box">
-							<span class="details">Object type</span> <select type="combobox"
+							<span class="details"><b>Object type</b></span> <select type="combobox"
 								class="combobox" width="15" required v-model="newFacility.type"
 								size=1
 								style="width: 170px; height: 40px; border-radius: 5px; font-size: 16px">
@@ -224,13 +224,13 @@ form .input-box span.details {
 						
 
 						<div class="input-box">
-							<span class="details">Begin work</span> <input type="time"
+							<span class="details"><b>Begin work</b></span> <input type="time"
 								name="begin" placeholder="Insert work hours" required
 								v-model="newFacility.startTime">
 						</div>
 
 						<div class="input-box">
-							<span class="details">End work</span> <input type="time"
+							<span class="details"><b>End work</b></span> <input type="time"
 								name="end" placeholder="Insert work hours" required
 								v-model="newFacility.endTime">
 						</div>
@@ -239,43 +239,43 @@ form .input-box span.details {
 
 					</div>
 
-					<div class="column2">
+					<div class="column2"> 
 						<div class="input-box">
-							<span class="details">Geo Length</span> <input type="text"
+							<span class="details"><b>Geo Length</b></span> <input type="text"
 								name="geol" placeholder="Enter geo length" required
 								v-model="newLocation.length">
 						</div>
 
 						<div class="input-box">
-							<span class="details">Geo Width</span> <input type="text"
+							<span class="details"><b>Geo Width</b></span> <input type="text"
 								name="geow" placeholder="Enter geo width" required
 								v-model="newLocation.width">
 						</div>
-
+ 
 						<div class="input-box">
-							<span class="details">Street</span> <input type="text"
+							<span class="details"><b>Street</b></span> <input type="text"
 								name="street" placeholder="Enter street" required
 								v-model="newLocation.street">
 						</div>
-
+ 
 						<div class="input-box">
-							<span class="details">No</span> <input type="text"
+							<span class="details"><b>No</b></span> <input type="text"
 								name="streetno" placeholder="Enter street number" required
 								v-model="newLocation.number">
 						</div>
-
+ 
 						<div class="input-box">
-							<span class="details">City</span> <input type="text" name="city"
+							<span class="details"><b>City</b></span> <input type="text" name="city"
 								placeholder="Enter city" required v-model="newLocation.city">
 						</div>
-
+  
 						<div class="input-box">
-							<span class="details">City Number</span> <input type="text"
+							<span class="details"><b>City Number</b></span> <input type="text"
 								name="cityno" placeholder="Enter city  number" required
 								v-model="newLocation.post">
 						</div>
 		
-
+ 
 
 
 		<select v-model="selectedManager"
@@ -292,10 +292,10 @@ form .input-box span.details {
 						</div>
 
 
-					</div>
+				 </div>
 
 
-
+	
 					<div class="button1">
 						<input type="submit" value="Confirm">
 					</div>
@@ -309,24 +309,24 @@ form .input-box span.details {
 		
 		
 		<div class="input-box">
-							<span class="details">Name</span> <input v-model="selectedManager.firstName" type="text" name="name"
+							<span class="details"><b>Name</b></span> <input v-model="selectedManager.firstName" type="text" name="name"
 								placeholder="Enter your name" pattern="[A-Za-z]{1,32}">
 						</div>
 
 						<div class="input-box">
-							<span class="details">Surname</span> <input v-model="selectedManager.lastName" type="text"
+							<span class="details"><b>Surname</b></span> <input v-model="selectedManager.lastName" type="text"
 								name="surname" placeholder="Enter your surname"
 								pattern="[A-Za-z]{1,32}">
 						</div>
 
 						<div class="input-box">
-							<span class="details">Birthday</span> <input v-model="selectedManager.birthDate" type="date"
+							<span class="details"><b>Birthday</b></span> <input v-model="selectedManager.birthDate" type="date"
 								name="birthday" placeholder="Enter your birthday">
 						</div>
 
 
 						<div class="input-box">
-							<span class="details">Gender</span> <select v-model="selectedManager.gender" type="combobox"
+							<span class="details"><b>Gender</b></span> <select v-model="selectedManager.gender" type="combobox"
 								class="combobox" width="15" required size=1
 								style="width: 300px; height: 40px; border-radius: 5px; font-size: 16px">
 								<option value="Female">Female</option>
@@ -335,12 +335,12 @@ form .input-box span.details {
 						</div>
 
 						<div class="input-box">
-							<span class="details">Username</span> <input v-model="selectedManager.userName" type="text"
+							<span class="details"><b>Username</b></span> <input v-model="selectedManager.userName" type="text"
 								name="username" placeholder="Enter your username">
 						</div>
 
 						<div class="input-box">
-							<span class="details">Password</span> <input v-model="selectedManager.password" type="password"
+							<span class="details"><b>Password</b></span> <input v-model="selectedManager.password" type="password"
 								name="password" placeholder="Enter your password">
 						</div>
 
@@ -358,6 +358,7 @@ form .input-box span.details {
 
 
 			</div>
+			 
 		</form>
 
 	</div>

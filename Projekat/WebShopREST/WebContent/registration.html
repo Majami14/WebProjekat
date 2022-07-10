@@ -9,11 +9,20 @@
 <style>
 
 form {
-	
+	background-color: #FFFFFF;
 	border: 5px solid #f1f1f1;
 	padding: 14px 50px;
 	margin: 200px 600px 50px 600px;}
-body {font-family: Arial, Helvetica, sans-serif;}
+body {font-family: Arial, Helvetica, sans-serif; 
+background-color: #04AA6D;
+}
+
+form .input-box span.details {
+	display: block;
+	font-weight: 500;
+	margin-bottom: 5px;
+}
+
 button {
   background-color: #04AA6D;
   color: white;
@@ -36,13 +45,19 @@ input[type=text], input[type=password] {
   box-sizing: border-box;
 }
 
+.user-details .input-box input:focus, .user-details .input-box input:valid
+	{
+	border-color: gray;
+}
+
 .container {
   padding:50px;
+ 
 }
 .title {text-align: center;}</style>
 </head>
 
-<body background-color: #C7B097;>
+<body >
 	<form id="registrationFrom" @submit='createUser'>
 	
 	<div class="title">
@@ -62,19 +77,35 @@ input[type=text], input[type=password] {
     	<input type="text" placeholder="Enter user name" name="userName" v-model="newUser.userName">
 	
 	
-		  <label for="psw"><b>Password</b></label>
-		  <input type="password" placeholder="Enter password" name="password" v-model="newUser.password">
- 				
- 				 <tr>
-					<td>Gender</td>
+		<label for="psw"><b>Password</b></label>
+		<input type="password" placeholder="Enter password" name="password" v-model="newUser.password">
+ 			
+ <!-- 	<div class="container">	
+		<label for="birth"><b>Username</b></label>
+		<input type="date" name="birthDate" v-model="newUser.birthDate">
+	</div>  -->
+	
+	<div class="input-box">
+					<span class="details"><b>Username</b></span> <input
+						v-model="newUser.birthDate" type="date" name="birth">
+	</div>
+	
+		  
+		<div class="container">
+ 		  <label for="gender"><b>Gender</b></label>
+ 		  <tr>
+		<!--			<td>Gender</td> -->
 					<td><input type="radio" id="male" value= "MALE" name="gender" v-model="newUser.gender">
 					<Label for="male">Male</Label>
 					<input type="radio" name="gender" value= "FEMALE" v-model="newUser.gender">
 					<Label for="female">Female</Label></td>
-				</tr>
+		   </tr>
+ 		</div>
 	
-		<label for="birth"><b>Birthday</b></label>
-		  <input type="date" placeholder="Enter Password" name="birthDate" v-model="newUser.birthDate">
+	
+	
+	<!--	<label for="birth"><b>Birthday</b></label>
+		<input type="date" placeholder="Enter Password" name="birthDate" v-model="newUser.birthDate">  -->
 		  
 		  <button v-on:click="submit">Posalji</button>
 	

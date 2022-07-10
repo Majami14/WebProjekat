@@ -11,7 +11,7 @@
 		selectedTrainer: {}
 	},
 	mounted() {
-		this.newContent = { id: '', name: null, type: null, sportFacility: null, duration: null, coach: null, description: null, image: '' }
+		this.newContent = { id: '', name: null, type: null, sportFacility: {}, duration: null, coach: null, description: null, image: '' }
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.loggedUser = response.data;

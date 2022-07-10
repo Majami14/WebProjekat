@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="container" id="editTraining">
+		<div class="title">Edit Training</div>
+		<form @submit='editTraining'>
+			<div class="user-details">
+
+
+				<div class="input-box">
+					<span class="details"></span>
+
+				</div>
+
+				<div class="input-box">
+					<span class="details">Content Name</span> <input type="text"
+						name="name" required
+						v-model="newContent.name">
+				</div>
+
+				<div class="input-box">
+					<span class="details">Object name</span> <input type="text" disabled
+						name="surname" 
+						v-model="newContent.object.name">
+				</div>
+
+
+
+				<div class="input-box">
+					<span class="details">Training type</span> <select type="combobox"
+						class="combobox" v-model="newContent.training_type" width="15"
+						required v-model="newUser.gender" size=1
+						style="width: 300px; height: 40px; border-radius: 5px; font-size: 16px">
+						<option value="GROUP">Group</option>
+						<option value="PERSONAL">Personal</option>
+						<option value="GYM">Gym</option>
+						<option value="SAUNA">Sauna</option>
+					</select>
+				</div>
+
+				<div class="input-box">
+					<span class="details">Duration</span> <input type="text"
+						name="username" required
+						v-model="newContent.duration">
+				</div>
+
+				<div class="input-box">
+					<span class="details">Description</span> <input 
+						name="password" required
+						v-model="newContent.description">
+				</div>
+
+				<div class="input-box">
+					<span class="details">Picture</span> <input name="password" required
+						v-model="newContent.image">
+				</div>
+				
+				<div class="input-box">
+					<span class="details">Coach name</span> <input name="password" disabled
+						v-model="selectedTrainer.name">
+				</div>
+				
+
+				<select v-model="selectedTrainer" 
+					v-bind:hidden="trainers === null || trainers.length == 0">
+					<option v-for="fm in trainers" :value="fm"  >
+						{{fm.firstName}} {{fm.lastName}} {{fm.id}}</option>
+				</select>
+
+
+
+				<div class="button">
+					<input type="submit" value="Update">
+
+				</div>
+			</div>
+		</form>
+		
+	</div>
+
+
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="app/editTraining.js"></script>
+</body>
+</html>

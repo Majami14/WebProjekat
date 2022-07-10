@@ -118,7 +118,7 @@ public class KorisnikService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<KorisnikDTO> getTrainers() {
-		KorisnikDAO dao = (KorisnikDAO) ctx.getAttribute("userDAO");
+		KorisnikDAO dao = (KorisnikDAO) ctx.getAttribute("korisnikDAO");
 		ArrayList<Korisnik> coach = dao.getCoach();
 		ArrayList<KorisnikDTO> coachDTOs = new ArrayList<KorisnikDTO>();
 		

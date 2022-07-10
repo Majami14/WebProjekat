@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -16,10 +17,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import beans.Korisnik;
 import beans.ProjectStartup;
 import beans.SportsFacility;
 import beans.Training;
+import dao.KorisnikDAO;
 import dao.SportsFacilityDAO;
 import dao.TrainingDAO;
 import dto.TrainingDTO;
@@ -106,5 +110,42 @@ public class TrainingService {
 			trainingsDTO.add(new TrainingDTO(training));
 		}
 		return trainingsDTO;
+	}
+	@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public void changeOne(TrainingDTO trainingDTO) {
+		TrainingDAO dao = (TrainingDAO) ctx.getAttribute("trainingDAO");
+		Training training = new Training();
+		training.setId(trainingDTO.getId());
+		training.setName(trainingDTO.getName());
+		training.setType(trainingDTO.getType());
+		training.setSportFacility(trainingDTO.getSportFacility());
+		training.setDuration(trainingDTO.getDuration());
+		training.setDescription(trainingDTO.getDescription());
+		training.setImage(trainingDTO.getImage());
+		Korisnik korisnik = KorisnikDAO.getInstance().find(trainingDTO.getCoachID());
+		training.setCoach(korisnik);
+		
+		dao.change(training);
+	}
+	@POST
+	@Path("/setSelected")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response setSelected(TrainingDTO object, @Context HttpServletRequest request) {
+		Training objectfound = TrainingDAO.getInstance().find(object.getId());
+		request.getSession().setAttribute("selectedTraining", objectfound);
+		return Response.status(200).build();
+	}
+	
+	@GET
+	@Path("/getSelected")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public TrainingDTO getSelected( @Context HttpServletRequest request) {
+		Training object = (Training)request.getSession().getAttribute("selectedTraining");
+		return new TrainingDTO(object);
 	}
 }

@@ -8,7 +8,7 @@ var app = new Vue({
 	},
 	mounted() {},
 	methods:{
-		loginUser: function (event) {
+		loginForm: function (event) {
 			axios.post('rest/login', {userName: this.userName, password: this.password})
 				.then((response) => {
 					alert('User logged in successfully.')

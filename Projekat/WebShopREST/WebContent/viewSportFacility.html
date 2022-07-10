@@ -4,6 +4,28 @@
 <meta charset="UTF-8">
 <title>Sport Facility</title>
 <link rel="stylesheet" type="text/css" href="styles.css">
+
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+tr:hover {background-color: coral;}
+
+th {
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+
 </head>
 <body>
 <div class="container" id="viewSF">
@@ -79,8 +101,10 @@
 					<td>{{t.description }}</td>
 					<td>{{t.trainerName}}</td>
 					<td>0</td>
-					<td><button type="button" v-on:click="prijavaNaTrening(t)">Prijava</button></td>
+					<td v-bind:hidden="loggedUser.Role !== 'CUSTOMER'"><button type="button"  v-on:click="prijavaNaTrening(t)">Book</button></td>
+					<td v-bind:hidden="loggedUser.Role !== 'MANAGER'" ><button type="button" v-on:click="updateTraining(t)">Update</button></td>
 				</tr>
+			
 			</table>
 
 	</div>
