@@ -3,6 +3,7 @@ package dto;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import beans.DateHelper;
 import beans.Dues;
 import beans.Gender;
 import beans.Korisnik;
@@ -19,15 +20,15 @@ public class KorisnikDTO {
 	private Gender gender;
 	private LocalDate birthDate;
 	private Role role;
-	private Dues dues;
+	private DuesDTO dues;
 	private SportsFacility facility;
 	private int points;
 	private TypeCustomer type;
-
+	private DuesDTO duess;
 	public KorisnikDTO() {
 		
 	}
-	public KorisnikDTO(int id, String userName, String password, String firstName, String lastName, Gender gender,
+	/*public KorisnikDTO(int id, String userName, String password, String firstName, String lastName, Gender gender,
 			LocalDate birthDate, Role role, Dues dues, SportsFacility facility, int points, TypeCustomer type) {
 		super();
 		this.id = id;
@@ -42,10 +43,35 @@ public class KorisnikDTO {
 		this.facility = facility;
 		this.points = points;
 		this.type = type;
-	}
-	public KorisnikDTO(Korisnik korisnik) {
+	} */
+	
+	public KorisnikDTO(Korisnik user) {
+		super();
+		this.id = user.getId();
+		this.userName = user.getUserName();
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+		this.birthDate = DateHelper.stringToDate(user.getBirthDate());
+		this.role = user.getRole();
+		this.password = user.getPassword();
+		this.gender = user.getGender();
+		this.dues = (user.getDues() == null)?null:(new DuesDTO(user.getDues()));
+		this.facility = user.getFacility();
+		this.points = user.getPoints();
+		this.type = user.getType();
+		
 		
 	}
+	
+	
+	public DuesDTO getDuess() {
+		return duess;
+	}
+
+	public void setDuess(DuesDTO duess) {
+		this.duess = duess;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -94,10 +120,10 @@ public class KorisnikDTO {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	public Dues getDues() {
+	public DuesDTO getDues() {
 		return dues;
 	}
-	public void setDues(Dues dues) {
+	public void setDues(DuesDTO dues) {
 		this.dues = dues;
 	}
 	public SportsFacility getFacility() {

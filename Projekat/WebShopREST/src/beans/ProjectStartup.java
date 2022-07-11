@@ -8,6 +8,7 @@ import dao.SportsFacilityDAO;
 import dao.TrainingDAO;
 import dao.TrainingHistoryDAO;
 import dao.TypeCustomerDAO;
+import dto.DuesCheck;
 
 public class ProjectStartup {
 	private static ProjectStartup startupInstance = null;
@@ -43,6 +44,9 @@ public class ProjectStartup {
 		TrainingHistoryDAO.getInstance().connectBuyerKorisnik();
 		TrainingHistoryDAO.getInstance().connectCoachKorisnik();
 
+		
+		DuesCheck thread = new DuesCheck();
+		thread.start();
 	}
 	
 	

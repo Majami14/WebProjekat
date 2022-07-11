@@ -76,6 +76,7 @@ public class DuesDAO {
 		}else {
 			dues.setLastDay(DateHelper.dateToString( dues.getFirstDay().plusYears(1)));
 		}
+		dues.setDuesStatus(DuesStatus.ACTIVE);
 		
 		dues = save(dues);
 		saveToFile();
@@ -206,6 +207,38 @@ public class DuesDAO {
 				}
 				catch (Exception e) { }
 			}
+		}
+	}
+	
+	public void checkDues() {
+		for(Dues membership : dues.values()) {
+			if(membership.getDuesStatus() == DuesStatus.INACTIVE) {
+				continue;
+			}
+			LocalDate trenutno = LocalDate.now();
+			
+			int kupljenoTermina = 0;
+			if(membership.getType() == DuesType.DAY) {
+				kupljenoTermina = 1;
+			}else if(membership.getType() == DuesType.MONTH) {
+				kupljenoTermina = 30;
+			}else {
+				kupljenoTermina = 360;
+			}
+			if(membership.getLastDay().isBefore(trenutno)){
+				int iskoristeno = kupljenoTermina - membership.getTrainingNumbers();
+				double brojDobijenih = (membership.getPrice() / 1000) * (iskoristeno);
+				double izgubljeni = 0;
+				if(iskoristeno <= kupljenoTermina / 3) {
+					izgubljeni = (membership.getPrice() / 1000) * (133 * 4);
+				}
+				int poeni = membership.getBuyer().getType().getPoints();
+				poeni += (int) Math.round(brojDobijenih - izgubljeni);
+				membership.getBuyer().getType().setPoints(poeni);
+				membership.setDuesStatus(DuesStatus.INACTIVE);
+			}
+			
+			
 		}
 	}
 }

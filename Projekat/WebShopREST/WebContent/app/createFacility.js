@@ -8,7 +8,7 @@
 		 error: '',
 		 freeManagers: null,
 		 haveManagers: 'true',
-		 selectedManager: null,
+		 selectedManager: {},
 		 showRegisterForm: false
 	 },
 	 mounted() {

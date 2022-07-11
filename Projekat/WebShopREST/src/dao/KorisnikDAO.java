@@ -368,4 +368,20 @@ public class KorisnikDAO {
 		return trainers;
 
 	}
+	
+	public void setBuyerTypeNames() {
+		for(Korisnik user : korisnici.values()) {
+			int poeni = user.getType().getPoints();
+			if(poeni < 5000) {
+				user.getType().setType(null);
+				user.getType().setDiscount(3);
+			}else if(poeni < 10000) {
+				user.getType().setType(TypeName.SILVER);
+				user.getType().setDiscount(5);
+			}else {
+				user.getType().setType(TypeName.GOLD);
+				user.getType().setDiscount(10);
+			}
+		}
+	}
 }

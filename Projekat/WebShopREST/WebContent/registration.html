@@ -23,6 +23,13 @@ form .input-box span.details {
 	margin-bottom: 5px;
 }
 
+form .input-box span.details {
+	display: block;
+	font-weight: 500;
+	margin-bottom: 5px;
+	background-color: #FFFFFF;
+}
+
 button {
   background-color: #04AA6D;
   color: white;
@@ -86,7 +93,7 @@ input[type=text], input[type=password] {
 	</div>  -->
 	
 	<div class="input-box">
-					<span class="details"><b>Username</b></span> <input
+					<span class="details"><b>Birthday</b></span> <input
 						v-model="newUser.birthDate" type="date" name="birth">
 	</div>
 	
@@ -107,7 +114,7 @@ input[type=text], input[type=password] {
 	<!--	<label for="birth"><b>Birthday</b></label>
 		<input type="date" placeholder="Enter Password" name="birthDate" v-model="newUser.birthDate">  -->
 		  
-		  <button v-on:click="submit">Posalji</button>
+		  <button v-on:click="submit">Submit</button>
 	
 		</form>
 	</div>

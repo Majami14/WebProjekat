@@ -7,7 +7,7 @@ var app = new Vue({
 		loggedKorisnik: {}
 	},
 	mounted() {
-		axios.get('rest/manager')
+		axios.get('rest/manager')		//mozda treba treninzi
 			.then(response => (this.managerFacility = response.data))
 		axios.get('rest/currentUser').then(response=>(this.loggedKorisnik = response.data))
 

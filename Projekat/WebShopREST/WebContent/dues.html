@@ -40,7 +40,7 @@ th {
 						<th>Membership type</th>
 						<th>Price(euro)</th>
 						<th>Number of trainings</th>
-
+						<th>Price with discount(euro)</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -48,6 +48,8 @@ th {
 					<td>{{m.type }}</td>
 					<td>{{m.price }}</td>
 					<td>{{m.trainingNumbers}}</td>
+					<td>{{m.price *(1 - (loggedKorisnik.type.discount)/100) }}</td>
+				</tr>
 				</tr>
 				
 				 </tbody>

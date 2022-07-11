@@ -20,6 +20,7 @@ import javax.ws.rs.core.Response;
 
 import beans.DateHelper;
 import beans.Dues;
+import beans.DuesStatus;
 import beans.Korisnik;
 import beans.ProjectStartup;
 import beans.TypeCustomer;
@@ -64,6 +65,9 @@ public class DuesService {
 		Korisnik logged = (Korisnik) request.getSession().getAttribute("korisnik");
 		if(logged == null) {
 			return null;
+		}
+		if(logged.getDues() != null) {
+			logged.getDues().setDuesStatus(DuesStatus.INACTIVE);
 		}
 		logged.setDues(dues);
 		dues.setBuyer(logged);
