@@ -64,6 +64,23 @@ form .button input {
 	border-radius: 5px;
 	background: gray;
 }
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  padding: 8px;
+  background-color: #dddddd;
+}
+
 </style>
 
 <style>
@@ -100,7 +117,7 @@ form .input-box span.details {
 	display: block;
 	font-weight: 500;
 	margin-bottom: 5px;
-	background-color: grey;
+	background-color: white;
 }
 </style>
 
@@ -151,6 +168,7 @@ th {
 <body>
 <div class="container" id="viewSF">
 		<div class="title">Sport Facility</div>
+
 		<form>
 			<div class="user-details">
 
@@ -205,7 +223,7 @@ th {
 				
 			</div>
 		</form>
-		
+		<div>
 		<table  id="tabela">
 				<thead>
 					<tr bgcolor="lightgrey">
@@ -222,11 +240,11 @@ th {
 					<td>{{t.description }}</td>
 					<td>{{t.trainerName}}</td>
 					<td>0</td>
-					<td v-bind:hidden="loggedUser.Role !== 'CUSTOMER'"><button type="button"  v-on:click="prijavaNaTrening(t)">Book</button></td>
-					<td v-bind:hidden="loggedUser.Role !== 'MANAGER'" ><button type="button" v-on:click="updateTraining(t)">Update</button></td>
+					<td ><button type="button"  v-on:click="prijavaNaTrening(t)">Book</button></td>
 				</tr>
+		
+			</table>	</div>
 			
-			</table>
 
 	</div>
 

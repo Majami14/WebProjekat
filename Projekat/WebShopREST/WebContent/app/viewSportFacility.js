@@ -24,13 +24,18 @@
 	 },
 	 methods: {
 		 prijavaNaTrening: function(training) {
-
+			 axios.post('rest/training/addTrainingToUser', training)
+				 .then((response) => {
+					 alert('booked training')
+				 }).catch((response) => {
+					 alert('membership expired')
+				 })
 		 },
 		 updateTraining: function(training) {
-			axios.post('rest/training/setSelected', training)
-			 .then((response) => {
-				 window.location.href = 'http://localhost:8080/WebShopREST/editTraining.html';
-			 })
-	 }
+			 axios.post('rest/training/setSelected', training)
+				 .then((response) => {
+					 window.location.href = 'http://localhost:8080/WebShopREST/editTraining.html';
+				 })
+		 }
 	 }
  })

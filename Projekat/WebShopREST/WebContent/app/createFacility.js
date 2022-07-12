@@ -17,7 +17,7 @@
 				 console.log(response.data)
 				 this.freeManagers = response.data
 			 })
-		 this.newFacility = { id: '', name: null, type: null, content: null, status: 'CLOSE', location: null, image: null, average: null, startTime: null, endTime: null };
+		 this.newFacility = { id: '', name: null, type: null,  status: 'CLOSE', location: null, image: null, average: null, startTime: null, endTime: null };
 		 this.newLocation = { id: '', length: '', width: '', street: null,number: '', city: null,  post: null };
 
 
@@ -30,7 +30,7 @@
 				 event.preventDefault();
 				 return;
 			 }
-			 if (!this.newLocation.lenght || !this.newLocation.width || !this.newLocation.street || !this.newLocation.number || !this.newLocation.city || !this.newLocation.post) {
+			 if (!this.newLocation.length || !this.newLocation.width || !this.newLocation.street || !this.newLocation.number || !this.newLocation.city || !this.newLocation.post) {
 				 this.error = "Fill all input fields.";
 				 event.preventDefault();
 				 return;
@@ -44,7 +44,7 @@
 				 .then((response) => {
 					 alert('New sport object created.')
 					  this.newFacility = response.data;
-					 this.selectedManager.object = this.newFacility;
+					 this.selectedManager.facility = this.newFacility;
 					 axios.put('rest/korisnik/', this.selectedManager)
 						 .then((response) => {
 							 alert('Sport object added to manager')
@@ -66,6 +66,11 @@
 		 },
 		 selectManager: function(manager) {
 			 this.selectedManager = manager;
+		 },
+		 uploadImage: function() {
+			 var fileData = event.target.files[0];
+			 this.newFacility.image = fileData.name;
+			 
 		 },
 		 showForm: function() {
 			 this.showRegisterForm = true;

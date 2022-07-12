@@ -91,9 +91,22 @@ public class SportsFacilityDAO {
 		}
 		maxId++;
 		facility.setId(maxId);
+		
+
+		if (facility.getLocation() != null) {
+			LocationDAO.getInstance().save(facility.getLocation());
+		}
+
 		facilitys.put(facility.getId(), facility);
+		saveToFile();
 		return facility;
 	}
+	
+	
+	
+	
+	
+	
 
 	public void loadFacility(String contextPath) {
 		BufferedReader in = null;

@@ -12,6 +12,7 @@
 	max-width: 700px;
 	width: 100%;
 	padding: 25px 30px;
+	margin-top:20px;
 	background-color: #fff;
 	border-radius: 5px;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
@@ -182,13 +183,51 @@ form .input-box span.details {
 	display: table;
 	clear: both;
 }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  margin-left: 390px;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  padding: 8px;
+  background-color: #dddddd;
+}
+
+top {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	width: 100%;
+	height: 23px;
+	
+}
 </style>
 
 
 </head>
 
 <body>
-
+		<div id="top">
+		<ul>
+			<li><a href="http://localhost:8080/WebShopREST/sportsFacility.html">Sports Facility</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/profile.html">Profile</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/regKorisnici.html">Register users</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/dues.html">Dues</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/content.html">Content</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/managerFacility.html">Manager facility</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/createFacility.html">Create facility</a></li>
+		</ul>
+	</div>
 
 	<div class="container" id="createFacilityForm">
 		<div class="title">Create new sport facility</div>
@@ -214,15 +253,15 @@ form .input-box span.details {
 								type="combobox" class="combobox" width="15" required
 								v-model="newFacility.type" size=1
 								style="width: 170px; height: 40px; border-radius: 5px; font-size: 16px">
-								<option value="Gym">Gym</option>
-								<option value="SwimmingPool">SwimmingPool</option>
-								<option value="SportsCenter">SportsCenter</option>
-								<option value="DanceStudio">DanceStudio</option>
+								<option value="GYM">Gym</option>
+								<option value="SWIMMINGPOOL">SwimmingPool</option>
+								<option value="SPORTSCENTER">SportsCenter</option>
+								<option value="DANCESTUDIO">DanceStudio</option>
 							</select>
 						</div>
 
 
-						<div class="input-box"> 
+						<div class="input-box">
 							<span class="details"><b>Begin work</b></span> <input type="time"
 								name="begin" placeholder="Insert work hours" required
 								v-model="newFacility.startTime">
@@ -234,7 +273,11 @@ form .input-box span.details {
 								v-model="newFacility.endTime">
 						</div>
 
+						<div class="input-box">
+							<span class="details">Logo</span> <input type="file"
+								accept="image/*" @change="uploadImage($event)">
 
+						</div>
 
 					</div>
 
@@ -280,7 +323,7 @@ form .input-box span.details {
 
 						<select v-model="selectedManager"
 							v-bind:hidden="freeManagers === null || freeManagers.length == 0">
-							<option v-for="fm in freeManagers">{{fm.firstName}}
+							<option v-for="fm in freeManagers" :value="fm">{{fm.firstName}}
 								{{fm.lastName}} {{fm.userName}}</option>
 						</select>
 
@@ -293,14 +336,6 @@ form .input-box span.details {
 
 
 					</div>
-
-
-
-					<div class="button1">
-						<input type="submit" value="Confirm">
-					</div>
-
-
 
 					<div class="input-box" v-bind:hidden="showRegisterForm == false">
 
@@ -326,7 +361,7 @@ form .input-box span.details {
 						<div class="input-box">
 							<span class="details"><b>Gender</b></span> <select
 								v-model="selectedManager.gender" type="combobox"
-								class="combobox" width="15" required size=1
+								class="combobox" width="15" size=1
 								style="width: 300px; height: 40px; border-radius: 5px; font-size: 16px">
 								<option value="FEMALE">Female</option>
 								<option value="MALE">Male</option>
@@ -357,6 +392,9 @@ form .input-box span.details {
 
 				</div>
 
+<div class="button1">
+						<input type="submit" value="Confirm">
+					</div>
 
 
 			</div>

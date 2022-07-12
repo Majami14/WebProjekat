@@ -94,20 +94,20 @@ public class SportsFacility {
 		this.average = average;
 	}
 
-	public LocalTime getStartTime() {
-		return startTime;
+	public String getStartTime() {
+		return TimeHelper.timeToString(startTime);
 	}
 
-	public void setStartTime(LocalTime startTime) {
-		this.startTime = startTime;
+	public void setStartTime(String startTime) {
+		this.startTime = TimeHelper.stringToTime(startTime);
 	}
 
-	public LocalTime getEndTime() {
-		return endTime;
+	public String getEndTime() {
+		return TimeHelper.timeToString(endTime);
 	}
 
-	public void setEndTime(LocalTime endTime) {
-		this.endTime = endTime;
+	public void setEndTime(String endTime) {
+		this.endTime = TimeHelper.stringToTime(endTime);
 	}
 
 	public ArrayList<Training> getContent() {

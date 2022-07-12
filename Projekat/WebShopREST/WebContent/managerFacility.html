@@ -23,40 +23,114 @@ th {
   background-color: #04AA6D;
   color: white;
 }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  padding: 8px;
+  background-color: #dddddd;
+}
 </style>
 
 </head>
 
 <body>
+
+<div>
+		<ul>
+			<li><a href="http://localhost:8080/WebShopREST/sportsFacility.html">Sports Facility</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/profile.html">Profile</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/regKorisnici.html">Register users</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/dues.html">Dues</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/content.html">Content</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/managerFacility.html">Manager facility</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/createFacility.html">Create facility</a></li>
+		</ul>
+	</div>
 	<div id ="managerFacility">
 
 		<table border="1" id="tabela">
 			<thead>
 				<tr bgcolor="lightgrey">
 					<th>ID</th>
+					<th> Name </th>
 					<th>Sports facility</th>
 					<th>Trainer</th>
-					<th>User</th>
+					<th> Training Type</th>
+					<th>Update</th>
 				</tr>
 			</thead>
 
-			<tr v-for="k in managerFacility">
+			<tr v-for="k in trainings">
 				<td>{{k.id }}</td>
-                <td>{{k.facility }}</td>
-                <td>{{k.coachId }}</td>
-                <td>{{k.firstName}}  {{k.lastName}}  {{k.userName}}</td>
+				<td> {{k.name}} </td>
+                <td>{{k.sportFacility.name }}</td>
+                <td>{{k.trainerName }}</td>
+                <td>{{k.type }}</td>
+                <td><button type="button" v-on:click="updateTraining(k)">Update</button></td>
 			</tr>
 		</table>
 		
-		Pretraga : <input type="text" name="searchValue" v-model="searchValue"> 
-		<select name="searchTypes" v-model="searchType">
-			<option value="name"> Name </option>
-			
-			<option value="type"> Type </option>
-			<option value="location"> Location </option>
-			<option value="average"> Average </option>
-		</select>
-		<p><button  v-on:click="searchFacilitys()"> Search </button></p>
+		<table class="tb" id="tabela" style="border-radius: 10px;">
+					<thead>
+						<th colspan="2" style="border: none;">People that visited object </th>
+						<tr>
+							<th style="background: gray;">Name</th>
+							<th style="background: gray;">Surname</th>
+							<th style="background: gray;">Username</th>
+
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="people in peopleThatVisited">
+
+							<td>{{people.firstName }}</td>
+							<td>{{people.lastName }}</td>
+							<td>{{people.userName }}</td>
+
+
+						</tr>
+
+					</tbody>
+
+				</table>
+				
+				<table class="tb" id="tabela" style="border-radius: 10px;">
+					<thead>
+						<th colspan="2" style="border: none;">Trainers </th>
+						<tr>
+							<th style="background: gray;">Name</th>
+							<th style="background: gray;">Surname</th>
+							<th style="background: gray;">Username</th>
+
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="people in trainers">
+
+							<td>{{people.firstName }}</td>
+							<td>{{people.lastName }}</td>
+							<td>{{people.userName }}</td>
+
+
+						</tr>
+
+					</tbody>
+
+				</table>
+		
 		
 
 		

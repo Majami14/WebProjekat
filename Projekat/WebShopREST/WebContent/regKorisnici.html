@@ -100,11 +100,40 @@ button:hover {
 .select-items div:hover, .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
 }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  padding: 8px;
+  background-color: #dddddd;
+}
 </style>
 
 </head>
 
 <body>
+
+<div>
+		<ul>
+			<li><a href="http://localhost:8080/WebShopREST/sportsFacility.html">Sports Facility</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/profile.html">Profile</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/regKorisnici.html">Register users</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/dues.html">Dues</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/content.html">Content</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/managerFacility.html">Manager facility</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/createFacility.html">Create facility</a></li>
+		</ul>
+	</div>
 	<div id ="regKorisnici">
 
 		<table border="1" id="tabela">
@@ -137,17 +166,7 @@ button:hover {
 			</tr>
 		</table>
 		
-		Pretraga : <input type="text" name="searchValue" v-model="searchValue"> 
-		<div class="custom-select"  style="width:200px;">
-		<select name="searchTypes" v-model="searchType">
-			<option value="name"> Name </option>
-			
-			<option value="type"> Type </option>
-			<option value="location"> Location </option>
-			<option value="average"> Average </option>
-		</select>
-		</div>
-		<p><button  v-on:click="searchFacilitys()"> Search </button></p>
+	
 		
 
 		

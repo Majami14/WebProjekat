@@ -11,16 +11,17 @@
 		selectedTrainer: {}
 	},
 	mounted() {
-		this.newContent = { id: '', name: null, type: null, sportFacility: {}, duration: null, coach: null, description: null, image: '' }
+		this.newContent = {name: null, type: null, sportFacility: {}, duration: null, coach: null, description: null, image: '', id: '' }
 		axios.get('rest/currentUser')
 			.then((response) => {
 				this.loggedUser = response.data;
 
-				axios.get('rest/facility/' + this.loggedUser.object.id)
+				axios.get('rest/facility/' + this.loggedUser.facility.id)
 					.then((response) => {
 						this.sportObject = response.data;
-						this.newContent.object = this.sportObject;
+						this.newContent.sportFacility = this.sportObject;
 					})
+
 
 
 			})

@@ -21,10 +21,13 @@ public class Korisnik {
 
 	public Korisnik() {
 		this.history = new ArrayList<TrainingHistory>();
+		this.viewFacility = new ArrayList<SportsFacility>();
 	}
 	
 	public Korisnik(int id) {
 		this.id = id;
+		this.history = new ArrayList<TrainingHistory>();
+		this.viewFacility = new ArrayList<SportsFacility>();
 	}
 	
 	
@@ -45,6 +48,7 @@ public class Korisnik {
 		this.facility = facility;
 		this.points = points;
 		this.type = type;
+		this.viewFacility = new ArrayList<SportsFacility>();
 	}
 
 	
@@ -166,6 +170,10 @@ public class Korisnik {
 		this.viewFacility = viewFacility;
 	}
 	
+	
+	
+	
+
 	public String fileLine() {
 		return id + ";" + userName + ";" + password + ";" + firstName + ";" + lastName + ";" + ((gender == null)?-1:gender.ordinal()) + ";"
 				+ DateHelper.dateToString(birthDate) + ";" + ((role == null)?-1:role.ordinal()) + ";" + ((dues == null)?-1:dues.getId()) + ";"

@@ -17,10 +17,11 @@ var app = new Vue({
 			}
 			axios.post('rest/korisnik/', this.newUser)
 				.then((response) => {
-					if(responde.data ===""){
+					if(response.data ===""){
 						alert('User name already exist.')
 					}else{
 						alert('Succesfuly registration')
+						window.location.href = 'http://localhost:8080/WebShopREST/login.html'
 					}
                 })
 			event.preventDefault();

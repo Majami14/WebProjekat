@@ -1,3 +1,4 @@
-Kardio;1;1;20;1;description;image;1
-Noge;1;1;20;1;description;image;2
-Ruke;1;1;20;1;description;image;3
+Kardio123;1;1;20;1;description;image;0
+Noge;1;1;20;1;description;image;1
+Ruke;1;1;20;1;description;image;2
+con1;0;1;45;2;45;45;3

@@ -63,6 +63,7 @@ public class TypeCustomerDAO {
 		maxId++;
 		customer.setId(maxId);
 		customers.put(customer.getId(), customer);
+		saveToFile();
 		return customer;
 	}
 	
@@ -83,7 +84,7 @@ public class TypeCustomerDAO {
 					int id  =Integer.parseInt(st.nextToken().trim());
 					
 					
-					int customer_type = Integer.parseInt(st.nextToken().trim()); // Za enum jel dobro?
+					int customer_type = Integer.parseInt(st.nextToken().trim()); 
 					TypeName[] customer_types = TypeName.values();
 					TypeName customer_typeFromFile = customer_types[customer_type];
 					

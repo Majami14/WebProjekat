@@ -69,7 +69,8 @@ public class TrainingDAO {
 		}
 		maxId++;
 		trainings.setId(maxId);
-		training.put(trainings.getId(), (Training) training);
+		training.put(trainings.getId(), trainings);
+		saveToFile();
 		return trainings;
 	}
 
@@ -143,6 +144,7 @@ public class TrainingDAO {
 
 	public Training change(Training trainings) {
 		training.put(trainings.getId(), trainings);
+		saveToFile();
 		return trainings;
 	}
 

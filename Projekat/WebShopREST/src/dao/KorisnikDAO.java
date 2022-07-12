@@ -16,6 +16,7 @@ import beans.Korisnik;
 import beans.Gender;
 import beans.Role;
 import beans.SportsFacility;
+import beans.Training;
 import beans.TrainingHistory;
 import beans.TypeCustomer;
 import beans.TypeName;
@@ -115,7 +116,7 @@ public class KorisnikDAO {
 			type.setDiscount(0);
 			type.setPoints(0);
 			type = TypeCustomerDAO.getInstance().save(type);
-			korisnik.setType(type); // ?
+			korisnik.setType(type);
 		}
 		Integer maxId = -1;
 		for (int id : korisnici.keySet()) { // da li je dobar id ili treba idk?
@@ -238,6 +239,7 @@ public class KorisnikDAO {
 				}
 			}
 		}
+
 	}
 
 //public Korisnik change(Korisnik korisnik) {
@@ -368,20 +370,78 @@ public class KorisnikDAO {
 		return trainers;
 
 	}
-	
+
 	public void setBuyerTypeNames() {
-		for(Korisnik user : korisnici.values()) {
+		for (Korisnik user : korisnici.values()) {
+			if (user.getType() == null) {
+				continue;
+			}
+
 			int poeni = user.getType().getPoints();
-			if(poeni < 5000) {
+			if (poeni < 5000) {
 				user.getType().setType(null);
 				user.getType().setDiscount(3);
-			}else if(poeni < 10000) {
+			} else if (poeni < 10000) {
 				user.getType().setType(TypeName.SILVER);
 				user.getType().setDiscount(5);
-			}else {
+			} else {
 				user.getType().setType(TypeName.GOLD);
 				user.getType().setDiscount(10);
 			}
 		}
+	}
+
+	public boolean existsInList(int id, ArrayList<Korisnik> users) {
+		for (Korisnik user : users) {
+			if (user.getId() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public ArrayList<Korisnik> getPeopleThatVisitedObject(int id) {
+		ArrayList<Korisnik> usersVisited = new ArrayList<Korisnik>();
+
+		for (TrainingHistory trainingHistory : TrainingHistoryDAO.getInstance().findAll()) {
+
+			if (trainingHistory.getTraining().getSportFacility().getId() == id) {
+				if (!existsInList(trainingHistory.getBuyer().getId(), usersVisited)) {
+					usersVisited.add(trainingHistory.getBuyer());
+				}
+			}
+
+		}
+		return usersVisited;
+	}
+
+	public ArrayList<Korisnik> getPeopleThatVisitedObject1(int id) {
+		ArrayList<Korisnik> usersVisited = new ArrayList<Korisnik>();
+
+		for (Korisnik user : korisnici.values()) {
+			for (SportsFacility object : user.getViewFacility()) {
+				if (object.getId() == id) {
+					if (!existsInList(user.getId(), usersVisited)) {
+						usersVisited.add(user);
+					}
+				}
+			}
+		}
+		return usersVisited;
+	}
+
+	public ArrayList<Korisnik> getTrainersForObject(int id) {
+		ArrayList<Korisnik> usersVisited = new ArrayList<Korisnik>();
+
+		for (Training training : TrainingDAO.getInstance().findAll()) {
+			if (training.getSportFacility().getId() == id) {
+				if (training.getCoach() != null) {
+					if (!existsInList(training.getCoach().getId(), usersVisited)) {
+						usersVisited.add(training.getCoach());
+					}
+				}
+			}
+		}
+		return usersVisited;
 	}
 }

@@ -15,6 +15,10 @@ public class TrainingDTO {
 	private int id;
 	private String trainerName;
 	private int coachID;
+	private String coachName;
+	
+	public TrainingDTO() {
+	}
 	
 	public TrainingDTO(Training training) {
 		this.id = training.getId();
@@ -25,7 +29,8 @@ public class TrainingDTO {
 		this.description = training.getDescription();
 		this.image = training.getImage();
 		this.trainerName = (training.getCoach()==null)?null:(training.getCoach().getFirstName() + " " + training.getCoach().getLastName());
-		this.coachID = training.getCoach().getId();
+		this.coachID = (training.getCoach() == null) ? -1 : training.getCoach().getId();
+		this.coachName = (training.getCoach() == null) ? "doesnt have" : (training.getCoach().getFirstName() + " " +training.getCoach().getLastName() + " " + training.getCoach().getUserName());
 	}
 
 	public String getTrainerName() {
@@ -99,6 +104,15 @@ public class TrainingDTO {
 	public void setCoachID(int coachID) {
 		this.coachID = coachID;
 	}
+
+	public String getCoachName() {
+		return coachName;
+	}
+
+	public void setCoachName(String coachName) {
+		this.coachName = coachName;
+	}
+	
 
 
 }

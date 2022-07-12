@@ -1,3 +1,4 @@
-1;Classic Gym;1;1;1;putanja;4.4;10:10:10;22:22:22
-2;Fantastic Gym;0;1;0;putanja;4.4;10:10:10;22:22:22
-3;Lima Gym;1;1;0;putanja;4.4;10:10:10;22:22:22
+1;Classic Gym;1;1;1;slika.png;4.4;10:10;22:22
+2;Fantastic Gym;0;1;2;slika.png;4.4;10:10;22:22
+3;Lima Gym;1;1;3;slika.png;4.4;10:10;22:22
+4;asd;0;1;4;slika.png;0.0;13:11;01:11

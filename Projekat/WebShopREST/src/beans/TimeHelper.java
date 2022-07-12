@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class TimeHelper {
 
-public static DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
+public static DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
 	
 	public static String timeToString(LocalTime time) {
 		return time.format(timeFormat);

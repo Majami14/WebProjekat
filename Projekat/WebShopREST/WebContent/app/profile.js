@@ -25,8 +25,15 @@ var app = new Vue({
 					alert('Podaci su uspesno promenjeni ')
 				})
 			event.preventDefault();
+		},logout: function(event) {
+			axios.post('rest/logout').
+				then((response) => {
+					window.location.href = 'http://localhost:8080/WebShopREST/login.html'
+				})
 		}
 	}
+	
+	
 });
 
 

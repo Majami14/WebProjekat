@@ -128,4 +128,32 @@ public class KorisnikService {
 		
 		return coachDTOs;
 	}
+	
+	@GET
+	@Path("/getPeopleThatVisitedObject/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<KorisnikDTO> getPeopleThatVisitedObject(@PathParam("id") int id) {
+		
+		ArrayList<Korisnik> usersFound = KorisnikDAO.getInstance().getPeopleThatVisitedObject(id);
+		ArrayList<KorisnikDTO> usersDTO = new ArrayList<KorisnikDTO>();
+		
+		for(Korisnik user : usersFound) {
+			usersDTO.add(new KorisnikDTO(user));
+		}
+		return usersDTO;
+	}
+	
+	@GET
+	@Path("/getTrainersForObject/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<KorisnikDTO> getTrainersForObject(@PathParam("id") int id) {
+		
+		ArrayList<Korisnik> usersFound = KorisnikDAO.getInstance().getTrainersForObject(id);
+		ArrayList<KorisnikDTO> usersDTO = new ArrayList<KorisnikDTO>();
+		
+		for(Korisnik user : usersFound) {
+			usersDTO.add(new KorisnikDTO(user));
+		}
+		return usersDTO;
+	}
 }

@@ -9,12 +9,12 @@ public class Dues {
 	private LocalDate paymentDate;
 	private LocalDate firstDay;
 	private LocalDate lastDay;
-	private Double price;
+	private double price;
 	private Korisnik buyer;
 	private DuesStatus duesStatus;
 	private int trainingNumbers;
 
-	public Dues(String idDues, int id, DuesType type, LocalDate paymentDate, LocalDate firstDay, LocalDate lastDay, Double price,
+	public Dues(String idDues, int id, DuesType type, LocalDate paymentDate, LocalDate firstDay, LocalDate lastDay, double price,
 			Korisnik buyer, DuesStatus duesStatus,int trainingNumbers) {
 		super();
 		this.idDues = idDues;
@@ -29,7 +29,6 @@ public class Dues {
 		this.trainingNumbers = trainingNumbers;
 	}
 
-	
 	
 	public Dues() {
 	
@@ -98,11 +97,11 @@ public class Dues {
 	}
 
 
-	public Double getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -131,13 +130,13 @@ public class Dues {
 	}
 
 	public void setTrainingNumbers(int trainingNumbers) {
-		trainingNumbers = trainingNumbers;
+		this.trainingNumbers = trainingNumbers;
 	}
 
 	public String fileLine() {
 		return id + ";" + idDues + ";" + type.ordinal()
 				+ ";" + DateHelper.dateToString(paymentDate) + ";" +DateHelper.dateToString(firstDay) + ";"+ DateHelper.dateToString(lastDay) + ";"
-				+ price + ";" + buyer + ";" + duesStatus.ordinal() + ";" + trainingNumbers;
+				+ price + ";" + buyer.getId() + ";" + duesStatus.ordinal() + ";" + trainingNumbers;
 	}
 	
 }

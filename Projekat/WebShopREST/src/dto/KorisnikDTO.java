@@ -24,7 +24,6 @@ public class KorisnikDTO {
 	private SportsFacility facility;
 	private int points;
 	private TypeCustomer type;
-	private DuesDTO duess;
 	public KorisnikDTO() {
 		
 	}
@@ -64,13 +63,7 @@ public class KorisnikDTO {
 	}
 	
 	
-	public DuesDTO getDuess() {
-		return duess;
-	}
-
-	public void setDuess(DuesDTO duess) {
-		this.duess = duess;
-	}
+	
 
 	public int getId() {
 		return id;
@@ -108,11 +101,11 @@ public class KorisnikDTO {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
-	public LocalDate getBirthDate() {
-		return birthDate;
+	public String getBirthDate() {
+		return DateHelper.dateToString(birthDate);
 	}
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthDate(String birthDate) {
+		this.birthDate = DateHelper.stringToDate(birthDate);
 	}
 	public Role getRole() {
 		return role;

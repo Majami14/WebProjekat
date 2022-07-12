@@ -71,6 +71,7 @@ public class CommentDAO {
 		maxId++;
 		comment.setId(maxId);
 		comments.put(comment.getId(), comment);
+		saveToFile();
 		return comment;
 	}
 	

@@ -1,3 +1,4 @@
-1;85.2;12.4,Janka Veselinovica,15,Novi Sad,21000
-2;102.2;322.3,Vase Stajica,28,Beograd,21100
-3;100.5;333.2,Rudjera Boskovica,45,Novi Sad,21000
+1;85.2;12.4;Janka Veselinovica;15;Novi Sad;21000
+2;102.2;322.3;Vase Stajica;28;Beograd;21100
+3;100.5;333.2;Rudjera Boskovica;45;Novi Sad;21000
+4;88.0;88.0;8;88;888;88

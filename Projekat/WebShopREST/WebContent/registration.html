@@ -18,10 +18,13 @@ background-color: #04AA6D;
 }
 
 form .input-box span.details {
-	display: block;
+		display: block;
 	font-weight: 500;
 	margin-bottom: 5px;
+	background-color: #FFFFFF;
 }
+
+
 
 form .input-box span.details {
 	display: block;
@@ -51,6 +54,8 @@ input[type=text], input[type=password] {
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
+
+
 
 .user-details .input-box input:focus, .user-details .input-box input:valid
 	{
@@ -115,6 +120,7 @@ input[type=text], input[type=password] {
 		<input type="date" placeholder="Enter Password" name="birthDate" v-model="newUser.birthDate">  -->
 		  
 		  <button v-on:click="submit">Submit</button>
+		  
 	
 		</form>
 	</div>

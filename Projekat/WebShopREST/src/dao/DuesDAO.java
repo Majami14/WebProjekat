@@ -96,7 +96,8 @@ public class DuesDAO {
 		}
 		maxId++;
 		duess.setId(maxId);
-		dues.put(duess.getId(), (Dues) dues);
+		dues.put(duess.getId(), duess);
+		saveToFile();
 		return duess;
 	}
 
@@ -136,9 +137,9 @@ public class DuesDAO {
 					
 					
 					
+					int id = Integer.parseInt(st.nextToken().trim());
 					String idDues = st.nextToken().trim();
 
-					int id = Integer.parseInt(st.nextToken().trim());
 
 					int type = Integer.parseInt(st.nextToken().trim()); 
 					DuesType[] tip = DuesType.values();

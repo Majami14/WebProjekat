@@ -77,6 +77,7 @@ public class LocationDAO {
 		maxId++;
 		location.setId(maxId);
 		locations.put(location.getId(), location);
+		saveToFile();
 		return location;
 	}
 	

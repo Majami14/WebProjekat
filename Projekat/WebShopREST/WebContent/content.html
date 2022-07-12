@@ -50,6 +50,22 @@ input[type=text], input[type=password] {
 	{
 	border-color: gray;
 }
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  padding: 8px;
+  background-color: #dddddd;
+}
 
 .container {
   padding:50px;
@@ -59,9 +75,21 @@ input[type=text], input[type=password] {
 
 </head>
 <body>
+<div>
+		<ul>
+			<li><a href="http://localhost:8080/WebShopREST/sportsFacility.html">Sports Facility</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/profile.html">Profile</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/regKorisnici.html">Register users</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/dues.html">Dues</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/content.html">Content</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/managerFacility.html">Manager facility</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/createFacility.html">Create facility</a></li>
+		</ul>
+	</div>
 <div class="container" id="creatingContent">
-		<div class="title">Content</div>
+		
 		<form @submit='createUser'>
+		<div class="title"><b>Content</b></div>
 			<div class="user-details">
 
 
@@ -72,7 +100,7 @@ input[type=text], input[type=password] {
 
 				<div class="input-box">
 					<span class="details"><b>Content Name</b></span> <input type="text"
-						name="name" placeholder="Enter your name" required
+						name="name" placeholder="Enter name" required
 						v-model="newContent.name" pattern="[A-Za-z]{1,32}">
 				</div>
 
@@ -98,25 +126,24 @@ input[type=text], input[type=password] {
 
 				<div class="input-box">
 					<span class="details"><b>Duration</b></span> <input type="text"
-						name="username" placeholder="Enter your username" required
+						name="username" placeholder="Enter duration" required
 						v-model="newContent.duration">
 				</div>
 
 				<div class="input-box">
-					<span class="details"><b>Description</b></span> <input type="password"
-						name="password" placeholder="Enter your password" required
+					<span class="details"><b>Description</b></span> <input type="text"
+						name="password" placeholder="Enter description" required
 						v-model="newContent.description">
 				</div>
 
 				<div class="input-box">
 					<span class="details"><b>Picture</b></span> <input name="password"
-						placeholder="Enter your password" required
+						placeholder="Insert picture" required
 						v-model="newContent.image">
 				</div>
 				
 
-				<select v-model="selectedTrainer"
-					v-bind:hidden="trainers === null || trainers.length == 0">
+				<select v-model="selectedTrainer">
 					<option v-for="fm in trainers" :value="fm">
 						{{fm.firstName}} {{fm.lastName}} {{fm.id}}</option>
 				</select>

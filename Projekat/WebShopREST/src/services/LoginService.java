@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 import beans.Korisnik;
 import beans.ProjectStartup;
 import dao.KorisnikDAO;
+import dto.KorisnikDTO;
 
 @Path("")
 public class LoginService {
@@ -48,7 +49,7 @@ public class LoginService {
 		if (loggedKorisnik == null) {
 			return Response.status(400).entity("Invalid username and/or password").build();
 		}
-		request.getSession().setAttribute("Korisnik", loggedKorisnik);
+		request.getSession().setAttribute("korisnik", loggedKorisnik);
 		return Response.status(200).build();
 	}
 	
@@ -63,8 +64,8 @@ public class LoginService {
 	@Path("/currentUser")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Korisnik curent(@Context HttpServletRequest request) {
-		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("Korisnik");
-		return korisnik;
+	public KorisnikDTO curent(@Context HttpServletRequest request) {
+		Korisnik korisnik = (Korisnik) request.getSession().getAttribute("korisnik");
+		return new KorisnikDTO(korisnik);
 	}
 }

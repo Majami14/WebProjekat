@@ -65,7 +65,8 @@ public class TrainingHistoryDAO {
 		}
 		maxId++;
 		trainings.setId(maxId);
-		training.put(trainings.getId(), (TrainingHistory) training);
+		training.put(trainings.getId(),  trainings);
+		saveToFile();
 		return trainings;
 	}
 

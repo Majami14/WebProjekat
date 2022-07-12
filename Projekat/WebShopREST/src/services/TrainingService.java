@@ -1,5 +1,6 @@
 package services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -19,13 +20,16 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import beans.DuesStatus;
 import beans.Korisnik;
 import beans.ProjectStartup;
 import beans.SportsFacility;
 import beans.Training;
+import beans.TrainingHistory;
 import dao.KorisnikDAO;
 import dao.SportsFacilityDAO;
 import dao.TrainingDAO;
+import dao.TrainingHistoryDAO;
 import dto.TrainingDTO;
 @Path("/training")
 public class TrainingService {
@@ -87,9 +91,9 @@ public class TrainingService {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Training changeTraining(Training training, @PathParam("id") int id) {
+	public TrainingDTO changeTraining(Training training, @PathParam("id") int id) {
 		TrainingDAO dao = (TrainingDAO) ctx.getAttribute("trainingDAO");
-		return dao.change(training);
+		return new TrainingDTO(dao.change(training));
 	}
 	
 	@DELETE
@@ -103,8 +107,7 @@ public class TrainingService {
 	@Path("/getTrainingsForObject/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<TrainingDTO> getTrainingsForObject(@PathParam("id") int id) {
-		TrainingDAO dao = (TrainingDAO) ctx.getAttribute("trainingDAO");
-		ArrayList<Training> foundTrainings = dao.getInstance().getTrainingForSportObject(id);
+		ArrayList<Training> foundTrainings = TrainingDAO.getInstance().getTrainingForSportObject(id);
 		ArrayList<TrainingDTO> trainingsDTO = new ArrayList<TrainingDTO>();
 		for(Training training : foundTrainings) {
 			trainingsDTO.add(new TrainingDTO(training));
@@ -147,5 +150,36 @@ public class TrainingService {
 	public TrainingDTO getSelected( @Context HttpServletRequest request) {
 		Training object = (Training)request.getSession().getAttribute("selectedTraining");
 		return new TrainingDTO(object);
+	}
+	@POST
+	@Path("/addTrainingToUser")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addTrainingToUser(TrainingDTO object, @Context HttpServletRequest request) {
+		Training objectfound = TrainingDAO.getInstance().find(object.getId());
+		Korisnik logged = (Korisnik) request.getSession().getAttribute("korisnik");
+		if(logged == null) {
+			return Response.status(400).entity("invalid ").build();
+		}
+		if(logged.getDues() == null) {
+			return Response.status(400).entity("Invalid username and/or password").build();
+		}
+		if(logged.getDues().getDuesStatus() == DuesStatus.INACTIVE) {
+			return Response.status(400).entity("Invalid username and/or password").build();
+		}
+		if(logged.getDues().getTrainingNumbers() < 1) {
+			return Response.status(400).entity("Invalid username and/or password").build();
+		}
+		int ostalih = logged.getDues().getTrainingNumbers();
+		logged.getDues().setTrainingNumbers(ostalih - 1);
+		
+		TrainingHistory history = new TrainingHistory(LocalDateTime.now(), objectfound, logged, objectfound.getCoach(), 0);
+		history = TrainingHistoryDAO.getInstance().save(history);
+		if(objectfound.getCoach() != null) {
+			objectfound.getCoach().getHistory().add(history);
+		}
+		logged.getViewFacility().add(objectfound.getSportFacility());
+		
+		return Response.status(200).build();
 	}
 }

@@ -10,33 +10,68 @@
 
 <style>
 table {
-  border-collapse: collapse;
-  width: 100%;
+	border-collapse: collapse;
+	width: 100%;
 }
 
 th, td {
-  text-align: left;
-  padding: 8px;
+	text-align: left;
+	padding: 8px;
 }
 
-tr:nth-child(even){background-color: #f2f2f2}
+tr:nth-child(even) {
+	background-color: #f2f2f2
+}
 
-tr:hover {background-color: coral;}
+tr:hover {
+	background-color: coral;
+}
 
 th {
-  background-color: #04AA6D;
-  color: white;
+	background-color: #04AA6D;
+	color: white;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  padding: 8px;
+  background-color: #dddddd;
 }
 </style>
 </head>
 
 <body>
+
+	<div>
+		<ul>
+			<li><a href="http://localhost:8080/WebShopREST/sportsFacility.html">Sports Facility</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/profile.html">Profile</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/regKorisnici.html">Register users</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/dues.html">Dues</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/content.html">Content</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/managerFacility.html">Manager facility</a></li>
+			<li><a href="http://localhost:8080/WebShopREST/createFacility.html">Create facility</a></li>
+		</ul>
+	</div>
+
 	<div id="sportFacility">
 
 		<table border="1" id="tabela">
 			<thead>
 				<tr bgcolor="lightgrey">
 					<th>ID</th>
+					<th>Picture</th>
 					<th>Name</th>
 					<th>Type</th>
 					<th>Status</th>
@@ -49,14 +84,15 @@ th {
 
 			<tr v-for="sp in sportObjects" v-on:click="Selected(sp)">
 				<td>{{sp.id }}</td>
+				<td> <img width="90" height="90" v-bind:src="'Images/' + sp.image" alt="No picture found"></td>
 				<td>{{sp.name }}</td>
 				<td>{{sp.type }}</td>
 				<td>{{sp.status }}</td>
 				<td>{{sp.location.street}} {{sp.location.number}}
 					{{sp.location.city}}</td>
 				<td>{{sp.average }}</td>
-				<td>{{sp.startTime.hour}}:{{sp.startTime.minute}}</td>
-				<td>{{sp.endTime.hour }}:{{sp.startTime.minute}}</td>
+				<td>{{sp.startTime}}</td>
+				<td>{{sp.endTime}}</td>
 			</tr>
 		</table>
 
@@ -71,6 +107,8 @@ th {
 		<p>
 			<button v-on:click="searchFacilitys()">Search</button>
 		</p>
+		
+		
 
 
 
